@@ -39,5 +39,9 @@
       "last 1 safari version"
     ]
   },
+<<<<<<< HEAD
   "main": "index.js"
 }
+=======
+  "main": "index.js"}
+>>>>>>> a6dcb32a06a82b68c906c019df00332d1eadb965
