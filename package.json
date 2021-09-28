@@ -38,16 +38,6 @@
       "last 1 safari version"
     ]
   },
-  "main": "index.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/singhabhishek6/Dev.to-Clone.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/singhabhishek6/Dev.to-Clone/issues"
-  },
-  "homepage": "https://github.com/singhabhishek6/Dev.to-Clone#readme",
-  "description": ""
+  "main": "index.js"
+  
 }
