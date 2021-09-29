@@ -5,9 +5,11 @@ const router = express.Router();
 
 router.get('/', async (req, res) => {
     try {
-        const comments = await Comment.find({ post_id: req.params.post_id }).lean().exec();
+        const totalEntries = await Comment.find({ post_id: req.params.post_id }).count().lean().exec();
 
-        return res.status(200).json({ comments: comments });
+        const comments = await Comment.find({ post_id: req.params.post_id }).limit(10).lean().exec();
+
+        return res.status(200).json({ totalEntries, comments });
     }
     catch (err) {
         return res.status(400).json({ status: "failed", message: err.message })
@@ -18,7 +20,7 @@ router.post('/', async (req, res) => {
     try {
         req.body.user_id = req?.headers?.user_id;
         req.body.post_id = req?.headers?.post_id;
-        const comment = await Comment.create(req.body);
+        const comment = await Comment.create(req.body); 
 
         return res.status(201).json({ comment: comment })
     }

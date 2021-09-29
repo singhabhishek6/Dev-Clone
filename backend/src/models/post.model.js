@@ -2,7 +2,11 @@ const mongoose = require('mongoose');
 
 const postSchema = new mongoose.Schema({
     title: { type: 'string', required: true },
-    description: { type: 'string', required: false, default: ''},
+    description: { type: 'string', required: false, default: '' },
+    public_reaction_count: { type: 'number', required: false, default: 0 },
+    likes_count: { type: 'number', required: false, default: 0 },
+    reading_time_minutes: { type: 'number', required: false, default: 1 },
+    cover_img: { type: 'string', required: true },
     user_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "user",
@@ -13,7 +17,7 @@ const postSchema = new mongoose.Schema({
         ref: "hastag",
         required: true
     }]
-},{
+}, {
     versionKey: false,
     timestamps: true
 })
