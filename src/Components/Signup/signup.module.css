@@ -1,0 +1,165 @@
+/*============================Signup page css===================*/
+.Signup__section {
+  display: grid;
+  margin: 0 auto;
+  grid-template-columns: 1fr;
+  padding: 1rem;
+}
+
+.signup__page {
+  background: #fff;
+  color: #090909;
+  border-radius: 0.375rem;
+  box-shadow: 0 0 0 1px rgba(9, 9, 9, 0.1);
+  width: 60%;
+  margin: auto;
+  min-height: 240px;
+  padding: 4rem;
+}
+
+.signup__content {
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.h1__title {
+  font-size: 1.8rem;
+}
+
+.signup__des {
+  color: #575757;
+  font-size: 1rem;
+}
+
+.link__style {
+  text-decoration: none;
+  color: #3b49df;
+}
+
+.signup__btn {
+  display: grid;
+  grid-gap: 0.8rem;
+}
+
+.btn__styles {
+  padding: 0.87rem;
+  color: white;
+  border-radius: 0.4rem;
+  border: none;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.button__black {
+  background: #090909;
+}
+
+.button__gray {
+  background: #24292e;
+}
+
+.button__skyblue {
+  background: #1da1f2;
+}
+
+.icon__font {
+  font-size: 1.3rem;
+}
+
+.login__link {
+  margin-top: 2rem;
+  position: relative;
+}
+
+.login__span {
+  color: #575757;
+  font-size: 0.875rem;
+  padding: 0 0.5rem;
+  position: relative;
+  z-index: 1;
+  background: white;
+}
+
+.login__link::after {
+  border: 1px solid #d6d6d7;
+  content: "";
+  display: block;
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  border-radius: 0.3rem;
+}
+
+.extra__content {
+  margin-top: 2rem;
+  text-align: center;
+  font-family: monospace;
+  font-size: 0.9rem;
+}
+
+.flex__design {
+  display: flex;
+  justify-content: center;
+}
+
+/*============================Manual Form css=====================*/
+
+.input__div {
+  flex-direction: column;
+  margin-top: 2rem;
+  row-gap: 1.5rem;
+}
+
+.input__styles {
+  width: 100%;
+  padding: 0.8rem;
+  border: 0.5px solid #575757;
+  border-radius: 0.5rem;
+  box-sizing: border-box;
+  outline: none;
+}
+
+.input__styles:hover {
+  border: 0.8px solid #575797;
+}
+
+.input__styles:focus {
+  border: 1.5px solid #3b49df;
+  box-shadow: 0 0 0 1px #575757;
+}
+
+.input__parent {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+}
+
+.label__style {
+  text-align: start;
+  font-weight: 500;
+}
+
+.button__blue {
+  background: #3b49df;
+}
+
+/* ======== form block========*/
+
+.form__block {
+  display: block;
+  display: flex;
+}
+
+.form__visible {
+  display: none;
+}
+
+/*=============responsive page layout css================*/
+@media only screen and (max-width: 376px) {
+  .icon__font {
+    display: none;
+  }
+  .login__link::after {
+    content: none;
+  }
+}
