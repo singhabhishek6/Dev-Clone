@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require("cors");
 require('dotenv').config();
-
+var cookieParser = require('cookie-parser');
 const connect = require('./configs/db')
 
 //import controller
@@ -13,6 +13,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use("/hastag", hasTag);
+app.use(cookieParser());
 
 
 const userController = require('./controllers/user.controller');

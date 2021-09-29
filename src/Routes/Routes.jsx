@@ -5,12 +5,14 @@ import { Signup } from '../Components/Signup/Signup'
 export const Routes = () => {
     return (
         <Switch>
-            <Route>
+            <Route exact path='/'>
                 <Navbar/>
             </Route>
-            <Route exact path='/signup'>
+
+            <Route path='/signup'>
                 <Signup/>
             </Route>
+           
         </Switch>
     )
 }
