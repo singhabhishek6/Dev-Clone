@@ -1,15 +1,21 @@
 import styled from "styled-components";
 
 export const NavbarStyled = styled.div`
+background-color: var(--primary-color);
+ width: 100%;
+ border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+ position: sticky;
+ top: 0;
+ z-index: 100;
+
+.navbar{
   display: flex;
+  align-items: center;
   width: 100%;
+  max-width: 1300px;
   margin: auto;
-  height: 60px;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  background-color: var(--primary-color);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  height: 55px;
+}
   
   @media screen and (max-width: 805px) {
       width: 100%;
@@ -62,26 +68,21 @@ export const NavbarStyled = styled.div`
       display: none;
   }
   .dev {
-    width: 60px;
-    height: 45px;
-    margin: 7px 0;
-    margin-right: 10px;
+    display: flex;
+    margin-left: 8px;
+    margin-right: 20px;
     color: white;
     font-size: 20px;
     font-family: var(--font);
   }
-  .dev img {
-    width: 100%;
-    height: 100%;
-  }
 
   .search {
     width: 410px;
-    height: 40px;
+    height: 38px;
+    margin-top: 1px;
     display: flex;
     align-items: center;
-    margin-top: 9px;
-    border-radius: 8px;
+    border-radius: 6px;
     outline: 1px solid var(--card-border);
     transition: border 300ms ease-in-out;
 
@@ -102,12 +103,13 @@ export const NavbarStyled = styled.div`
     background-color: transparent;
     border: none;
     border-top: 1px solid transparent;
-    padding-left: 10px;
+    padding-left: 5px;
     font-size: 16px;
     color: rgba(0, 0, 0, 0.6);
 
     &::placeholder {
-      font-size: 16px;
+      font-size: 14px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     }
 
     &:focus {
@@ -157,7 +159,6 @@ export const NavbarStyled = styled.div`
     border-radius: 5px;
     display: flex;
     cursor: pointer;
-    margin-top: 8px;
     justify-content: center;
     align-items: center;
     margin-right: 10px;
@@ -167,14 +168,12 @@ export const NavbarStyled = styled.div`
     }
   }
   .createAccount-btn {
-    /* width: 150px; */
     font-family: var(--font);
     font-weight: 500;
     color: white;
     display: flex;
-    margin-top: 8px;
     justify-content: center;
-    padding: 10px 15px;
+    padding: 9.5px 15px;
     align-items: center;
     background-color: var(--active-button);
     /* height: 40px; */

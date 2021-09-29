@@ -2,15 +2,23 @@ import styled from "styled-components";
 
 export const SideBarStyle = styled.div`
   width: 240px;
-
+  
   @media screen and (max-width: 805px) {
-    display: none;
+    position: fixed;
+    z-index: 300;
+    transform: translateX(-110%);
+    transition: 300ms ease-in-out;
+  }
+  .community{
+    transform: translateX(-110%);
+    transition: 300ms ease-in-out;
+    
   }
   .devCounts {
     padding: 15px;
     padding-top: 0;
     border-radius: 5px;
-    border: 1px solid rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(0, 0, 0, 0.1);
     background-color: var(--primary-color-light);
     & span {
       color: var(--active-button);
