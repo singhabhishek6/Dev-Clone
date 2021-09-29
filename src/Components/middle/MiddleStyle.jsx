@@ -4,7 +4,24 @@ export const MiddleStyle = styled.main`
  width: 52%;
  flex-shrink: 3;
  flex-basis: 650px;
- margin-left: 20px;
+ margin-left: 15px;
+ @media screen and (max-width: 805px) {
+   margin-left: 0;
+   margin-right: 0;
+   width: 100% !important;
+    h3{
+      margin-left: -20px !important;
+      font-size: 1.2rem !important;
+    }
+    .tags{
+      margin-left: -20px !important;
+    }
+    .hidden-mobile{
+      display: none !important;
+    }
+  }
+
+ 
  a{
      text-decoration: none;
      color: black;
@@ -20,9 +37,10 @@ export const MiddleStyle = styled.main`
     }
     nav {
       span {
-        margin: 0 0.5rem;
+        margin: 0 0.3rem;
         font-size: 18px;
         padding: 0.5rem;
+        color: rgba(0, 0, 0, 0.8);
         cursor: pointer;
         border-radius: 5px;
         &:hover {

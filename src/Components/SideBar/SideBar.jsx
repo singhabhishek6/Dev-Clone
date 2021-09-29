@@ -1,12 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
+import { IoClose } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import { SideBarItems } from "./SideBarItems";
 import { SideBarStyle } from "./SideBarStyle";
 
-export const SideBar = () => {
+export const SideBar = ({toggle ,setToggle}) => {
+ 
   return (
-    <SideBarStyle>
+    <SideBarStyle className={`${toggle ? 'show' : ''}`}>
       {" "}
+      <div className="community">
+        DEV Community
+        <span onClick={()=>setToggle(false)}>
+        <IoClose/>
+        </span>
+      </div>
       <div className="devCounts">
         <p>
           {" "}

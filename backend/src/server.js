@@ -4,7 +4,7 @@ const passport = require('passport');
 const cookieSession = require('cookie-session')
 
 require('dotenv').config();
-
+var cookieParser = require('cookie-parser');
 const connect = require('./configs/db')
 
 const hasTag = require('./controllers/hashtag.controller');
@@ -82,6 +82,7 @@ app.get('/logout', (req, res) => {
 
 
 app.use("/hastag", hasTag);
+app.use(cookieParser());
 
 
 const userController = require('./controllers/user.controller');

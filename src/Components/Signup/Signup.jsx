@@ -1,6 +1,8 @@
 import styles from '../Signup/signup.module.css';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Navbar } from '../Navbar/Navbar';
+
 export const Signup = () =>
 {
     const [clickResult, setResult] = useState(false);
@@ -14,28 +16,46 @@ export const Signup = () =>
     }
 
     const getData = async () => {
-        const res = await axios.get('https://geolocation-db.com/json/');
-        var systemData = { 'ip_address': res.data.IPv4, 'country': res.data.country_name };
+        const res = await axios.get('https://geolocation-db.com/json/')
+        const systemData = {
+            'ip_address': res.data.IPv4,
+            'country':res.data.country_name
+        }
         setObj({ ...dataObj, ...systemData });
     }
+    
+
+     
 
 
-    const handleForemData = async (e) => {
-        
-        e.preventDefault();
-        
+    const handleForemData = (e) => {        
+       
         axios({
             method: 'post',
             url: 'http://localhost:2222/users/register',
-            data: dataObj
-        }).then(() => {
-            alert('a');
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            },
+            data: JSON.stringify(dataObj),
+            withCredentials: true
+        }).then((res) => {
+            setObj({});
+            e.target.reset();
         }).catch((err) => {
             alert(err);
           });
+        e.preventDefault();
     }
 
-return (
+    useEffect(() => {
+        getData();
+    }, []);
+
+
+    return (
+        <>
+    <Navbar/>
 <section className={styles.Signup__section}>
 <div className={styles.signup__page}>
     <div className={styles.signup__content}>
@@ -57,25 +77,25 @@ return (
             <form className={`${styles.flex__design} ${styles.input__div}`} onSubmit={handleForemData}>
             <div className={styles.input__parent}>
                 <label className={styles.label__style}>First Name</label>
-                            <input className={styles.input__styles} type="text" name="first_name" placeholder="First Name" onChange={handleInputValues}/>
+                            <input className={styles.input__styles} type="text" name="first_name" placeholder="First Name" onChange={handleInputValues} value={dataObj.first_name}/>
             </div>
 
             <div className={styles.input__parent}>
                 <label className={styles.label__style}>Last Name</label>
-                <input className={styles.input__styles} type="text" name="last_name" placeholder="Last Name" onChange={handleInputValues}/>
+                <input className={styles.input__styles} type="text" name="last_name" placeholder="Last Name" onChange={handleInputValues} value={dataObj.last_name}/>
             </div>
 
             <div className={styles.input__parent}>
                 <label className={styles.label__style}>Email</label>
-                <input className={styles.input__styles} type="text" name="email" placeholder="Email" onChange={handleInputValues}/>
+                <input className={styles.input__styles} type="text" name="email" placeholder="Email" onChange={handleInputValues} value={dataObj.email}/>
             </div>
             <div className={styles.input__parent}>
                 <label className={styles.label__style}>Location</label>
-                <input className={styles.input__styles} type="text" name="location" placeholder="Location" onChange={handleInputValues}/>
+                <input className={styles.input__styles} type="text" name="location" placeholder="Location" onChange={handleInputValues} value={dataObj.location}/>
             </div>
             <div className={styles.input__parent}>
                 <label className={styles.label__style}>Password</label>
-                <input className={styles.input__styles} type="password" name="password" placeholder="Password" onChange={handleInputValues}/>
+                            <input className={styles.input__styles} type="password" name="password" placeholder="Password" onChange={handleInputValues} value={dataObj.password}/>
             </div>
 
             <div className={styles.input__parent}>
@@ -97,6 +117,7 @@ return (
     <p>We strive for transparency and don't collect excess data.</p>
 </div>
 
-    </section>
+            </section>
+            </>
 );
 }

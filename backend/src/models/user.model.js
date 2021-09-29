@@ -2,13 +2,13 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
 const userSchema = new mongoose.Schema({
-    first_name: { type: 'string', required: true },
-    last_name: { type: 'string', required: false },
-    email: { type: 'string', required: true },
-    password: { type: 'String', required: true },
-    location: { type: 'String', required: true },
-    ip_address: { type: 'String', required: false },
-    country: { type: 'String', required: false }
+    first_name: { type: String, required: true },
+    last_name: { type: String, required: false },
+    email: { type: String, required: true },
+    password: { type: String, required: true },
+    location: { type: String, required: true },
+    ip_address: { type: String, required: false },
+    country:{ type: String, required: false }
 }, {
     versionKey: false,
     timestampKey: true,
