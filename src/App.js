@@ -4,10 +4,13 @@ import { Signup } from './Components/Signup/Signup';
 function App() {
   return (
 <<<<<<< HEAD
+<<<<<<< HEAD
     <div className="App">
        <Signup/>
      {/* <Routes/> */}
 =======
+=======
+>>>>>>> e45de4ba4ff4d7a9094408a4328dbf5605cb0c2c
     <div className="theme">
      <Routes/>
 >>>>>>> e45de4ba4ff4d7a9094408a4328dbf5605cb0c2c
