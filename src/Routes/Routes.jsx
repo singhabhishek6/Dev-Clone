@@ -1,12 +1,12 @@
 import React from 'react'
 import { Switch ,Route} from 'react-router-dom'
-import { Navbar } from '../Components/Navbar/Navbar'
+import { HomePage } from '../Pages/HomePage'
 import { Signup } from '../Components/Signup/Signup'
 export const Routes = () => {
     return (
         <Switch>
-            <Route exact path='/'>
-                <Navbar/>
+            <Route exact path="/">
+               <HomePage/>
             </Route>
 
             <Route path='/signup'>
