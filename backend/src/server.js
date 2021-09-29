@@ -10,7 +10,7 @@ const hasTag = require('./controllers/hashtag.controller');
 const app = express();
 
 //express midleware
-app.use(cors());
+app.use(cors({ origin: true, credentials: true }));
 app.use(express.json());
 app.use("/hastag", hasTag);
 app.use(cookieParser());

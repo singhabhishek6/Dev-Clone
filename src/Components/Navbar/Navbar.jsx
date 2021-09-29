@@ -3,7 +3,7 @@ import { FiSearch } from "react-icons/fi";
 import { NavbarStyled } from "./NavbarStyled";
 
 export const Navbar = () => {
-    const [login,setLogin] = useState(true)
+  const [login, setLogin] = useState(false);
     const [clicked,setClicked] = useState(false)
   return (
     <NavbarStyled>

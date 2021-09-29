@@ -1,8 +1,7 @@
 import styles from '../Signup/signup.module.css';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import Cookies from 'universal-cookie';
-
+import { Navbar } from '../Navbar/Navbar';
 
 export const Signup = () =>
 {
@@ -37,8 +36,9 @@ export const Signup = () =>
             headers: {
                 'Accept': 'application/json, text/plain, */*',
                 'Content-Type': 'application/json'
-              },
-              data: JSON.stringify(dataObj)
+            },
+            data: JSON.stringify(dataObj),
+            withCredentials: true
         }).then((res) => {
             setObj({});
             e.target.reset();
@@ -53,7 +53,9 @@ export const Signup = () =>
     }, []);
 
 
-return (
+    return (
+        <>
+    <Navbar/>
 <section className={styles.Signup__section}>
 <div className={styles.signup__page}>
     <div className={styles.signup__content}>
@@ -115,6 +117,7 @@ return (
     <p>We strive for transparency and don't collect excess data.</p>
 </div>
 
-    </section>
+            </section>
+            </>
 );
 }

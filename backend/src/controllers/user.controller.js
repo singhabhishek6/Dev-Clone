@@ -26,15 +26,7 @@ router.post('/register', async (req, res) => {
 
         const token = newToken(user);
 
-        let options = {
-            maxAge: 1000 * 60 * 60, 
-            httpOnly: true,
-            secure:true
-        }
-    
-        // Set cookie
-        res.cookie('auth_token', token, options);
-
+        res.cookie('auth_token', token, {maxAge: new Date(Date.now()+1*3600000), httpOnly: true, secure: true });
         return res.status(201).json({user});
     }
     catch (err) {
