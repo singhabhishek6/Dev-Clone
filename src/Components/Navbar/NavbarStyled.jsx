@@ -2,10 +2,14 @@ import styled from "styled-components";
 
 export const NavbarStyled = styled.div`
   display: flex;
-  width: 92%;
+  width: 100%;
   margin: auto;
   height: 60px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
   background-color: var(--primary-color);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   
   @media screen and (max-width: 805px) {
       width: 100%;
@@ -20,6 +24,13 @@ export const NavbarStyled = styled.div`
     }
     .ham{
         display: flex !important;
+    }
+   
+    .login{
+        margin-top: 7px;
+    }
+    .left-container,.right-container{
+        margin: 0 !important;
     }
   }
   
@@ -45,6 +56,7 @@ export const NavbarStyled = styled.div`
   .left-container {
     display: flex;
     width: 50%;
+    margin-left: 45px;
   }
   .search1{
       display: none;
@@ -128,6 +140,7 @@ export const NavbarStyled = styled.div`
   }
   .right-container {
     width: 50%;
+    margin-right: 45px;
   }
 
   .login {
@@ -168,6 +181,10 @@ export const NavbarStyled = styled.div`
     cursor: pointer;
     margin-right: 18px;
     border-radius: 5px;
+
+    &:hover{
+        background-color: blue;
+    }
   }
 
   .connect {
