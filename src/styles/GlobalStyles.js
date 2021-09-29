@@ -61,5 +61,53 @@ export const GlobalStyles = createGlobalStyle`
   grid-template-rows: 1fr;
   gap: 1rem 1rem;
 }
+@media screen and (max-width: 805px) {
+
+    .community{
+      width: 100%;
+      position: sticky;
+      top: 0;
+      background-color: white;
+      display: flex !important;
+      align-items: center;
+      font-size: 18px;
+      transform: translateX(0%) !important;
+      z-index: 1000;
+      overflow: hidden;
+      margin-left: -10px;
+      z-index: 200;
+      font-weight: 700;
+      justify-content: space-between;
+      line-height: 40px;
+      padding: 5px 10px;
+      border-bottom: 1px solid rgba(0,0,0,.2);
+      transition: 300ms ease-in-out;
+
+      margin-bottom: 10px;
+      & span{
+        display: flex;
+      align-items: center;
+      }
+      & span>svg{
+        height: 23px;
+        width: 23px;
+      }
+    }
+    .show{
+      position: fixed;
+      left: 0;
+      top: 0;
+      height: 100vh;
+      background-color: white;
+      overflow-y: scroll;
+      z-index: 500 !important;
+      transform: translateX(0%);
+      padding-left: 10px;
+      padding-right: 10px;
+      transition: 300ms ease-in-out;
+
+    
+    }
+  }
 
 `;
