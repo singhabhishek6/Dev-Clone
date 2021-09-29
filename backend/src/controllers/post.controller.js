@@ -17,8 +17,8 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
     try {
 
-        let email = req?.headers?.email;
-        let password = req?.headers?.password;
+        let email = req.headers.email;
+        let password = req.headers.password;
 
         const user = await User.findOne({ email: email }).exec();
 

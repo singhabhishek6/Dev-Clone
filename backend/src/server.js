@@ -1,5 +1,5 @@
 const express = require('express');
-
+const cors = require("cors");
 require('dotenv').config();
 
 const connect = require('./configs/db')
@@ -10,6 +10,7 @@ const hasTag = require('./controllers/hashtag.controller');
 const app = express();
 
 //express midleware
+app.use(cors());
 app.use(express.json());
 app.use("/hastag", hasTag);
 
