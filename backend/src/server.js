@@ -3,7 +3,7 @@ const cors = require("cors");
 require('dotenv').config();
 var cookieParser = require('cookie-parser');
 const connect = require('./configs/db')
-
+const auth = require('./midleware/auth.midleware');
 //import controller
 const hasTag = require('./controllers/hashtag.controller');
 
@@ -14,10 +14,7 @@ app.use(cors({ origin: true, credentials: true }));
 app.use(express.json());
 app.use("/hastag", hasTag);
 app.use(cookieParser());
-app.use(function (req, res, next) {
-    console.log(req.cookies.auth_token);
-    next()
-});
+//app.use(auth);
 
 const userController = require('./controllers/user.controller');
 app.use('/users', userController);
