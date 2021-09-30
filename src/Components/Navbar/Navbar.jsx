@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { FiSearch } from "react-icons/fi";
 import { NavbarStyled } from "./NavbarStyled";
 
-export const Navbar = ({toggle,setToggle}) => {
-    const [login,setLogin] = useState(true)
+export const Navbar = ({toggle,setToggle, login,setLogin}) => {
+   
     const [clicked,setClicked] = useState(false)
   return (
     <NavbarStyled>

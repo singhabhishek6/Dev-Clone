@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import {  FaDev } from "react-icons/fa";
 
-export const SideBarItems = () => {
+export const SideBarItems = ({login}) => {
   return (
       
     <ul className="lists">
@@ -45,7 +45,7 @@ export const SideBarItems = () => {
           Home
         </Link>
       </li>
-      <li>
+      {!login && <li>
         <Link href="/enter" className="crayons-link crayons-link--block fw-bold">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -80,7 +80,7 @@ export const SideBarItems = () => {
           </svg>
           Sign In/Up
         </Link>
-      </li>
+      </li>}
 
       <li>
         <Link

@@ -6,13 +6,13 @@ export const SideBarStyle = styled.div`
   @media screen and (max-width: 805px) {
     position: fixed;
     z-index: 300;
-    transform: translateX(-110%);
+    transform: translateX(-210%);
     transition: 300ms ease-in-out;
   }
   .community{
-    transform: translateX(-110%);
+    display: none;
+    transform: translateX(-210%);
     transition: 300ms ease-in-out;
-    
   }
   .devCounts {
     padding: 15px;
@@ -53,21 +53,16 @@ export const SideBarStyle = styled.div`
     }
   }
   .createAccount-btn {
-    /* width: 150px; */
     font-family: var(--font);
     font-weight: 500;
     color: white;
     display: flex;
-    /* margin-top: 8px; */
     justify-content: center;
     padding: 10px 15px;
     align-items: center;
     background-color: var(--active-button);
-    /* height: 40px; */
     cursor: pointer;
-
     border-radius: 5px;
-    
     &:hover{
         background-color: blue;
     }
@@ -77,6 +72,7 @@ export const SideBarStyle = styled.div`
     width: 100%;
     list-style: none;
     padding: 5px 0px;
+    margin: 0;
 
     & li {
       display: flex;
@@ -106,7 +102,9 @@ export const SideBarStyle = styled.div`
 
   .social {
     display: flex;
-    justify-content: space-evenly;
+    width: 180px;
+    margin: 10px 0;
+    justify-content: space-between;
     align-items: center;
 
     & a svg {
