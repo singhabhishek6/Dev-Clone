@@ -5,6 +5,7 @@ import { storage } from "./Fire.js";
 import ReactMarkdown from "react-markdown";
 import { PostStyled } from "./PostStyle.jsx";
 import rehypeRaw from 'rehype-raw'
+import { Suggestion } from "./Suggestion.jsx";
 
 export const Post = () => {
   const [image, setImage] = useState(null);
@@ -14,6 +15,9 @@ export const Post = () => {
   const [mark, setMark] = useState("");
   const [progress, setProgress] = useState(0);
   const [edit, setedit] = useState(true);
+  const [title, setTitle] = useState(false);
+  const [tag, setTag] = useState(false);
+  const [md, setMd] = useState(false);
   const Input = useRef(null);
   const Input1 = useRef(null);
   const textRef = useRef(null);
@@ -203,6 +207,11 @@ export const Post = () => {
                   autoComplete={false}
                   ref={textRef}
                   onChange={onChangeHandler}
+                  onClick={()=>{
+                      setTag(false)
+                      setTitle(true)
+                      setMd(false)
+                  }}
                   rows="1"
                   placeholder="New post title here..."
                 />
@@ -212,6 +221,11 @@ export const Post = () => {
                 <textarea
                   rows="1"
                   type="text"
+                  onClick={()=>{
+                    setTag(true)
+                    setTitle(false)
+                    setMd(false)
+                }}
                   placeholder="Add upto 4 tags..."
                 />
               </div>
@@ -259,6 +273,11 @@ export const Post = () => {
                 <textarea
                   ref={text2}
                   onChange={onChangeHandler1}
+                  onClick={()=>{
+                    setTag(false)
+                    setTitle(false)
+                    setMd(true)
+                }}
                   rows="7"
                   placeholder="Write your post content here..."
                 ></textarea>
@@ -273,7 +292,10 @@ export const Post = () => {
             <div className="save">Publish</div>
           </div>
         </div>
-        <div className="suggestion"></div>
+        <div className="suggestion">
+            
+            <Suggestion tag={tag} title={title} md={md} />
+        </div>
       </div>
     </PostStyled>
   );

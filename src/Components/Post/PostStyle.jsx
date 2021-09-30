@@ -6,10 +6,11 @@ export const PostStyled = styled.div`
   background-color: var(--sideCard-color);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  
-    .pWrapper {
+
+  .pWrapper {
     max-width: 1260px;
     margin: auto;
+    display: flex;
   }
   .postSide {
     width: 70%;
@@ -55,9 +56,7 @@ export const PostStyled = styled.div`
   .editSection {
     width: 100%;
     height: 75vh;
-    overflow-y:auto;
-
-    
+    overflow-y: auto;
   }
 
   .adddImg {
@@ -184,8 +183,8 @@ export const PostStyled = styled.div`
       border-radius: 8px;
       margin-right: 5px;
 
-      &:focus{
-          outline-color: rgb(59,73,223);
+      &:focus {
+        outline-color: rgb(59, 73, 223);
       }
     }
     & .copy {
@@ -239,9 +238,9 @@ export const PostStyled = styled.div`
       background-color: rgb(59, 73, 230);
     }
   }
-  //preview section 
+  //preview section
 
-  .previewSection{
+  .previewSection {
     width: 91%;
     margin-left: 70px;
     background-color: white;
@@ -257,26 +256,163 @@ export const PostStyled = styled.div`
   .hide {
     display: none !important;
   }
-.load{
+  .load {
     width: 85%;
     margin: auto;
     padding: 30px 0;
     display: flex;
     align-items: center;
-}
+  }
   .loader {
-    
+    border: 3px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 3px solid #3498db;
+    width: 20px;
+    height: 20px;
+    animation: spin 1s linear infinite;
+  }
 
-  border: 3px solid #f3f3f3;
-  border-radius: 50%;
-  border-top: 3px solid #3498db;
-  width: 20px;
-  height: 20px;
-  animation: spin 1s linear infinite;
-}
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
 
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
+  //suggestion side
+  .suggestion {
+    width: 26%;
+    margin: auto;
+    overflow-y: auto;
+  }
+  .titleHelp {
+    position: fixed;
+    width: 24%;
+    visibility: hidden;
+    transition: vissibility 50ms ease-in-out;
+
+    top: 100px;
+    & h4 {
+      font-size: 18px;
+      margin: 10px 0;
+    }
+    & ul {
+      padding: 0;
+      list-style: none;
+      margin: 0;
+      font-size: 16px;
+      color: rgba(0, 0, 0, 0.7);
+      & li {
+        line-height: 23px;
+      }
+    }
+    .title {
+      margin-top: 80px;
+    }
+  }
+  .appear {
+    visibility: visible;
+    top: 150px !important;
+    transition: 300ms ease-in-out;
+  }
+  .titleHelp1 {
+    position: fixed;
+    width: 24%;
+    visibility: hidden;
+    transition: vissibility 50ms ease-in-out;
+
+    top: 180px;
+    & h4 {
+      font-size: 18px;
+      margin: 10px 0;
+    }
+    & ul {
+      padding: 0;
+      list-style: none;
+      margin: 0;
+      font-size: 16px;
+      color: rgba(0, 0, 0, 0.7);
+      & li {
+        line-height: 23px;
+      }
+    }
+    .title {
+      margin-top: 80px;
+    }
+  }
+  .appear1 {
+    visibility: visible;
+    top: 220px !important;
+    transition: 300ms ease-in-out;
+  }
+
+
+  .titleHelp2 {
+    position: fixed;
+    width: 24%;
+    visibility: hidden;
+    transition: vissibility 50ms ease-in-out;
+
+    top: 320px;
+    & h4 {
+      font-size: 18px;
+      margin: 10px 0;
+    }
+    & ul {
+      padding: 0;
+      max-height: 75vh;
+      overflow-y: scroll !important;
+      list-style: none;
+      margin: 0;
+      font-size: 16px;
+      color: rgba(0, 0, 0, 0.7);
+      & .li {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+      }
+      & li {
+        line-height: 23px;
+        & .drop {
+          display: inline-flex;
+          transform: rotate(-90deg);
+          & svg {
+            width: 20px;
+            height: 20px;
+          }
+        }
+
+        .dropR {
+          transform: rotate(0deg) !important;
+        }
+      }
+    }
+    .title {
+      margin-top: 80px;
+    }
+  }
+  .appear2 {
+    visibility: visible;
+    top: 350px !important;
+    transition: 300ms ease-in-out;
+  }
+  .hi{
+      top: 0 !important;
+  }
+  .hints{
+      width: 100%;
+      margin-top: 5px;
+      padding: 5px 0;
+      background-color: rgb(249,249,249);
+      height: 62vh;
+      margin-bottom: 5px;
+      & img{
+          width: 100%;
+      }
+  }
+  .lu{
+      display: none !important;
+  }
 `;
