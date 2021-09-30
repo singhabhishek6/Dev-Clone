@@ -1,5 +1,9 @@
 const express = require('express');
 const User = require('../models/user.model');
+require('dotenv').config();
+const jwt = require('jsonwebtoken');
+
+const newToken = (user) => jwt.sign({ user, exp: Math.floor(Date.now() / 1000) + (60 * 60) }, process.env.SECRET_KEY);
 const { getAll, getOne } = require('./crud.controller');
 
 const router = express.Router();
@@ -20,7 +24,10 @@ router.post('/register', async (req, res) => {
             return res.status(400).json({ status: 'failed', message: "Something went wrong, Please try again later" });
         }
 
-        return res.status(201).json({ user });
+        const token = newToken(user);
+
+        res.cookie('auth_token', token, {maxAge: new Date(Date.now()+1*3600000), httpOnly: true, secure: true });
+        return res.status(201).json({user});
     }
     catch (err) {
         return res.status(400).json({ status: 'failed', message: err.message })
@@ -28,7 +35,7 @@ router.post('/register', async (req, res) => {
 
 });
 
-router.get('/login', async (req, res) => {
+router.post('/login', async (req, res) => {
     try {
         let user = await User.findOne({ email: req.body.email }).exec();
     
@@ -39,8 +46,19 @@ router.get('/login', async (req, res) => {
         const match = user.checkPassword(req.body.password);
         
         if (!match) return res.status(400).json({ status: "failed", message: "Wrong credentials" });
+       
+        const token = newToken(user);
 
-        return res.status(201).json({ user });
+        let options = {
+            maxAge: 1000 * 60 * 60, 
+            httpOnly: true,
+            secure:true
+        }
+    
+        // Set cookie
+        res.cookie('auth_token', 'Bearer '+token, options);
+
+        return res.status(200).json({token});
     }
     catch (err) {
         return res.status(500).send({ status: "failed", message: err.message });
