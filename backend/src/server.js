@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require("cors");
 const passport = require('passport');
 const cookieSession = require('cookie-session')
-
+// require('./configs/passport')
 require('dotenv').config();
 var cookieParser = require('cookie-parser');
 const connect = require('./configs/db')
@@ -40,10 +40,10 @@ passport.use(new GoogleStrategy({
 
 // For an actual app you should configure this with an experation time, better keys, proxy and secure
 app.use(cookieSession({
-    name: 'tuto-session',
+    name: 'dev.to profile',
     keys: ['key1', 'key2']
 }))
-
+ 
 
 const isLoggedIn = (req, res, next) => {
     if (req.user) {
