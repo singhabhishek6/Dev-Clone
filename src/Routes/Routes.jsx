@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { Switch ,Route} from 'react-router-dom'
 import { HomePage } from '../Pages/HomePage'
 import { Signup } from '../Components/Signup/Signup'
+import { Post } from '../Components/Post/Post'
 export const Routes = () => {
     return (
         <Switch>
@@ -11,6 +12,9 @@ export const Routes = () => {
 
             <Route path='/signup'>
                 <Signup/>
+            </Route>
+            <Route exact path="/new">
+                <Post/>
             </Route>
            
         </Switch>
