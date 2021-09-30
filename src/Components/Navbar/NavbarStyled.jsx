@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const NavbarStyled = styled.div`
-background-color: var(--primary-color);
+ background-color: var(--primary-color);
  width: 100%;
  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
  position: sticky;
@@ -12,9 +12,9 @@ background-color: var(--primary-color);
   display: flex;
   align-items: center;
   width: 100%;
-  max-width: 1300px;
+  max-width: 1350px;
   margin: auto;
-  height: 55px;
+  height: 57px;
 }
   
   @media screen and (max-width: 805px) {
@@ -78,7 +78,7 @@ background-color: var(--primary-color);
 
   .search {
     width: 410px;
-    height: 38px;
+    height: 40px;
     margin-top: 1px;
     display: flex;
     align-items: center;
@@ -108,7 +108,7 @@ background-color: var(--primary-color);
     color: rgba(0, 0, 0, 0.6);
 
     &::placeholder {
-      font-size: 14px;
+      font-size: 15px;
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     }
 
@@ -193,7 +193,7 @@ background-color: var(--primary-color);
   }
   .avatar {
     width: 35px;
-    margin-top: 7px;
+    margin-top: 3px;
     height: 35px;
     margin-right: 18px;
     cursor: pointer;
