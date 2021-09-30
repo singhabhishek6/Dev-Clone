@@ -25,7 +25,6 @@
 .leftSideContent {
     display: flex;
     align-items: center;
-    /* background-color: #fff; */
     border-radius: 0.375rem;
     padding: 0.5rem;
     height: 25px;
@@ -88,6 +87,7 @@
 
 .submitBtn {
     background-color: #3b49df;
+    border: 1px solid #3b49df;
     cursor: pointer;
     color: #fff !important;
     text-align: center;
@@ -95,8 +95,8 @@
     line-height: 1.5em;
 }
 
-.submitBtn:hover {
-    background-color: #323ebe;
+.submitBtn:focus {
+    box-shadow: none !important;
 }
 
 .upload_img_box {

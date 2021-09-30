@@ -22,6 +22,7 @@ export const UserForm = () => {
             </div>
             <div className={styles.formFields}>
                 <input className={styles.submitBtn} value={"Save Profile Information"} type="text" readonly="true" />
+                {/* <button>Save Profile Information</button> */}
             </div>
         </div>
     );
