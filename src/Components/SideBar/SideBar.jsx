@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { SideBarItems } from "./SideBarItems";
 import { SideBarStyle } from "./SideBarStyle";
 
-export const SideBar = ({toggle ,setToggle}) => {
+export const SideBar = ({login,setLogin,toggle ,setToggle}) => {
  
   return (
     <SideBarStyle className={`${toggle ? 'show' : ''}`}>
@@ -15,7 +15,7 @@ export const SideBar = ({toggle ,setToggle}) => {
         <IoClose/>
         </span>
       </div>
-      <div className="devCounts">
+      {!login && <div className="devCounts">
         <p>
           {" "}
           <span>DEV Community </span>
@@ -27,8 +27,8 @@ export const SideBar = ({toggle ,setToggle}) => {
         </p>
         <div className="createAccount-btn">Create new account</div>
         <div className="login-btn">Log in</div>
-      </div>
-      <SideBarItems />
+      </div>}
+      <SideBarItems login={login} />
       <div className="social">
         <Link
           to="https://twitter.com/thepracticaldev"

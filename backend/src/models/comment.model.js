@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 const commentSchema = new mongoose.Schema({
     description: { type: 'string', required: true },
+    likes: { type: 'Number', required: true },
     user_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'user',
@@ -12,7 +13,7 @@ const commentSchema = new mongoose.Schema({
         ref: "post",
         required: true
     }
-},{
+}, {
     versionKey: false,
     timestamps: true
 })

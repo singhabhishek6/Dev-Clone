@@ -5,6 +5,15 @@ import Cookies from 'js-cookie';
 export const Navbar = ({toggle,setToggle}) => {
   const [login, setLogin] = useState(true);
   const [clicked, setClicked] = useState(false);
+
+
+
+export const Navbar = ({toggle,setToggle, login,setLogin}) => {
+   
+
+export const Navbar = ({toggle,setToggle}) => {
+  const [login, setLogin] = useState(true);
+  const [clicked,setClicked] = useState(false)
   return (
     <NavbarStyled>
          <div className="navbar">   

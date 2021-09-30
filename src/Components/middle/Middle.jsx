@@ -15,10 +15,9 @@ export const Middle = () => {
         if (articles != null) {
           fetch("https://dev.to/api/articles")
             .then((res) => res.json())
-            .then((result) => setArticles([...articles, ...result]));
+            .then((result) => console.log(result));
         }
       };
-  console.log(articles);
       const handleScroll = () => {
         const html = document.documentElement;
         const body = document.body;
@@ -49,13 +48,12 @@ export const Middle = () => {
       
       fetchIt("")
     }, []);
-
     function fetchIt(x){
       setArticles("")
       let timer = setTimeout(async () => {
         const res = await fetch(`https://dev.to/api/articles?${ x && x}`);
         const data = await res.json();
-  
+  console.log(data);
         setArticles(data);
       }, 2000);
 

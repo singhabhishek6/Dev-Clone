@@ -7,12 +7,13 @@ import { SideBar } from '../Components/SideBar/SideBar'
 
 export const HomePage = () => {
     const [toggle,setToggle] = useState(false)
-    console.log(toggle);
+    const [login,setLogin] = useState(true)
+
     return (
         <Home>
-            <Navbar setToggle={setToggle} toggle={toggle}/>
+            <Navbar login={login} setLogin={setLogin} setToggle={setToggle} toggle={toggle}/>
             <div className="wrapper">
-                <SideBar  setToggle={setToggle}  toggle={toggle}/>
+                <SideBar login={login} setLogin={setLogin} setToggle={setToggle}  toggle={toggle}/>
                 <Middle/>
                 <RightBar/>
             </div>
@@ -22,14 +23,14 @@ export const HomePage = () => {
 
 
 const Home = styled.div`
- max-width: 100%;
+ width: 100%;
  background-color: var(--sideCard-color);
  .wrapper{
      @media screen and (max-width: 1040px) {
        width  :90%;
       }
      width: 92%;
-     max-width: 1200px;
+     max-width: 1250px;
      margin: auto;
      margin-top: 15px;
      display: flex;
