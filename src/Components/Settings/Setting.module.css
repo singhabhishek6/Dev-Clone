@@ -1,0 +1,120 @@
+.container {
+    width: 100%;
+    overflow-x: hidden;
+    background-color: rgb(239,239,239);
+    min-height: 100vh;
+}
+
+.box {
+    width: 65%;
+    margin: auto;
+}
+
+.heading {
+    color: #090909;
+}
+
+.settingBody {
+    display: flex;
+}
+
+.leftSideBar {
+    width: 25%;
+}
+
+.leftSideContent {
+    display: flex;
+    align-items: center;
+    /* background-color: #fff; */
+    border-radius: 0.375rem;
+    padding: 0.5rem;
+    height: 25px;
+    cursor: pointer;
+    font-weight: 400;
+}
+
+.leftSideContent:hover {
+    background-color:rgb(0 0 0 / 5%) !important;
+    color: #323ebe;
+}
+
+.leftSideContentTitle {
+    margin-left: 0.5rem;
+}
+
+.selected {
+    background-color: #fff;
+    color: #323ebe;
+    font-weight: 500;
+}
+
+.rightSide {
+    background-color: #fff;
+    border-radius: 0.375rem;
+    padding: 1.5rem;
+    margin-left: 1.5rem;
+    box-shadow: 0 0 0 1px rgb(0 0 0 / 10%);
+    width: 70%;
+}
+
+.profileBoxHeader {
+    margin: 0px;
+}
+
+.formFields {
+    margin-top: 1.5rem;
+}
+
+.formFields > label {
+    color: #242424;
+    font-weight: 500;
+}
+
+.formFields > input {
+    width: 96%;
+    margin-top: 0.5rem;
+    padding: 0.7rem;
+    border: 1px solid #d6d6d7;
+    color: #090909;
+    border-radius: 0.375rem;
+    font-size: 1rem;
+}
+
+.formFields > input:focus {
+    border: 1px solid #3b49df;
+    outline: none;
+    box-shadow: 0 0 0 1px #3b49df;
+}
+
+.submitBtn {
+    background-color: #3b49df;
+    cursor: pointer;
+    color: #fff !important;
+    text-align: center;
+    font-weight: 500;
+    line-height: 1.5em;
+}
+
+.submitBtn:hover {
+    background-color: #323ebe;
+}
+
+.upload_img_box {
+    border: none !important;
+}
+
+.upload_img_box:focus {
+    box-shadow: none !important;
+    border: none !important;
+}
+
+.themeBox {
+    padding: 1rem;
+    border-radius: 0375rem;
+    font-size: 1rem;
+    display: flex;
+    height: 1.5rem;
+    align-items: center;
+    color: #242424;
+    font-weight: 500;
+}
