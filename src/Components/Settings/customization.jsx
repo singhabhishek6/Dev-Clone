@@ -3,8 +3,10 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
+import { useState } from "react";
 
 export const Customization = () => {
+    const [theme, setTheme] = useState("Default");
 
     return (
         <div>
@@ -15,11 +17,11 @@ export const Customization = () => {
                     defaultValue="female"
                     name="radio-buttons-group"
                 >
-                    <FormControlLabel value="Default" control={<Radio />} label="Default" />
-                    <FormControlLabel value="Minimal Light Theme" control={<Radio />} label="Minimal Light Theme" />
-                    <FormControlLabel value="Night Theme" control={<Radio />} label="Night Theme" />
-                    <FormControlLabel value="Pink Theme" control={<Radio />} label="Pink Theme" />
-                    <FormControlLabel value="Ten X Hacker Theme" control={<Radio />} label="Ten X Hacker Theme" />
+                    <FormControlLabel onChange={(e) => { setTheme(e.target.value) }} value="Default" control={<Radio />} label="Default" />
+                    <FormControlLabel onChange={(e) => { setTheme(e.target.value) }} value="Minimal Light Theme" control={<Radio />} label="Minimal Light Theme" />
+                    <FormControlLabel onChange={(e) => { setTheme(e.target.value) }} value="Night Theme" control={<Radio />} label="Night Theme" />
+                    <FormControlLabel onChange={(e) => { setTheme(e.target.value) }} value="Pink Theme" control={<Radio />} label="Pink Theme" />
+                    <FormControlLabel onChange={(e) => { setTheme(e.target.value) }} value="Ten X Hacker Theme" control={<Radio />} label="Ten X Hacker Theme" />
                 </RadioGroup>
             </FormControl>
             <div className={styles.formFields}>

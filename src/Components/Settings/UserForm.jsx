@@ -1,11 +1,17 @@
 import styles from './Setting.module.css';
 
 export const UserForm = () => {
+
+
     return (
         <div>
             <h2 className={styles.profileBoxHeader}>User</h2>
             <div className={styles.formFields}>
-                <label>Name</label><br />
+                <label>First Name</label><br />
+                <input type="text" />
+            </div>
+            <div className={styles.formFields}>
+                <label>Last Name</label><br />
                 <input type="text" />
             </div>
             <div className={styles.formFields}>
@@ -22,7 +28,6 @@ export const UserForm = () => {
             </div>
             <div className={styles.formFields}>
                 <input className={styles.submitBtn} value={"Save Profile Information"} type="text" readonly="true" />
-                {/* <button>Save Profile Information</button> */}
             </div>
         </div>
     );
