@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { Switch ,Route} from 'react-router-dom'
 import { HomePage } from '../Pages/HomePage'
 import { Signup } from '../Components/Signup/Signup'
+import axios from 'axios'
 export const Routes = () => {
     return (
         <Switch>

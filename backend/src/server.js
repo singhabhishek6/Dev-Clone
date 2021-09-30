@@ -14,7 +14,10 @@ app.use(cors({ origin: true, credentials: true }));
 app.use(express.json());
 app.use("/hastag", hasTag);
 app.use(cookieParser());
-
+app.use(function (req, res, next) {
+    console.log(req.cookies.auth_token);
+    next()
+});
 
 const userController = require('./controllers/user.controller');
 app.use('/users', userController);
