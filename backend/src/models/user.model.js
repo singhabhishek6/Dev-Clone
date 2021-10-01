@@ -8,7 +8,8 @@ const userSchema = new mongoose.Schema({
     password: { type: String, required: true },
     location: { type: String, required: true },
     ip_address: { type: String, required: false },
-    country:{ type: String, required: false }
+    country: { type: String, required: false },
+    profile_img: { type: String, required: false }
 }, {
     versionKey: false,
     timestampKey: true,
@@ -27,7 +28,7 @@ userSchema.pre("save", function (next) {
 
 userSchema.methods.checkPassword = function (password) {
     const passwordHash = this.password;
-    
+
     return bcrypt.compareSync(password, passwordHash);
 }
 
