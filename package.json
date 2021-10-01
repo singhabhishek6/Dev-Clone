@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emotion/react": "^11.4.1",
+    "@emotion/styled": "^11.3.0",
+    "@mui/material": "^5.0.2",
+    "@mui/styled-engine-sc": "^5.0.0",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -14,7 +18,11 @@
     "dayjs": "^1.10.7",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
+<<<<<<< HEAD
     "js-cookie": "^3.0.1",
+=======
+    "firebase": "^9.1.0",
+>>>>>>> 2aec6eab3c2436a9cd9dcdfdf61cef572c927da4
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.0.8",
     "passport": "^0.5.0",
@@ -23,8 +31,10 @@
     "react-cookie": "^4.1.1",
     "react-dom": "^17.0.2",
     "react-icons": "^4.2.0",
+    "react-markdown": "^7.0.1",
     "react-router-dom": "^5.3.0",
     "react-scripts": "4.0.3",
+    "rehype-raw": "^6.1.0",
     "styled-components": "^5.3.1",
     "universal-cookie": "^4.0.4",
     "web-vitals": "^1.0.1"

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FiSearch } from "react-icons/fi";
+import { Link } from "react-router-dom";
 import { NavbarStyled } from "./NavbarStyled";
-import Cookies from 'js-cookie';
 
 export const Navbar = ({toggle,setToggle}) => {
   const [login, setLogin] = useState(true);
@@ -34,8 +34,10 @@ export const Navbar = ({toggle,setToggle}) => {
           <div className="search1 connect">
           <FiSearch  />
           </div>
-          <div className="createAccount-btn"  onClick={()=>setLogin(false)}>Create Post</div>
-          <div className="connect">
+         <Link to="/new">
+         <div className="createAccount-btn"  >Create Post</div>
+         </Link>
+          <div className="connect" onClick={()=>setLogin(false)}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
