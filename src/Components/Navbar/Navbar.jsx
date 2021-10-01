@@ -1,11 +1,11 @@
-import React, { useState,useContext } from "react";
+import React, { useState,useContext, useEffect } from "react";
 import { FiSearch } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import { NavbarStyled } from "./NavbarStyled";
 import { userContext } from '../../App';
 export const Navbar = ({toggle,setToggle}) => {
   const [clicked, setClicked] = useState(false);
-  const { state,setState } = useContext(userContext);
+  const { state, setState } = useContext(userContext);
   return (
     <NavbarStyled>
          <div className="navbar">   
@@ -67,7 +67,7 @@ export const Navbar = ({toggle,setToggle}) => {
           </div>
           <div className="avatar">
             <img
-              src="https://res.cloudinary.com/practicaldev/image/fetch/s--ZqivOAMe--/c_fill,f_auto,fl_progressive,h_90,q_auto,w_90/https://dev-to-uploads.s3.amazonaws.com/uploads/user/profile_image/714298/41bee50c-a4b8-4db1-8e52-5698c8bf5cbe.jpeg"
+              src={state?.user?.profile_pic?state.user.profile_pic:'https://imgur.com/bbiFt7O.png'}
               alt=""
             />
           </div>

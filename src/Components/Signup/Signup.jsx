@@ -1,14 +1,22 @@
 import styles from '../Signup/signup.module.css';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import { Navbar } from '../Navbar/Navbar';
 import { useHistory } from "react-router-dom";
+<<<<<<< HEAD
 export const Signup = () => {
+=======
+import {userContext} from '../../App';
+export const Signup = () =>
+{
+>>>>>>> b6cd9c5218c7807b14b3d630244fabfd9a66fb42
     const [clickResult, setResult] = useState(false);
 
     const [dataObj, setObj] = useState({});
 
     const history = useHistory();
+
+    const { state, setState } = useContext(userContext);
 
     const handleInputValues = (e) => {
 
@@ -43,7 +51,7 @@ export const Signup = () => {
         }).then((res) => {
             setObj({});
             e.target.reset();
-            history.push('/');
+            //history.push('/');
 
         }).catch((err) => {
             alert(err);

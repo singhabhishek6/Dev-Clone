@@ -9,7 +9,9 @@ const userSchema = new mongoose.Schema({
     location: { type: String, required: true },
     ip_address: { type: String, required: false },
     country: { type: String, required: false },
-    profile_img: { type: String, required: false, default: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPbGrM6LFhkSf171kkRf3Ua6WKdL886A_ndA&usqp=CAU' }
+    profile_img: { type: String, required: false, default: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPbGrM6LFhkSf171kkRf3Ua6WKdL886A_ndA&usqp=CAU' },
+    country:{ type: String, required: false },
+    profile_pic:{type: String, required: false,default:"https://imgur.com/bbiFt7O.png"}
 }, {
     versionKey: false,
     timestampKey: true,
