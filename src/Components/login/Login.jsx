@@ -1,10 +1,10 @@
-import styles from '../Signup/signup.module.css';
+import styles from '../login/login.module.css';
 import { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import { Navbar } from '../Navbar/Navbar';
 import { useHistory } from "react-router-dom";
 import {userContext} from '../../App';
-export const Signup = () =>
+export const Login = () =>
 {
     const [clickResult, setResult] = useState(false);
     
@@ -20,45 +20,30 @@ export const Signup = () =>
         setObj({ ...dataObj, [name]: value });
     }
 
-    const getData = async () => {
-        const res = await axios.get('https://geolocation-db.com/json/')
-        const systemData = {
-            'ip_address': res.data.IPv4,
-            'country':res.data.country_name
-        }
-        setObj({ ...dataObj, ...systemData });
-    }
-    
-
-     
-
-
-    const handleForemData = (e) => {        
-       
-        axios({
+    const handleForemData = async (e) => {        
+        
+        e.preventDefault();
+        await axios({
             method: 'post',
-            url: 'http://localhost:2222/users/register',
+            url: 'http://localhost:2222/users/login',
             headers: {
                 'Accept': 'application/json, text/plain, */*',
                 'Content-Type': 'application/json'
             },
             data: JSON.stringify(dataObj),
             withCredentials: true
-        }).then((res) => {
+        }).then(({ data }) => {
+            console.log(data);
             setObj({});
             e.target.reset();
-            //history.push('/');
+            setState({user:data,status:200,type:"LOGIN"});
+            history.push('/');
 
         }).catch((err) => {
             alert(err);
           });
-        e.preventDefault();
+       
     }
-
-    useEffect(() => {
-        getData();
-    }, []);
-
 
     return (
         <>
@@ -76,30 +61,20 @@ export const Signup = () =>
         </div>
 
         <div className={styles.login__link}>
-            <span className={styles.login__span}>Already have an account? <a href="javascript:void(0)" onClick={()=>setResult(!clickResult)} className={styles.link__style}>Login</a></span>
+            <span className={styles.login__span}>Have a password? Continue with your email address</span>
         </div>
 
 
-        <div className={`${styles.flex__design} ${styles.input__div} ${clickResult?styles.form__block:styles.form__visible}`}>
+                        <div className={`${styles.flex__design} ${styles.input__div}`}>
             <form className={`${styles.flex__design} ${styles.input__div}`} onSubmit={handleForemData}>
-            <div className={styles.input__parent}>
-                <label className={styles.label__style}>First Name</label>
-                            <input className={styles.input__styles} type="text" name="first_name" placeholder="First Name" onChange={handleInputValues} value={dataObj.first_name}/>
-            </div>
 
-            <div className={styles.input__parent}>
-                <label className={styles.label__style}>Last Name</label>
-                <input className={styles.input__styles} type="text" name="last_name" placeholder="Last Name" onChange={handleInputValues} value={dataObj.last_name}/>
-            </div>
+           
 
             <div className={styles.input__parent}>
                 <label className={styles.label__style}>Email</label>
                 <input className={styles.input__styles} type="text" name="email" placeholder="Email" onChange={handleInputValues} value={dataObj.email}/>
             </div>
-            <div className={styles.input__parent}>
-                <label className={styles.label__style}>Location</label>
-                <input className={styles.input__styles} type="text" name="location" placeholder="Location" onChange={handleInputValues} value={dataObj.location}/>
-            </div>
+           
             <div className={styles.input__parent}>
                 <label className={styles.label__style}>Password</label>
                             <input className={styles.input__styles} type="password" name="password" placeholder="Password" onChange={handleInputValues} value={dataObj.password}/>

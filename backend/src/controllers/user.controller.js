@@ -32,9 +32,6 @@ router.post('/register', async (req, res) => {
             return res.status(400).json({ status: 'failed', message: "Something went wrong, Please try again later" });
         }
 
-        const token = newToken(user);
-
-        res.cookie('auth_token', token, {expires: new Date(Date.now() + 3600000), httpOnly: true});
         return res.status(201).json({ user });
     }
     catch (err) {
@@ -55,18 +52,12 @@ router.post('/login', async (req, res) => {
         
         if (!match) return res.status(400).json({ status: "failed", message: "Wrong credentials" });
        
+
         const token = newToken(user);
 
-        let options = {
-            maxAge: 1000 * 60 * 60, 
-            httpOnly: true,
-            secure:true
-        }
-    
-        // Set cookie
-        res.cookie('auth_token', 'Bearer '+token, options);
+        res.cookie('auth_token', token, {expires: new Date(Date.now() + 3600000), httpOnly: true});
 
-        return res.status(200).json({token});
+        return res.status(200).json(user);
     }
     catch (err) {
         return res.status(500).send({ status: "failed", message: err.message });

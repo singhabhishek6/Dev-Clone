@@ -8,7 +8,8 @@ const userSchema = new mongoose.Schema({
     password: { type: String, required: true },
     location: { type: String, required: true },
     ip_address: { type: String, required: false },
-    country:{ type: String, required: false }
+    country:{ type: String, required: false },
+    profile_pic:{type: String, required: false,default:"https://imgur.com/bbiFt7O.png"}
 }, {
     versionKey: false,
     timestampKey: true,

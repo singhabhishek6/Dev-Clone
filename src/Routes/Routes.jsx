@@ -4,6 +4,7 @@ import { HomePage } from '../Pages/HomePage'
 import { Signup } from '../Components/Signup/Signup'
 import axios from 'axios'
 import { Post } from '../Components/Post/Post'
+import { Login } from '../Components/login/Login';
 import { Setting } from '../Components/Settings/Setting'
 import { userContext } from '../App';
 
@@ -19,7 +20,7 @@ export const Routes = () => {
         {
             if(data.status === 200)
             {
-                setState({ type: "LOGIN", status:true , payload: data.user });
+                setState({ type: "LOGIN", status:true , user: data.user });
             }
                 
         }).catch((err) => {
@@ -45,6 +46,11 @@ export const Routes = () => {
             <Route exact path="/new">
                 <Post />
             </Route>
+
+            <Route exact path="/enter">
+                <Login />
+            </Route>
+
            
         </Switch>
     );
