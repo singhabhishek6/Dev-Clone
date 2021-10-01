@@ -7,7 +7,7 @@ import { SideBar } from "../Components/SideBar/SideBar";
 
 export const HomePage = () => {
   const [toggle, setToggle] = useState(false);
-  const [login, setLogin] = useState(true);
+  const [login, setLogin] = useState(false);
 
   return (
     <Home>

@@ -3,11 +3,13 @@ import { BiHeart } from "react-icons/bi";
 import { FaRegComment } from "react-icons/fa";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+import { Link } from "react-router-dom";
 
 dayjs.extend(relativeTime);
 
 export const Cards = (props) => {
     const {
+      id,
         title,
         cover_image,
         tag_list,
@@ -23,6 +25,7 @@ export const Cards = (props) => {
     
       return (
         <article className="article">
+          <Link to={`/${id}`}>
           {cover_image && (
             <a
               href={url}
@@ -111,6 +114,7 @@ export const Cards = (props) => {
               </div>
             </div>
           </div>
+          </Link>
         </article>
     )
 }

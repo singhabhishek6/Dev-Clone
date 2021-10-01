@@ -28,7 +28,9 @@ export const Navbar = ({toggle,setToggle, login,setLogin}) => {
       <div className="right-container">
         {!login && <div className="login">
           <div className="login-btn"  onClick={()=>setLogin(true)}>Log in</div>
+          <Link to="/signup">
           <div className="createAccount-btn">Create account</div>
+          </Link>
         </div>}
         {login && <div className="login">
           <div className="search1 connect">

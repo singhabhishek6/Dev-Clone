@@ -15,7 +15,7 @@ export const Middle = () => {
         if (articles != null) {
           fetch("https://dev.to/api/articles")
             .then((res) => res.json())
-            .then((result) => console.log(result));
+            .then((result) => setArticles([...articles,...result]));
         }
       };
       const handleScroll = () => {
@@ -91,7 +91,7 @@ export const Middle = () => {
         <div className="articles">
           {articles &&
             articles.map((article, id) => {
-              return <Cards key={id} data={article} />;
+              return  <Cards key={id} data={article} />
             })}
   
           {!articles && [1, 2, 3, 4, 5].map((a) => <Skeleton key={a} />)}

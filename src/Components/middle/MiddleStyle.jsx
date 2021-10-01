@@ -58,7 +58,6 @@ export const MiddleStyle = styled.main`
 
   .article {
   margin-top: 0.5rem;
-
   background-color: #fff;
   box-shadow: 0 0 0 1px var(--main-a);
   border-radius: 5px;
