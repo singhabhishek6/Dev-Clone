@@ -47,10 +47,12 @@ export const PostStyled = styled.div`
   }
   .postWrapper {
     width: 91%;
+    height: 75vh;
     border-radius: 5px;
     margin-left: 9.5%;
     background-color: white;
     border-radius: 6px;
+    overflow-y: auto;
     border: 1px solid rgba(0, 0, 0, 0.2);
   }
   .editSection {
@@ -241,11 +243,21 @@ export const PostStyled = styled.div`
   //preview section
 
   .previewSection {
-    width: 91%;
-    margin-left: 70px;
-    background-color: white;
+    width: 85%;
+    margin: auto;
+    background-color: white;    
     height: 75vh;
-    overflow-y: auto;
+   
+    & img{
+            width: 100%;
+    }
+    & img svg{
+      width: 30px;
+      height: 30px;
+    }
+    & a{
+      display: inline-block;
+    }
   }
   .line {
     font-weight: 500;
@@ -257,11 +269,16 @@ export const PostStyled = styled.div`
     display: none !important;
   }
   .load {
-    width: 85%;
-    margin: auto;
+    width: 150px;
+    margin-left: 65px;
     padding: 30px 0;
     display: flex;
     align-items: center;
+    & span{
+      font-size: 16px;
+      letter-spacing: .5px;
+      margin-left: 10px;
+    }
   }
   .loader {
     border: 3px solid #f3f3f3;

@@ -6,6 +6,7 @@ import ReactMarkdown from "react-markdown";
 import { PostStyled } from "./PostStyle.jsx";
 import rehypeRaw from 'rehype-raw'
 import { Suggestion } from "./Suggestion.jsx";
+import { TiTags } from "react-icons/ti";
 
 export const Post = () => {
   const [image, setImage] = useState(null);
@@ -14,20 +15,30 @@ export const Post = () => {
   const [url1, setUrl1] = useState("");
   const [mark, setMark] = useState("");
   const [progress, setProgress] = useState(0);
+  const [progress1, setProgress1] = useState(0);
   const [edit, setedit] = useState(true);
   const [title, setTitle] = useState(false);
+  const [titletext, setTitletext] = useState("");
   const [tag, setTag] = useState(false);
+  const [tagtext, setTagtext] = useState([]);
   const [md, setMd] = useState(false);
   const Input = useRef(null);
   const Input1 = useRef(null);
   const textRef = useRef(null);
   const text2 = useRef(null);
 
-  useEffect(() => {
-    if (image != null) handleUpload();
-    if (image1 != null) handleUpload1();
-  }, [image, image1]);
+
+useEffect(() => {
+   if(image)
+   handleUpload()
+}, [image])
+useEffect(() => {
+  if(image1)
+  handleUpload1()
+}, [image1])
+
   const onChangeHandler = function (e) {
+    setTitletext(e.target.value)
     const target = e.target;
     textRef.current.style.height = "30px";
     textRef.current.style.height = `${target.scrollHeight}px`;
@@ -41,19 +52,19 @@ export const Post = () => {
 
   const handleChange = (e) => {
     setProgress(0);
-
     if (e.target.files[0]) {
       setImage(e.target.files[0]);
     }
   };
   const handleChange1 = (e) => {
-    setProgress(0);
+    setProgress1(1);
+
     if (e.target.files[0]) {
       setImage1(e.target.files[0]);
     }
   };
   const handleUpload = () => {
-    console.log("sd");
+    console.log("ss");
     const uploadTask = storage.ref(`images/${image.name}`).put(image);
     uploadTask.on(
       "state_changed",
@@ -71,7 +82,6 @@ export const Post = () => {
           .child(image.name)
           .getDownloadURL()
           .then((url) => {
-            console.log(url);
             setProgress(100);
             setUrl(url);
           });
@@ -84,9 +94,11 @@ export const Post = () => {
     uploadTask.on(
       "state_changed",
       (snapshot) => {
-        const progress = Math.round(
+        const progresss = Math.round(
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100
         );
+        if(progresss !=0)
+        setProgress1(progresss);
       },
       (error) => {
         console.log(error);
@@ -97,8 +109,7 @@ export const Post = () => {
           .child(image1.name)
           .getDownloadURL()
           .then((url) => {
-            console.log(url);
-            setProgress(100);
+           
             let x = `![Alt Text](${url})`
             setUrl1(x);
           });
@@ -110,9 +121,9 @@ export const Post = () => {
     await navigator.clipboard.writeText(url1);
   
   }
-  console.log(progress);
-  console.log(url);
-  console.log(mark);
+  console.log(progress,image);
+  console.log(progress1);
+
   return (
     <PostStyled>
       <div className="pWrapper">
@@ -159,6 +170,7 @@ export const Post = () => {
                   onChange={handleChange}
                   style={{ display: "none" }}
                 />
+               
                 <div
                   className="aadd"
                   onClick={() => {
@@ -204,7 +216,7 @@ export const Post = () => {
 
               <div className="title">
                 <textarea
-                  autoComplete={false}
+                  
                   ref={textRef}
                   onChange={onChangeHandler}
                   onClick={()=>{
@@ -221,6 +233,7 @@ export const Post = () => {
                 <textarea
                   rows="1"
                   type="text"
+                  onChange={(e)=>setTagtext(e.target.value.split(","))}
                   onClick={()=>{
                     setTag(true)
                     setTitle(false)
@@ -237,24 +250,28 @@ export const Post = () => {
                   onChange={handleChange1}
                   style={{ display: "none" }}
                 />
-                <div
+               {(progress1==100 || progress1==0)? <div
                   className="upload"
                   onClick={() => {
                     Input1.current.click();
                   }}
                 >
                   <RiImageAddFill /> Upload image
-                </div>
+                </div>: <div className="load">
+                  <div className="loader">
+                    
+                  </div>
+                  <span>Loading...</span>
+                </div>}
 
                 {url1 &&<div className="clipboard">
-                  <input type="text" value={url1} />
+                  <input type="text" value={url1} readOnly/>
                   <div className="copy" onClick={copy}>
                     {" "}
                     <svg
                       width="24"
                       height="24"
                       viewBox="0 0 24 24"
-                      class="crayons-icon"
                       xmlns="http://www.w3.org/2000/svg"
                       role="img"
                       aria-labelledby="fc5f15add1e114844f5e"
@@ -284,6 +301,15 @@ export const Post = () => {
               </div>
             </div>
             <div className={`previewSection ${edit && "hide"}`}>
+              <img src={url} alt="" />
+              <h1>{titletext}</h1>
+              <p>
+                {
+                  tagtext.map((el)=>{
+                    return <span style={{color:"rgba(0,0,0,.6)",marginRight:8}}>#{el.trim()}</span>
+                  })
+                }
+              </p>
             <ReactMarkdown  rehypePlugins={[rehypeRaw]}  children={mark} />
             
             </div>
