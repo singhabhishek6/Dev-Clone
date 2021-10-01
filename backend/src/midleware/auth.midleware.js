@@ -9,7 +9,7 @@ const tokenAuth = function (req, res, next)
             res.json({ "type": "error", "msg": "not auth_token" });
             //next();
         }
-        const decode = jwt.verify(cookieToken, process.env.SECRET_KEY);
+        const decode = jwt.verify(cookieToken, process.env.SECRET_KE);
         req.authUser = decode;
         next();
     }

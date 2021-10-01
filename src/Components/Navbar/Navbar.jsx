@@ -2,18 +2,10 @@ import React, { useEffect, useState } from "react";
 import { FiSearch } from "react-icons/fi";
 import { NavbarStyled } from "./NavbarStyled";
 import Cookies from 'js-cookie';
+
 export const Navbar = ({toggle,setToggle}) => {
   const [login, setLogin] = useState(true);
   const [clicked, setClicked] = useState(false);
-
-
-
-export const Navbar = ({toggle,setToggle, login,setLogin}) => {
-   
-
-export const Navbar = ({toggle,setToggle}) => {
-  const [login, setLogin] = useState(true);
-  const [clicked,setClicked] = useState(false)
   return (
     <NavbarStyled>
          <div className="navbar">   

@@ -10,7 +10,7 @@ const hasTag = require('./controllers/hashtag.controller');
 //express midleware
 
 const app = express();
-app.use(cors());
+app.use(cors({ origin: true, credentials: true }));
 app.use(express.json());
 
 //Passport configs
