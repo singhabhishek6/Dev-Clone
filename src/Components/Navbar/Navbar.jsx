@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useState,useContext } from "react";
 import { FiSearch } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import { NavbarStyled } from "./NavbarStyled";
-
+import { userContext } from '../../App';
 export const Navbar = ({toggle,setToggle}) => {
-  const [login, setLogin] = useState(true);
   const [clicked, setClicked] = useState(false);
+  const { state,setState } = useContext(userContext);
   return (
     <NavbarStyled>
          <div className="navbar">   
@@ -26,18 +26,18 @@ export const Navbar = ({toggle,setToggle}) => {
         </div>
       </div>
       <div className="right-container">
-        {!login && <div className="login">
-          <div className="login-btn"  onClick={()=>setLogin(true)}>Log in</div>
+        {!state.status && <div className="login">
+          <div className="login-btn">Log in</div>
           <div className="createAccount-btn">Create account</div>
         </div>}
-        {login && <div className="login">
+        {state.status && <div className="login">
           <div className="search1 connect">
           <FiSearch  />
           </div>
          <Link to="/new">
          <div className="createAccount-btn"  >Create Post</div>
          </Link>
-          <div className="connect" onClick={()=>setLogin(false)}>
+          <div className="connect">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"

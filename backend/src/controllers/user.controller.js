@@ -13,7 +13,7 @@ router.get('/', getAll(User));
 
 router.get('/auth', auth, (req, res) => {
     const authData = req.authUser;
-    res.status(200).json(authData);
+    res.status(200).json({ ...authData, status: 200 });
 });
 
 

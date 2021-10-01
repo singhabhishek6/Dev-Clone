@@ -6,17 +6,15 @@ const tokenAuth = function (req, res, next)
         const cookieToken = req.cookies.auth_token;
         if (!cookieToken)
         {
-            res.json({ "type": "error", "msg": "not auth_token" });
-            //next();
+            res.json({ "type": "error", "msg": "not auth_token","status":400 });
         }
-        const decode = jwt.verify(cookieToken, process.env.SECRET_KE);
+        const decode = jwt.verify(cookieToken, process.env.SECRET_KEY);
         req.authUser = decode;
         next();
     }
     catch (err)
     {
-        res.json({"type":"error","msg":err.message});
-        //next();
+        res.json({ "type": "error", "msg": err.message,"status":400 });
     }
 }
 

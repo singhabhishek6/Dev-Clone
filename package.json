@@ -18,11 +18,8 @@
     "dayjs": "^1.10.7",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
-<<<<<<< HEAD
-    "js-cookie": "^3.0.1",
-=======
     "firebase": "^9.1.0",
->>>>>>> 2aec6eab3c2436a9cd9dcdfdf61cef572c927da4
+    "js-cookie": "^3.0.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.0.8",
     "passport": "^0.5.0",

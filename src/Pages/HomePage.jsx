@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState,useContext, useEffect } from 'react'
 import styled from 'styled-components'
 import { Middle } from '../Components/middle/Middle'
 import { Navbar } from '../Components/Navbar/Navbar'
@@ -6,8 +6,10 @@ import { RightBar } from '../Components/RightBar/RightBar'
 import { SideBar } from '../Components/SideBar/SideBar'
 
 export const HomePage = () => {
-    const [toggle,setToggle] = useState(false)
-    const [login,setLogin] = useState(true)
+    
+    const [toggle, setToggle] = useState(false);
+    const [login, setLogin] = useState(false);
+    
 
     return (
         <Home>
