@@ -1,13 +1,21 @@
-import { useState } from 'react';
+import axios from 'axios';
+import { useContext, useEffect, useState } from 'react';
+import { userContext } from '../../App';
 import styles from './Setting.module.css';
 
 export const Account = () => {
     const [currentPassword, setCurrentPassword] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
+    const { state, setState } = useContext(userContext);
+    const [user, setUser] = useState({});
+
+    useEffect(() => {
+        setUser({ ...state.payload });
+    }, [state])
 
     const handleSubmit = () => {
-        if(password !== confirmPassword){
+        if (password !== confirmPassword) {
             alert("Password and confirm password should be the same");
             return;
         }
@@ -17,8 +25,13 @@ export const Account = () => {
             updated_password: password,
         }
 
-        //send api to change password
-        console.log(payload);
+        axios.patch(`http://localhost:2222/users/${user._id}`, payload)
+            .then(res => {
+                alert("Updated Successfully");
+            })
+            .catch(err => {
+                alert(err);
+            })
     }
 
     return (
@@ -34,7 +47,7 @@ export const Account = () => {
             </div>
             <div className={styles.formFields}>
                 <label>Confirm new password</label><br />
-                <input type="password"  value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+                <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
             </div>
             <div className={styles.formFields}>
                 <input className={styles.submitBtn} value={"Set New Password"} type="text" readonly="true" onClick={handleSubmit} />

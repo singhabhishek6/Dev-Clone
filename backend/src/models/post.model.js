@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const postSchema = new mongoose.Schema({
     title: { type: 'string', required: true },
-    description: { type: 'string', required: false, default: '' },
+    body_html: { type: 'string', required: false, default: '' },
     public_reaction_count: { type: 'number', required: false, default: 0 },
     likes_count: { type: 'number', required: false, default: 0 },
     reading_time_minutes: { type: 'number', required: false, default: 1 },

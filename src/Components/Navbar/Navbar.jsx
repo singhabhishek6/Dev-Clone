@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState,useContext, useEffect } from "react";
 import { FiSearch } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import { NavbarStyled } from "./NavbarStyled";
-
-export const Navbar = ({toggle,setToggle, login,setLogin}) => {
-   
-    const [clicked,setClicked] = useState(false)
+import { userContext } from '../../App';
+export const Navbar = ({toggle,setToggle}) => {
+  const [clicked, setClicked] = useState(false);
+  const { state, setState } = useContext(userContext);
   return (
     <NavbarStyled>
          <div className="navbar">   
@@ -26,20 +26,25 @@ export const Navbar = ({toggle,setToggle, login,setLogin}) => {
         </div>
       </div>
       <div className="right-container">
+<<<<<<< HEAD
         {!login && <div className="login">
           <div className="login-btn"  onClick={()=>setLogin(true)}>Log in</div>
           <Link to="/signup">
+=======
+        {!state.status && <div className="login">
+          <div className="login-btn">Log in</div>
+>>>>>>> 62d63d44ce1a76fc12bbad912b5c36091253ecad
           <div className="createAccount-btn">Create account</div>
           </Link>
         </div>}
-        {login && <div className="login">
+        {state.status && <div className="login">
           <div className="search1 connect">
           <FiSearch  />
           </div>
          <Link to="/new">
          <div className="createAccount-btn"  >Create Post</div>
          </Link>
-          <div className="connect" onClick={()=>setLogin(false)}>
+          <div className="connect">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -69,7 +74,7 @@ export const Navbar = ({toggle,setToggle, login,setLogin}) => {
           </div>
           <div className="avatar">
             <img
-              src="https://res.cloudinary.com/practicaldev/image/fetch/s--ZqivOAMe--/c_fill,f_auto,fl_progressive,h_90,q_auto,w_90/https://dev-to-uploads.s3.amazonaws.com/uploads/user/profile_image/714298/41bee50c-a4b8-4db1-8e52-5698c8bf5cbe.jpeg"
+              src={state?.user?.profile_pic?state.user.profile_pic:'https://imgur.com/bbiFt7O.png'}
               alt=""
             />
           </div>
