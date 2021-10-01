@@ -2,13 +2,21 @@ const express = require('express');
 const User = require('../models/user.model');
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
-
+const auth = require('../midleware/auth.midleware');
 const newToken = (user) => jwt.sign({ user, exp: Math.floor(Date.now() / 1000) + (60 * 60) }, process.env.SECRET_KEY);
 const { getAll, getOne } = require('./crud.controller');
 
 const router = express.Router();
 
 router.get('/', getAll(User));
+
+
+router.get('/auth', auth, (req, res) => {
+    const authData = req.authUser;
+    res.status(200).json({ ...authData, status: 200 });
+});
+
+
 
 router.post('/register', async (req, res) => {
     try {
@@ -26,8 +34,8 @@ router.post('/register', async (req, res) => {
 
         const token = newToken(user);
 
-        res.cookie('auth_token', token, {maxAge: new Date(Date.now()+1*3600000), httpOnly: true, secure: true });
-        return res.status(201).json({user});
+        res.cookie('auth_token', token, {expires: new Date(Date.now() + 3600000), httpOnly: true});
+        return res.status(201).json({ user });
     }
     catch (err) {
         return res.status(400).json({ status: 'failed', message: err.message })

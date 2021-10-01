@@ -7,7 +7,9 @@ export const NavbarStyled = styled.div`
  position: sticky;
  top: 0;
  z-index: 100;
-
+a{
+  text-decoration: none;
+}
 .navbar{
   display: flex;
   align-items: center;
