@@ -3,7 +3,7 @@ import { FiSearch } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import { NavbarStyled } from "./NavbarStyled";
 import { userContext } from '../../App';
-export const Navbar = ({toggle,setToggle}) => {
+export const Navbar = ({toggle,setToggle,login,setLogin}) => {
   const [clicked, setClicked] = useState(false);
   const { state, setState } = useContext(userContext);
   return (
@@ -26,18 +26,13 @@ export const Navbar = ({toggle,setToggle}) => {
         </div>
       </div>
       <div className="right-container">
-<<<<<<< HEAD
         {!login && <div className="login">
           <div className="login-btn"  onClick={()=>setLogin(true)}>Log in</div>
           <Link to="/signup">
-=======
-        {!state.status && <div className="login">
-          <div className="login-btn">Log in</div>
->>>>>>> 62d63d44ce1a76fc12bbad912b5c36091253ecad
           <div className="createAccount-btn">Create account</div>
           </Link>
         </div>}
-        {state.status && <div className="login">
+        {login && <div className="login">
           <div className="search1 connect">
           <FiSearch  />
           </div>
