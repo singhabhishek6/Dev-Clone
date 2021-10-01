@@ -1,16 +1,30 @@
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import styles from './Setting.module.css';
+import { userContext } from '../../App';
+import axios from 'axios';
 
 export const UserForm = () => {
     const [payload, setPayload] = useState({});
+    const { state, setState } = useContext(userContext);
+    const [user, setUser] = useState({});
+
+    useEffect(() => {
+        setUser({...state.payload});
+    },[state])
 
     const handleChange = (e) => {
-        const {name, value} = e.target;
-        setPayload({...payload, [name]: value});
-    } 
+        const { name, value } = e.target;
+        setPayload({ ...payload, [name]: value });
+    }
 
     const handleSubmit = (e) => {
-        console.log(payload);
+        e.preventDefault();
+        axios.patch(`http://localhost:2222/users/${user._id}`, payload).then(res => {
+            alert("Updated Successfully");
+        })
+        .catch(err => {
+            alert(err);
+        })
     }
 
     return (

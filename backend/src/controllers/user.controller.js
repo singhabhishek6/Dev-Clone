@@ -2,9 +2,19 @@ const express = require('express');
 const User = require('../models/user.model');
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
 const auth = require('../midleware/auth.midleware');
 const newToken = (user) => jwt.sign({ user, exp: Math.floor(Date.now() / 1000) + (60 * 60) }, process.env.SECRET_KEY);
 const { getAll, getOne } = require('./crud.controller');
+
+
+// function for password hasing
+
+const passwordHash = (password) => {
+    const hashedPassword = bcrypt.hashSync(password, 8);
+    return hashedPassword;
+}
+
 
 const router = express.Router();
 
@@ -75,9 +85,23 @@ router.post('/login', async (req, res) => {
 
 router.patch('/:id', async (req, res) => {
     try {
-        const user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
-
-        return res.status(200).json({ User: User });
+        let user = await User.findById(req.params.id);
+        if(req?.body?.password){
+            const match = user.checkPassword(req.body.password);
+            if(!match) {
+                throw new Error("wrong password");
+            }
+            else{
+                const hashedPassword = passwordHash(req.body.updated_password);
+                req.body = {
+                    password: hashedPassword
+                }
+            }
+        }
+        
+        user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
+       
+        return res.status(200).json({ User: user });
     }
     catch (err) {
         return res.status(400).json({ status: "failed", message: err.message });
