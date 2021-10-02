@@ -13,7 +13,9 @@
 .heading {
     color: #090909;
 }
-
+.hide{
+    display: none;
+}
 .settingBody {
     display: flex;
 }
@@ -86,15 +88,23 @@
 }
 
 .submitBtn {
-    background-color: #3b49df;
+    background-color: #676fc0;
     border: 1px solid #3b49df;
-    cursor: pointer;
+    cursor:not-allowed;
     color: #fff !important;
     text-align: center;
     font-weight: 500;
     line-height: 1.5em;
 }
+.suc{
+    background-color: #3b49df;
+    cursor: pointer !important;
+}
+.allo{
+    cursor: not-allowed !important;
+    background-color: #676fc0;
 
+}
 .submitBtn:focus {
     box-shadow: none !important;
 }

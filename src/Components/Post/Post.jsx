@@ -26,8 +26,16 @@ export const Post = () => {
   const Input1 = useRef(null);
   const textRef = useRef(null);
   const text2 = useRef(null);
+  const [payload,setPayload] = useState({})
+  const handleSubmit = ()=>{
+    setPayload({
+      title:titletext,
+      body_html:mark,
+      cover_img:url,
+      tags:tagtext
+    })
 
-
+  }
 useEffect(() => {
    if(image)
    handleUpload()
@@ -121,8 +129,8 @@ useEffect(() => {
     await navigator.clipboard.writeText(url1);
   
   }
-  console.log(progress,image);
-  console.log(progress1);
+  
+ console.log(payload);
 
   return (
     <PostStyled>
@@ -224,6 +232,7 @@ useEffect(() => {
                       setTitle(true)
                       setMd(false)
                   }}
+                  required="true"
                   rows="1"
                   placeholder="New post title here..."
                 />
@@ -315,7 +324,7 @@ useEffect(() => {
             </div>
           </div>
           <div className="control">
-            <div className="save">Publish</div>
+            <div onClick={handleSubmit} className="save">Publish</div>
           </div>
         </div>
         <div className="suggestion">

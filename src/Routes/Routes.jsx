@@ -10,26 +10,26 @@ import { PostDetails } from "../Components/PostDetails/PostDetails";
 import { userContext } from "../App";
 
 export const Routes = () => {
-  const { setState } = useContext(userContext);
-  const getSenData = () => {
-    axios({
-      method: "GET",
-      url: "http://localhost:2222/users/auth",
-      withCredentials: true,
-    })
-      .then(({ data }) => {
-        if (data.status === 200) {
-          setState({ type: "LOGIN", status: true, user: data.user });
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  // const { setState } = useContext(userContext);
+  // const getSenData = () => {
+  //   axios({
+  //     method: "GET",
+  //     url: "http://localhost:2222/users/auth",
+  //     withCredentials: true,
+  //   })
+  //     .then(({ data }) => {
+  //       if (data.status === 200) {
+  //         setState({ type: "LOGIN", status: true, user: data.user });
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
 
-  useEffect(() => {
-    getSenData();
-  }, []);
+  // useEffect(() => {
+  //   getSenData();
+  // }, []);
   return (
     <Switch>
       <Route exact path="/">
@@ -45,9 +45,9 @@ export const Routes = () => {
       <Route exact path="/new">
         <Post />
       </Route>
-      {/* <Route exact path="/:id">
+      <Route exact path="/:id">
         <PostDetails />
-      </Route> */}
+      </Route>
 
       <Route exact path="/enter">
         <Login />
