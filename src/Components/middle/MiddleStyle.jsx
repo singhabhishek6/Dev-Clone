@@ -296,4 +296,78 @@ export const MiddleStyle = styled.main`
     transform: translateX(100%);
   }
 }
+.welcome{
+  width:100%;
+  background-color: rgb(59,73,223);
+  border-radius: 5px;
+
+  & .top{
+    display: flex;
+    justify-content: space-between;
+    padding-top: 30px;
+    padding-left: 50px;
+    padding-right: 30px;
+
+    & img{
+      width: 100px;
+    }
+    & svg{
+      cursor: pointer;
+    }
+  }
+
+  & h1{
+    margin: 0;
+    margin-top: 5px;
+    margin-left: 50px;
+    margin-right: 50px;
+    font-weight: 900;
+    font-size: 36px;
+    color: white;
+    letter-spacing: .2px;
+  }
+
+  & .s{
+    margin-left: 50px;
+    margin-right: 50px;
+    font-weight: 500;
+    font-size: 14px;
+    color: rgba(255,255,255,.7);
+    padding: 0;
+    letter-spacing: .2px;
+  }
+
+  & .join {
+    margin-left: 50px;
+    margin-right: 50px;
+    margin-top: 15px;
+    & a{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 20px;
+      border-radius: 8px;
+      background-color: rgb(98,109,230);
+      & p{
+        color: white;
+        font-weight:700; 
+               & span{
+          margin-right: 10px;
+        }
+      }
+      &:hover {
+        background-color: rgb(118,128,233);
+      }
+      & svg{
+      }
+      
+    }
+
+  }
+  
+  .ss{
+      padding-bottom: 50px;
+    }
+}
+
 `

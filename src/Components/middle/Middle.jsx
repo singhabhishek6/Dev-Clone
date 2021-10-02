@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Cards } from './Cards';
 import { MiddleStyle } from './MiddleStyle';
 import { Skeleton } from './Skeleton';
+import { Welcom } from './Welcom';
 
 export const Middle = () => {
     const [articles, setArticles] = useState(null);
@@ -46,7 +47,7 @@ export const Middle = () => {
   
     useEffect(() => {
       
-      fetchIt("")
+      // fetchIt("")
     }, []);
     function fetchIt(x){
       setArticles("")
@@ -64,6 +65,7 @@ export const Middle = () => {
   
     return (
         <MiddleStyle>
+          <Welcom/>
         <header className="header">
           <nav>
             <span className={`${feed && 'bold'}`}
