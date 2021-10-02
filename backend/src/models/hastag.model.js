@@ -17,8 +17,8 @@ const randomColor = () => {
 const hastagSchema = new mongoose.Schema({
     tag_name: { type: String, required: true },
     tag_description: { type: String, required: false},
-    submission_guidelines: { type: String, required: true },
-    tag_about: { type: String, required: true },
+    submission_guidelines: { type: String, required: false },
+    tag_about: { type: String, required: false },
     tag_count: { type: Number, required: false, default:0},
     tag_img: { type: String, required: false },
     tag_card_color: { type: String, required: false, default: randomColor() },

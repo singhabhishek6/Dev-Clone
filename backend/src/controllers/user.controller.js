@@ -36,6 +36,8 @@ router.post('/register', async (req, res) => {
             return res.status(400).json({ status: 'failed', message: `user with ${req.body.email} is already registered` });
         }
 
+        let fullName = "" + req.body.first_name + " " + req.body.last_name;
+        req.body.name = fullName;
         user = await User.create(req.body);
         
         if (!user) {

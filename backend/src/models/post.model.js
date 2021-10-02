@@ -6,14 +6,14 @@ const postSchema = new mongoose.Schema({
     public_reaction_count: { type: 'number', required: false, default: 0 },
     likes_count: { type: 'number', required: false, default: 0 },
     reading_time_minutes: { type: 'number', required: false, default: 1 },
-    cover_img: { type: 'string', required: true },
+    cover_image: { type: 'string', required: true },
     comment_count: { type: 'number', required: false, default: 0 },
-    user_id: {
+    user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "user",
         required: true
     },
-    hastags_id: [{
+    tags: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "hastag",
         required: true
