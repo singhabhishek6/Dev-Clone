@@ -88,8 +88,10 @@ const userController = require('./controllers/user.controller');
 app.use('/users', userController);
 
 const postController = require('./controllers/post.controller');
-const User = require('./models/user.model');
 app.use('/posts', postController);
+
+const commentsController = require('./controllers/comments.controller');
+app.use('/comments', commentsController);
 
 
 const start = async () => {

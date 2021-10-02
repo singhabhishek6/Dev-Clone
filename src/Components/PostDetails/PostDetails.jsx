@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useRef } from "react";
+import React, { useContext, useRef } from "react";
 import { useEffect } from "react";
 import { useParams } from "react-router";
 import { PostDetailsStyle } from "./PostDetailsStyle";
@@ -7,6 +7,7 @@ import rehypeRaw from "rehype-raw";
 import ReactMarkdown from "react-markdown";
 import { useState } from "react";
 import { Navbar } from "../Navbar/Navbar";
+import { userContext } from "../../App";
 
 export const PostDetails = () => {
   const [userr, setUser] = useState("");
@@ -14,11 +15,28 @@ export const PostDetails = () => {
   const [heart, setHeart] = useState(false);
   const [uni, setUni] = useState(false);
   const [sav, setSav] = useState(false);
-  const [text, setText] = useState("")
-  const [comments, setComments] = useState([1, 1])
+  const [text, setText] = useState("");
+  const [comments, setComments] = useState([]);
+  const [commentsCount, setCommentsCount] = useState(0);
   const [save, setSave] = useState(4)
   const [like, setLike] = useState(6)
   const { id } = useParams();
+  const { state, setState } = useContext(userContext);
+  const [LoggedUser, setLoggedUser] = useState({});
+
+  useEffect(() => {
+    setLoggedUser({ ...state.user });
+    
+  }, [state]);
+
+  useEffect(() => {
+    axios.get(`http://localhost:2222/comments?post_id=${id}`).then(res => {
+      setCommentsCount(res.data.comments_count);
+      setComments(res.data.comments);
+    }).catch(err => {
+      console.log(err);
+    })
+  }, [])
 
   console.log(id);
 
@@ -41,6 +59,20 @@ export const PostDetails = () => {
     });
   }
   console.log(userr);
+
+  const handleCommentSubmit = () => {
+    setComments([...comments, text]);
+
+    axios.post(`http://localhost:2222/comments?post_id=${id}&user_id=${LoggedUser._id}`, {
+      description: text
+    })
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
 
   return (
     <>
@@ -144,10 +176,10 @@ export const PostDetails = () => {
           <img src={userr.cover_image} alt="" />
           <div className="u-details">
             <div>
-              <img className="pro" src={userr.user?.profile_image} alt="" />
+              <img className="pro" src={userr.user?.profile_image || LoggedUser.profile_image} alt="" />
 
               <div>
-                <span className="u-name">{userr.user?.name}</span>
+                <span className="u-name">{userr.user?.name || LoggedUser.name}</span>
 
                 <span className="time">
                   Posted on:
@@ -170,12 +202,12 @@ export const PostDetails = () => {
           </div>
           <ReactMarkdown className="mark" rehypePlugins={[rehypeRaw]} children={mark} />
           <div className="discussion">
-            <h2>Discussion ({userr.comments_count})</h2>
+            <h2>Discussion ({userr.comments_count || commentsCount})</h2>
             <div className="add">
-              <img className="pro1" src={userr.user?.profile_image} alt="" />
+              <img className="pro1" src={userr.user?.profile_image || LoggedUser.profile_image} alt="" />
               <textarea onChange={(e) => setText(e.target.value)} cols="30" rows="5" placeholder="Add to the discussion" />
             </div>
-            <div onClick={() => setComments([...comments, text])} className={`sub ${text && "allow"}`}>
+            <div onClick={handleCommentSubmit} className={`sub ${text && "allow"}`}>
               Submit
             </div>
 
@@ -184,11 +216,14 @@ export const PostDetails = () => {
                 <img className="pro1" src={userr.user?.profile_image} alt="" />
                 <div className="commentCard">
                   <div className="det">
-                    <span>{userr.user?.name}</span>
+                    <span>{userr.user?.name|| el.user_id.name}</span>
                     <span> . </span>
-                    <span>  Oct 1</span>
+                    <span> {new Date(el.createdAt).toLocaleDateString(undefined, {
+                      day: "numeric",
+                      month: "long",
+                    })}</span>
                   </div>
-                  <p>sfsfsdff sdf dsfsd ds f</p>
+                  <p>{el.description}</p>
                 </div>
               </div>
             })}
