@@ -16,11 +16,6 @@ const userSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "user",
         required: true
-    }],
-    liked_posts: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "post",
-        required: true
     }]
 }, {
     versionKey: false,
