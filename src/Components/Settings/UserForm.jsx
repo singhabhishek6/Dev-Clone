@@ -4,13 +4,22 @@ import { userContext } from '../../App';
 import axios from 'axios';
 
 export const UserForm = () => {
-    const [payload, setPayload] = useState({});
     const { state, setState } = useContext(userContext);
     const [user, setUser] = useState({});
+    const [payload, setPayload] = useState({
+        first_name: user.first_name || "",
+        last_name: user.last_name || "",
+        email: user.email || "",
+    });
 
     useEffect(() => {
-        setUser({...state.payload});
-    },[state])
+        setUser({ ...state.user });
+        setPayload({
+            first_name: state.user.first_name,
+            last_name: state.user.last_name,
+            email: state.user.email,
+        });
+    }, [state])
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -20,6 +29,7 @@ export const UserForm = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         axios.patch(`http://localhost:2222/users/${user._id}`, payload).then(res => {
+            console.log(res.data);
             alert("Updated Successfully");
         })
         .catch(err => {
@@ -32,15 +42,15 @@ export const UserForm = () => {
             <h2 className={styles.profileBoxHeader}>User</h2>
             <div className={styles.formFields}>
                 <label>First Name</label><br />
-                <input type="text" onChange={handleChange} name="first_name" />
+                <input type="text" onChange={handleChange} name="first_name" value={payload.first_name} />
             </div>
             <div className={styles.formFields}>
                 <label>Last Name</label><br />
-                <input type="text" onChange={handleChange} name="last_name" />
+                <input type="text" onChange={handleChange} name="last_name" value={payload.last_name} />
             </div>
             <div className={styles.formFields}>
                 <label>Email</label><br />
-                <input type="email" onChange={handleChange} name="email" />
+                <input type="email" onChange={handleChange} name="email" value={payload.email} />
             </div>
             <div className={styles.formFields}>
                 <label>Profile Image</label><br />

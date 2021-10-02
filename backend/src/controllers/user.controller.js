@@ -52,6 +52,7 @@ router.post('/register', async (req, res) => {
 
 router.post('/login', async (req, res) => {
     try {
+        // console.log(req.body);
         let user = await User.findOne({ email: req.body.email }).exec();
     
         if (!user) {
@@ -59,7 +60,7 @@ router.post('/login', async (req, res) => {
         }
 
         const match = user.checkPassword(req.body.password);
-        
+        console.log("match", match);
         if (!match) return res.status(400).json({ status: "failed", message: "Wrong credentials" });
        
 
