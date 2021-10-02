@@ -88,5 +88,49 @@ router.get('/:id', async function (req, res) {
     }
 })
 
+// query handling
+
+router.patch('/:id', async (req, res) => {
+    try {
+        console.log(req.query);
+        const isLike = req.query.likes;
+        if (isLike !== undefined) {
+            let post = await Post.findById(req.params.id).populate("user").populate('tags').lean().exec();
+            console.log(post);
+            let liked_users1 = post.liked_users;
+            let arrSize = liked_users1.length;
+            for(let i = 0; i < liked_users1.length; i++) {
+                if(req.query.user_id === liked_users1[i].toString()) {
+                    liked_users1.splice(i, 1);
+                }
+            }
+            
+            if(arrSize === liked_users1.length){
+                liked_users1.push(req.query.user_id);
+            }
+            // console.log(liked_users1);
+
+            post = await Post.findByIdAndUpdate(req.params.id, { likes_count: req.query.likes, liked_users: liked_users1 }, { new: true });
+
+            post = await Post.findById(req.params.id).populate("user").populate('tags').lean().exec();
+
+            let data = post.tags;
+            let tagArr = [];
+            for (let i = 0; i < data.length; i++) {
+                tagArr.push(data[i].tag_name);
+            }
+
+            post.tags = tagArr;
+            post.published_at = post.createdAt;
+
+            return res.status(200).json({ post })
+        }
+
+        return res.status(200).json({ message: "Nothing updated" });
+    }
+    catch (err) {
+        return res.status(400).json({ status: "failed", message: err.message })
+    }
+})
 
 module.exports = router;

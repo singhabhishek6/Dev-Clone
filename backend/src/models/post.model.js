@@ -17,6 +17,11 @@ const postSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "hastag",
         required: true
+    }],
+    liked_users: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "user",
+        required: true
     }]
 }, {
     versionKey: false,
