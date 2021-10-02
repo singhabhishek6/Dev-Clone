@@ -21,7 +21,7 @@ export const MiddleStyle = styled.main`
     }
   }
 
- 
+
  a{
      text-decoration: none;
      color: black;
@@ -37,14 +37,15 @@ export const MiddleStyle = styled.main`
     }
     nav {
       span {
-        margin: 0 0.3rem;
+        /* margin: 0 0.3rem; */
+        margin-right: 2px;
         font-size: 18px;
-        padding: 0.5rem;
+        padding: 0.6rem;
         color: rgba(0, 0, 0, 0.8);
         cursor: pointer;
         border-radius: 5px;
         &:hover {
-          background-color:rgba(249,249,249);
+          background-color:rgb(247,247,247);
           color: var(--main-theme);
         }
 
@@ -300,6 +301,7 @@ export const MiddleStyle = styled.main`
   width:100%;
   background-color: rgb(59,73,223);
   border-radius: 5px;
+  margin-bottom: 20px;
 
   & .top{
     display: flex;

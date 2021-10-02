@@ -32,6 +32,8 @@ a{
     }
     .ham{
         display: flex !important;
+      margin: 0 !important;
+
     }
    
     .login{
@@ -39,6 +41,9 @@ a{
     }
     .left-container,.right-container{
         margin: 0 !important;
+    }
+    .login-btn{
+      margin: 0 !important;
     }
   }
   
@@ -195,6 +200,7 @@ a{
   }
   .avatar {
     width: 35px;
+    position: relative;
     margin-top: 3px;
     height: 35px;
     margin-right: 18px;
@@ -203,6 +209,89 @@ a{
       width: 100%;
       height: 100%;
       border-radius: 50%;
+    }
+    & .controls{
+      position: absolute;
+      right: 0;
+      width: 245px;
+      border-radius: 5px;
+      height: 280px;
+      transition:  300ms ease-in-out;
+      background-color: white;
+         border: 1px solid rgba(0, 0, 0, 0.1);
+         box-shadow:0 10px 15px -3px rgba(0,0,0,0.1),0 4px 6px -2px rgba(0,0,0,0.05),0 0 0 1px rgba(9, 9, 9, 0.1);
+      & .info{
+        max-width: 93%;
+        margin: auto;
+        
+        cursor: pointer;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+        div{
+          margin: 12px 0;
+          padding: 5px 0;
+          border-radius: 5px;
+          &:hover{
+            background-color: rgb(239,239,239);
+
+            p{
+              color:rgb(59,73,223) ;
+            }
+          }
+          p{
+            font-weight: 500;
+            color: #000;
+            font-size: 18px;
+
+            
+          }
+        }
+
+        p{
+          margin: 0;
+          margin-left: 8px;
+        }
+        span{
+          margin-left: 8px;
+          color: rgba(0, 0, 0, 0.6);
+        }
+      }
+
+      .dash{
+        display: flex;
+        max-width: 93%;
+        margin: auto;
+        padding-top: 10px;
+        flex-direction: column;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+        padding-bottom: 5px;
+
+        a{
+          /* margin-left: 8px; */
+          color: black;
+          padding: 10px 8px;
+          border-radius: 5px;
+
+          &:hover{
+            background-color: rgb(239,239,239);
+            color: rgb(59,73,223);
+          }
+        }
+      }
+      .out{
+        max-width: 90%;
+        margin: auto;
+        margin-top: 10px;
+        border-radius: 5px;
+        span{
+          display: inline-block;
+          padding: 10px 8px;
+        }
+        &:hover{
+            background-color: rgb(239,239,239);
+            color: rgb(59,73,223);
+          }
+       
+      }
     }
   }
 `;

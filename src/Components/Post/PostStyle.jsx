@@ -7,6 +7,60 @@ export const PostStyled = styled.div`
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 
+    @media screen and (max-width: 805px) {
+      width: 100%;
+     
+        .suggestion{
+          display: none;
+        }
+        nav{
+         width: 100%;
+
+        }
+        .clipboard{
+          margin-right: 12px !important;
+      }
+        .upload{
+          margin-left: 10px !important;
+          margin-right:0px !important;
+
+        }
+        .cover{
+         
+          & img{
+            border: 1px solid rgba(0, 0, 0, 0.1);
+               width: 210px !important;
+          }
+        }
+        
+        .load{
+          margin-left: 10px !important;
+        }
+        .adddImg,.tags,.cover,.load,.title,.tags{
+          width: 95% !important;
+        }
+       .dev{
+         margin-left: 5px;
+        }
+        .switch{
+          margin-right: 5px;
+        }
+      .postWrapper{
+        width: 100% !important;
+        margin-left: 0 !important;
+      }
+      .postSide{
+        width: 100% !important;
+        margin: 0;
+     
+        }
+        .control{
+          margin-left: 8px !important;
+        }
+        .markdown{
+          width: 95% !important;
+        }
+     }
   .pWrapper {
     max-width: 1260px;
     margin: auto;
