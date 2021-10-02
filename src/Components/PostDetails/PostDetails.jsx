@@ -19,30 +19,33 @@ export const PostDetails = () => {
   const [comments, setComments] = useState([]);
   const [commentsCount, setCommentsCount] = useState(0);
   const [save, setSave] = useState(4)
-  const [like, setLike] = useState(6)
+  const [like, setLike] = useState(0);
   const { id } = useParams();
   const { state, setState } = useContext(userContext);
   const [LoggedUser, setLoggedUser] = useState({});
 
   useEffect(() => {
     setLoggedUser({ ...state.user });
-    
   }, [state]);
 
   useEffect(() => {
-    axios.get(`http://localhost:2222/comments?post_id=${id}`).then(res => {
-      setCommentsCount(res.data.comments_count);
-      setComments(res.data.comments);
-    }).catch(err => {
-      console.log(err);
-    })
-  }, [])
-
-  console.log(id);
+    fetchIt(id);
+  }, [id]);
 
   useEffect(() => {
-    fetchIt(id);
-  }, []);
+    let likedArr = userr.liked_users;
+    let isFound = false;
+    if (likedArr !== undefined) {
+      for (let i = 0; i < likedArr.length; i++) {
+        if (LoggedUser._id.toString() === likedArr[i].toString()) {
+          isFound = true;
+          break;
+        }
+      }
+    }
+
+    setHeart(isFound);
+  }, [userr])
 
   function fetchIt(id) {
     axios(`https://dev.to/api/articles/${id}`).then((res) => {
@@ -50,28 +53,53 @@ export const PostDetails = () => {
       setmark(res.data.body_html.split("\n").join(" "));
     }).catch(err => {
       axios.get(`http://localhost:2222/posts/${id}`).then((res) => {
-        console.log(res.data);
         setUser(res.data.post);
+        setLike(res.data.post.likes_count);
         setmark(res.data.post.body_html.split("\n").join(" "));
       }).catch(err => {
         console.log(err);
       })
     });
   }
-  console.log(userr);
+
+  const fetchComments = () => {
+    axios.get(`http://localhost:2222/comments?post_id=${id}`).then(res => {
+      setCommentsCount(res.data.comments_count);
+      setComments(res.data.comments);
+    }).catch(err => {
+      console.log(err);
+    })
+  }
+
+  useEffect(() => {
+    fetchComments();
+  }, [id])
+
 
   const handleCommentSubmit = () => {
-    setComments([...comments, text]);
-
     axios.post(`http://localhost:2222/comments?post_id=${id}&user_id=${LoggedUser._id}`, {
       description: text
     })
       .then((res) => {
-        console.log(res.data);
+        fetchComments();
       })
       .catch((err) => {
         console.log(err);
       })
+  }
+
+  const handleLikes = (likeStatus) => {
+
+    axios.patch(`http://localhost:2222/posts/${id}?likes=${likeStatus + like}&user_id=${LoggedUser._id}`)
+      .then((res) => {
+        setUser(res.data.post);
+        setLike(res.data.post.likes_count);
+        setmark(res.data.post.body_html.split("\n").join(" "));
+      })
+      .catch(err => {
+        console.log(err);
+      })
+
   }
 
   return (
@@ -84,7 +112,7 @@ export const PostDetails = () => {
               className={`circle-ripple ${heart && ""}`}
               onClick={() => setHeart(!heart)}
             >
-              <span onClick={() => setLike(like + 1)} className={`show ${heart && "hide"}`}>
+              <span onClick={() => { handleLikes(1) }} className={`show ${heart && "hide"}`}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -96,7 +124,7 @@ export const PostDetails = () => {
                 </svg>
               </span>
 
-              <span onClick={() => setLike(like - 1)} className={`click wave ${!heart && "hide"}`}>
+              <span onClick={() => { handleLikes(-1) }} className={`click wave ${!heart && "hide"}`}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -211,12 +239,13 @@ export const PostDetails = () => {
               Submit
             </div>
 
-            {comments.map((el) => {
+            {comments.map((el, i) => {
+              // console.log("elshfaj", el, i)
               return <div className="add1">
-                <img className="pro1" src={userr.user?.profile_image} alt="" />
+                <img className="pro1" src={el.user_id.profile_image} alt="" />
                 <div className="commentCard">
                   <div className="det">
-                    <span>{userr.user?.name|| el.user_id.name}</span>
+                    <span>{el.user_id.name}</span>
                     <span> . </span>
                     <span> {new Date(el.createdAt).toLocaleDateString(undefined, {
                       day: "numeric",
@@ -239,7 +268,7 @@ export const PostDetails = () => {
             <div className="foll">Follow</div>
             <div className="info">
               <span>LOCATION</span>
-              <p>United States</p>
+              <p>{userr.user?.location}</p>
             </div>
             <div className="info">
               <span>JOINED</span>

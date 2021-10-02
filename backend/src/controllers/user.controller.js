@@ -39,7 +39,7 @@ router.post('/register', async (req, res) => {
         let fullName = "" + req.body.first_name + " " + req.body.last_name;
         req.body.name = fullName;
         user = await User.create(req.body);
-        
+
         if (!user) {
             return res.status(400).json({ status: 'failed', message: "Something went wrong, Please try again later" });
         }
@@ -54,9 +54,8 @@ router.post('/register', async (req, res) => {
 
 router.post('/login', async (req, res) => {
     try {
-        // console.log(req.body);
         let user = await User.findOne({ email: req.body.email }).exec();
-    
+
         if (!user) {
             return res.status(400).send({ status: "failed", message: "Wrong credentials" });
         }
@@ -64,11 +63,11 @@ router.post('/login', async (req, res) => {
         const match = user.checkPassword(req.body.password);
         console.log("match", match);
         if (!match) return res.status(400).json({ status: "failed", message: "Wrong credentials" });
-       
+
 
         const token = newToken(user);
 
-        res.cookie('auth_token', token, {expires: new Date(Date.now() + 3600000), httpOnly: true});
+        res.cookie('auth_token', token, { expires: new Date(Date.now() + 3600000), httpOnly: true });
 
         return res.status(200).json(user);
     }
@@ -79,22 +78,43 @@ router.post('/login', async (req, res) => {
 
 router.patch('/:id', async (req, res) => {
     try {
+        if (req.body.follower_id !== undefined) {
+            let user = await User.findById(req.body.follower_id).lean().exec();
+
+            let followers = user.following_users;
+            let arrSize = followers.length;
+            for (let i = 0; i < arrSize; i++) {
+                if (req.params.id === followers[i].toString()) {
+                    followers.splice(i, 1);
+                    break;
+                }
+            }
+
+            if (arrSize === followers.length) {
+                followers.push(req.params.id);
+            }
+
+            await User.findByIdAndUpdate(req.body.follower_id, { following_users: followers }, { new: true });
+
+            return res.status(200).json({ status: 'success' });
+        }
+
         let user = await User.findById(req.params.id);
-        if(req?.body?.password){
+        if (req?.body?.password) {
             const match = user.checkPassword(req.body.password);
-            if(!match) {
+            if (!match) {
                 throw new Error("wrong password");
             }
-            else{
+            else {
                 const hashedPassword = passwordHash(req.body.updated_password);
                 req.body = {
                     password: hashedPassword
                 }
             }
         }
-        
+
         user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
-       
+
         return res.status(200).json({ User: user });
     }
     catch (err) {

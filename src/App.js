@@ -6,7 +6,7 @@ export const userContext = createContext(null);
 
 function App() {
 
-  const [state, setState] = useState({ status: false ,user:{}});
+  const [state, setState] = useState({ status: false , user:{}});
   
   return (
     <div className="theme">

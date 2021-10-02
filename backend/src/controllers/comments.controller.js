@@ -18,10 +18,8 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req, res) => {
     try {
-        console.log("first ", req.body);
         req.body.user_id = req?.query?.user_id;
         req.body.post_id = req?.query?.post_id;
-        console.log("second ", req.body);
         const comment = await Comment.create(req.body); 
 
         return res.status(201).json({ comment: comment })

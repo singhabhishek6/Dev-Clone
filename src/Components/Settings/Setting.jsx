@@ -3,7 +3,8 @@ import { Navbar } from "../Navbar/Navbar";
 import { Customization } from "./customization";
 import styles from './Setting.module.css'
 import { UserForm } from "./UserForm";
-import { Account } from "./Account"
+import { Account } from "./Account";
+
 
 export const Setting = () => {
     const [toggle, setToggle] = useState(false);
@@ -75,7 +76,7 @@ export const Setting = () => {
                                 setNotificationsBG("#fff");
                                 setAllLeftBGToNone();
                             }}>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" role="img" aria-labelledby="aljhfvi4pfzq1a25vpz054p5ngl8u7u0" class="crayons-icon crayons-icon--default"><title id="aljhfvi4pfzq1a25vpz054p5ngl8u7u0">Notifications</title>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" role="img" ariaLabelledby="aljhfvi4pfzq1a25vpz054p5ngl8u7u0" class="crayons-icon crayons-icon--default"><title id="aljhfvi4pfzq1a25vpz054p5ngl8u7u0">Notifications</title>
                                     <path d="M14.222 20.333c0 1.228-4.444 1.228-4.444 0v-5.555a2.222 2.222 0 114.444 0v5.555z" fill="#C1694F"></path>
                                     <path d="M16.444 3.667H7.556v11.11h13.333V8.112a4.444 4.444 0 00-4.445-4.444z" fill="#99AAB5"></path>
                                     <path d="M7.556 3.667A4.444 4.444 0 003.11 8.11v6.667H12V8.11a4.445 4.445 0 00-4.444-4.444" fill="#292F33"></path>
@@ -90,7 +91,7 @@ export const Setting = () => {
                                 setAccountBG("#fff");
                                 setAllLeftBGToNone();
                             }}>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" role="img" aria-labelledby="abmhbuoarreekpanuuumq6k1r1k4rzm2" class="crayons-icon crayons-icon--default"><title id="abmhbuoarreekpanuuumq6k1r1k4rzm2">Account</title>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" role="img" ariaLabelledby="abmhbuoarreekpanuuumq6k1r1k4rzm2" class="crayons-icon crayons-icon--default"><title id="abmhbuoarreekpanuuumq6k1r1k4rzm2">Account</title>
                                     <path d="M14.728 9.999a9.75 9.75 0 00-1.6 1.345c-.07-2.358-.637-5.408-3.762-6.901-.618-3.364-7.83-1.655-7.183-1.329 1.285.65 1.97 2.305 2.796 3.175 1.474 1.552 3.113 1.647 3.928.433 1.927 1.252 2.054 3.627 1.995 6.166-.006.28-.013.542-.013.78v7.776c0 .614 2.223.614 2.223 0v-6.383c.3-.53 1.179-1.947 2.46-2.941.881.774 2.301.527 3.59-.83.829-.871 1.275-2.525 2.56-3.176.68-.342-7.11-2.218-6.993 1.885" fill="#77B255"></path>
                                 </svg>
                                 <p className={styles.leftSideContentTitle}>Account</p>
@@ -101,7 +102,7 @@ export const Setting = () => {
                                 setBillingBG("#fff");
                                 setAllLeftBGToNone();
                             }}>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" role="img" aria-labelledby="ab2g6nxdztvz3gmwbhj3h2218079pbaq" class="crayons-icon crayons-icon--default"><title id="ab2g6nxdztvz3gmwbhj3h2218079pbaq">Billing</title>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" role="img" ariaLabelledby="ab2g6nxdztvz3gmwbhj3h2218079pbaq" class="crayons-icon crayons-icon--default"><title id="ab2g6nxdztvz3gmwbhj3h2218079pbaq">Billing</title>
                                     <path d="M4.222 4.778A2.222 2.222 0 002 7v10a2.222 2.222 0 002.222 2.222h15.556A2.222 2.222 0 0022 17V7s0-2.222-2.222-2.222H4.222z" fill="#FFAC33"></path>
                                     <path d="M22 10.333H2V7.556h20v2.777z" fill="#292F33"></path>
                                     <path d="M19.778 15.889H4.222v-3.333h15.556v3.333z" fill="#F4F7F9"></path>
@@ -115,7 +116,7 @@ export const Setting = () => {
                                 setExtensionBG("#fff");
                                 setAllLeftBGToNone();
                             }}>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" role="img" aria-labelledby="ab8muouuxa6eh17qkb3i1a8kt8w8qx9m" class="crayons-icon crayons-icon--default"><title id="ab8muouuxa6eh17qkb3i1a8kt8w8qx9m">Extensions</title>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" role="img" ariaLabelledby="ab8muouuxa6eh17qkb3i1a8kt8w8qx9m" class="crayons-icon crayons-icon--default"><title id="ab8muouuxa6eh17qkb3i1a8kt8w8qx9m">Extensions</title>
                                     <path d="M7.556 22a.554.554 0 01-.494-.81l3.87-7.523h-6.71a.556.556 0 01-.363-.976L16.082 2.135a.555.555 0 01.857.675l-3.87 7.523h6.709a.556.556 0 01.363.976L7.919 21.865a.555.555 0 01-.363.135" fill="#FFAC33"></path>
                                 </svg>
                                 <p className={styles.leftSideContentTitle}>Extensions</p>
