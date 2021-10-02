@@ -1,12 +1,13 @@
 import axios from "axios";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { RiImageAddFill } from "react-icons/ri";
 import { storage } from "./Fire.js";
 import ReactMarkdown from "react-markdown";
 import { PostStyled } from "./PostStyle.jsx";
 import rehypeRaw from 'rehype-raw'
 import { Suggestion } from "./Suggestion.jsx";
-import { TiTags } from "react-icons/ti";
+import { userContext } from "../../App.js";
+import { useHistory } from "react-router";
 
 export const Post = () => {
   const [image, setImage] = useState(null);
@@ -26,24 +27,22 @@ export const Post = () => {
   const Input1 = useRef(null);
   const textRef = useRef(null);
   const text2 = useRef(null);
-  const [payload,setPayload] = useState({})
-  const handleSubmit = ()=>{
-    setPayload({
-      title:titletext,
-      body_html:mark,
-      cover_img:url,
-      tags:tagtext
-    })
+  const { state, setState } = useContext(userContext);
+  const [user, setUser] = useState({});
+  const history = useHistory();
 
-  }
-useEffect(() => {
-   if(image)
-   handleUpload()
-}, [image])
-useEffect(() => {
-  if(image1)
-  handleUpload1()
-}, [image1])
+  useEffect(() => {
+    if (image)
+      handleUpload()
+  }, [image])
+  useEffect(() => {
+    if (image1)
+      handleUpload1()
+  }, [image1])
+
+  useEffect(() => {
+    setUser({ ...state.user });
+  }, [state])
 
   const onChangeHandler = function (e) {
     setTitletext(e.target.value)
@@ -52,7 +51,7 @@ useEffect(() => {
     textRef.current.style.height = `${target.scrollHeight}px`;
   };
   const onChangeHandler1 = function (e) {
-      setMark(e.target.value)
+    setMark(e.target.value)
     const target = e.target;
     text2.current.style.height = "150px";
     text2.current.style.height = `${target.scrollHeight}px`;
@@ -105,8 +104,8 @@ useEffect(() => {
         const progresss = Math.round(
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100
         );
-        if(progresss !=0)
-        setProgress1(progresss);
+        if (progresss != 0)
+          setProgress1(progresss);
       },
       (error) => {
         console.log(error);
@@ -117,7 +116,7 @@ useEffect(() => {
           .child(image1.name)
           .getDownloadURL()
           .then((url) => {
-           
+
             let x = `![Alt Text](${url})`
             setUrl1(x);
           });
@@ -127,10 +126,28 @@ useEffect(() => {
 
   const copy = async () => {
     await navigator.clipboard.writeText(url1);
-  
+
   }
-  
- console.log(payload);
+
+
+  const handleSubmit = () => {
+    const payload = {
+      title: titletext,
+      body_html: mark,
+      cover_image: url,
+      tags: tagtext
+    }
+
+    axios.post(`http://localhost:2222/posts?email=${user.email}`, payload)
+      .then(res => {
+        console.log(res.data);
+        history.push(`/article/${res.data.post._id}`);
+      }).catch(err => {
+        console.log(err);
+      })
+
+  }
+
 
   return (
     <PostStyled>
@@ -178,7 +195,7 @@ useEffect(() => {
                   onChange={handleChange}
                   style={{ display: "none" }}
                 />
-               
+
                 <div
                   className="aadd"
                   onClick={() => {
@@ -214,7 +231,7 @@ useEffect(() => {
               ) : (
                 <div className={`load ${!image ? "hide" : ""}`}>
                   <div className={`loader ${!image ? "hide" : ""}`}>
-                    
+
                   </div>
                   <span>Loading...</span>
                 </div>
@@ -224,13 +241,13 @@ useEffect(() => {
 
               <div className="title">
                 <textarea
-                  
+
                   ref={textRef}
                   onChange={onChangeHandler}
-                  onClick={()=>{
-                      setTag(false)
-                      setTitle(true)
-                      setMd(false)
+                  onClick={() => {
+                    setTag(false)
+                    setTitle(true)
+                    setMd(false)
                   }}
                   required="true"
                   rows="1"
@@ -242,12 +259,12 @@ useEffect(() => {
                 <textarea
                   rows="1"
                   type="text"
-                  onChange={(e)=>setTagtext(e.target.value.split(","))}
-                  onClick={()=>{
+                  onChange={(e) => setTagtext(e.target.value.split(","))}
+                  onClick={() => {
                     setTag(true)
                     setTitle(false)
                     setMd(false)
-                }}
+                  }}
                   placeholder="Add upto 4 tags..."
                 />
               </div>
@@ -259,22 +276,22 @@ useEffect(() => {
                   onChange={handleChange1}
                   style={{ display: "none" }}
                 />
-               {(progress1==100 || progress1==0)? <div
+                {(progress1 == 100 || progress1 == 0) ? <div
                   className="upload"
                   onClick={() => {
                     Input1.current.click();
                   }}
                 >
                   <RiImageAddFill /> Upload image
-                </div>: <div className="load">
+                </div> : <div className="load">
                   <div className="loader">
-                    
+
                   </div>
                   <span>Loading...</span>
                 </div>}
 
-                {url1 &&<div className="clipboard">
-                  <input type="text" value={url1} readOnly/>
+                {url1 && <div className="clipboard">
+                  <input type="text" value={url1} readOnly />
                   <div className="copy" onClick={copy}>
                     {" "}
                     <svg
@@ -299,11 +316,11 @@ useEffect(() => {
                 <textarea
                   ref={text2}
                   onChange={onChangeHandler1}
-                  onClick={()=>{
+                  onClick={() => {
                     setTag(false)
                     setTitle(false)
                     setMd(true)
-                }}
+                  }}
                   rows="7"
                   placeholder="Write your post content here..."
                 ></textarea>
@@ -314,13 +331,13 @@ useEffect(() => {
               <h1>{titletext}</h1>
               <p>
                 {
-                  tagtext.map((el)=>{
-                    return <span style={{color:"rgba(0,0,0,.6)",marginRight:8}}>#{el.trim()}</span>
+                  tagtext.map((el) => {
+                    return <span style={{ color: "rgba(0,0,0,.6)", marginRight: 8 }}>#{el.trim()}</span>
                   })
                 }
               </p>
-            <ReactMarkdown  rehypePlugins={[rehypeRaw]}  children={mark} />
-            
+              <ReactMarkdown rehypePlugins={[rehypeRaw]} children={mark} />
+
             </div>
           </div>
           <div className="control">
@@ -328,8 +345,8 @@ useEffect(() => {
           </div>
         </div>
         <div className="suggestion">
-            
-            <Suggestion tag={tag} title={title} md={md} />
+
+          <Suggestion tag={tag} title={title} md={md} />
         </div>
       </div>
     </PostStyled>

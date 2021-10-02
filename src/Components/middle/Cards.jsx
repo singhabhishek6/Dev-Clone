@@ -25,7 +25,7 @@ export const Cards = (props) => {
     
       return (
         <article className="article">
-          <Link to={`/${id}`}>
+          <Link to={`/article/${id}`}>
           {cover_image && (
             <a
               href={url}

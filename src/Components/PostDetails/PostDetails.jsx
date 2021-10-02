@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useRef } from "react";
+import React, { useContext, useRef } from "react";
 import { useEffect } from "react";
 import { useParams } from "react-router";
 import { PostDetailsStyle } from "./PostDetailsStyle";
@@ -7,6 +7,7 @@ import rehypeRaw from "rehype-raw";
 import ReactMarkdown from "react-markdown";
 import { useState } from "react";
 import { Navbar } from "../Navbar/Navbar";
+import { userContext } from "../../App";
 
 export const PostDetails = () => {
   const [userr, setUser] = useState("");
@@ -14,22 +15,64 @@ export const PostDetails = () => {
   const [heart, setHeart] = useState(false);
   const [uni, setUni] = useState(false);
   const [sav, setSav] = useState(false);
-  const [text,setText] = useState("")
-  const [comments,setComments] = useState([1,1])
-  const [save,setSave] = useState(4)
-  const [like,setLike] = useState(6)
+  const [text, setText] = useState("");
+  const [comments, setComments] = useState([]);
+  const [commentsCount, setCommentsCount] = useState(0);
+  const [save, setSave] = useState(4)
+  const [like, setLike] = useState(6)
   const { id } = useParams();
+  const { state, setState } = useContext(userContext);
+  const [LoggedUser, setLoggedUser] = useState({});
+
+  useEffect(() => {
+    setLoggedUser({ ...state.user });
+    
+  }, [state]);
+
+  useEffect(() => {
+    axios.get(`http://localhost:2222/comments?post_id=${id}`).then(res => {
+      setCommentsCount(res.data.comments_count);
+      setComments(res.data.comments);
+    }).catch(err => {
+      console.log(err);
+    })
+  }, [])
+
+  console.log(id);
 
   useEffect(() => {
     fetchIt(id);
   }, []);
+
   function fetchIt(id) {
     axios(`https://dev.to/api/articles/${id}`).then((res) => {
       setUser(res.data);
       setmark(res.data.body_html.split("\n").join(" "));
+    }).catch(err => {
+      axios.get(`http://localhost:2222/posts/${id}`).then((res) => {
+        console.log(res.data);
+        setUser(res.data.post);
+        setmark(res.data.post.body_html.split("\n").join(" "));
+      }).catch(err => {
+        console.log(err);
+      })
     });
   }
-console.log(userr);
+  console.log(userr);
+
+  const handleCommentSubmit = () => {
+    setComments([...comments, text]);
+
+    axios.post(`http://localhost:2222/comments?post_id=${id}&user_id=${LoggedUser._id}`, {
+      description: text
+    })
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
 
   return (
     <>
@@ -41,7 +84,7 @@ console.log(userr);
               className={`circle-ripple ${heart && ""}`}
               onClick={() => setHeart(!heart)}
             >
-              <span onClick={()=>setLike(like+1)} className={`show ${heart && "hide"}`}>
+              <span onClick={() => setLike(like + 1)} className={`show ${heart && "hide"}`}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -53,7 +96,7 @@ console.log(userr);
                 </svg>
               </span>
 
-              <span onClick={()=>setLike(like-1)}  className={`click wave ${!heart && "hide"}`}>
+              <span onClick={() => setLike(like - 1)} className={`click wave ${!heart && "hide"}`}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -73,11 +116,11 @@ console.log(userr);
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
                   height="24"
-                  // aria-hidden="true"
+                // aria-hidden="true"
                 >
                   <path
                     d="M5.645 8.013c.013-.265-.261-.323-.4-.183-1.16 1.17-1.822 3.865-.344 7.32.294.961 1.938 3.19.84 6.131l-.003.006c-.094.255.206.404.366.263 1.395-1.226 1.933-3.593 1.1-6.375-.488-1.657-1.955-4.226-1.559-7.162zm-3.22 2.738c.05-.137-.124-.417-.326-.225-.939.893-1.316 2.863-.976 4.605.547 2.878 2.374 3.526 2.066 6.629-.028.102.176.38.348.154 1.546-2.033.409-4.453-.241-6.006-1.005-2.386-1.087-4.118-.871-5.157z"
-                   
+
                   ></path>
                   <path
                     fill-rule="evenodd"
@@ -102,7 +145,7 @@ console.log(userr);
             </div>
 
             <div className="circle-ripple" onClick={() => setSav(!sav)}>
-              <span onClick={()=>setSave(like+1)}  className={`show ${sav && "hide"}`}>
+              <span onClick={() => setSave(like + 1)} className={`show ${sav && "hide"}`}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -114,7 +157,7 @@ console.log(userr);
                 </svg>
               </span>
 
-              <span onClick={()=>setSave(like-1)}  className={`click wave2 ${!sav && "hide"}`}>
+              <span onClick={() => setSave(like - 1)} className={`click wave2 ${!sav && "hide"}`}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -125,7 +168,7 @@ console.log(userr);
                   <path d="M5 2h14a1 1 0 011 1v19.143a.5.5 0 01-.766.424L12 18.03l-7.234 4.536A.5.5 0 014 22.143V3a1 1 0 011-1z"></path>
                 </svg>
               </span>
-              <span   className="num">{save}</span>
+              <span className="num">{save}</span>
             </div>
           </div>
         </div>
@@ -133,10 +176,10 @@ console.log(userr);
           <img src={userr.cover_image} alt="" />
           <div className="u-details">
             <div>
-              <img className="pro" src={ userr.user?.profile_image} alt="" />
+              <img className="pro" src={userr.user?.profile_image || LoggedUser.profile_image} alt="" />
 
               <div>
-                <span className="u-name">{userr.user?.name}</span>
+                <span className="u-name">{userr.user?.name || LoggedUser.name}</span>
 
                 <span className="time">
                   Posted on:
@@ -153,53 +196,56 @@ console.log(userr);
             <div className="tags">
               {userr.tags &&
                 userr.tags.map((tag, id) => {
-                  return <span style={{marginRight:10}} className="tag"> #{tag}</span>;
+                  return <span style={{ marginRight: 10 }} className="tag"> #{tag}</span>;
                 })}
             </div>
           </div>
           <ReactMarkdown className="mark" rehypePlugins={[rehypeRaw]} children={mark} />
           <div className="discussion">
-            <h2>Discussion ({userr.comments_count})</h2>
+            <h2>Discussion ({userr.comments_count || commentsCount})</h2>
             <div className="add">
-              <img className="pro1" src={userr.user?.profile_image} alt="" />
-              <textarea onChange={(e)=>setText(e.target.value)} cols="30" rows="5" placeholder="Add to the discussion"/>
+              <img className="pro1" src={userr.user?.profile_image || LoggedUser.profile_image} alt="" />
+              <textarea onChange={(e) => setText(e.target.value)} cols="30" rows="5" placeholder="Add to the discussion" />
             </div>
-             <div onClick={()=>setComments([...comments,text])} className={`sub ${text && "allow"}`}>
-               Submit
-             </div>
+            <div onClick={handleCommentSubmit} className={`sub ${text && "allow"}`}>
+              Submit
+            </div>
 
-            {comments.map((el)=>{
+            {comments.map((el) => {
               return <div className="add1">
-              <img className="pro1" src={userr.user?.profile_image} alt="" />
-              <div className="commentCard">
-                <div className="det">
-                  <span>{userr.user?.name}</span>
-                  <span> . </span>
-                  <span>  Oct 1</span>
+                <img className="pro1" src={userr.user?.profile_image} alt="" />
+                <div className="commentCard">
+                  <div className="det">
+                    <span>{userr.user?.name|| el.user_id.name}</span>
+                    <span> . </span>
+                    <span> {new Date(el.createdAt).toLocaleDateString(undefined, {
+                      day: "numeric",
+                      month: "long",
+                    })}</span>
+                  </div>
+                  <p>{el.description}</p>
                 </div>
-                <p>sfsfsdff sdf dsfsd ds f</p>
               </div>
-            </div>
             })}
           </div>
         </div>
         <div className="right">
-         <div>
-         <div className="color"></div>
-          <div className="us">
-            <img className="pro2" src={userr.user?.profile_image} alt="" />
-            <span>{userr.user?.name}</span>
+          <div>
+            <div className="color"></div>
+            <div className="us">
+              <img className="pro2" src={userr.user?.profile_image} alt="" />
+              <span>{userr.user?.name}</span>
+            </div>
+            <div className="foll">Follow</div>
+            <div className="info">
+              <span>LOCATION</span>
+              <p>United States</p>
+            </div>
+            <div className="info">
+              <span>JOINED</span>
+              <p>9 Sept 2021 </p>
+            </div>
           </div>
-          <div className="foll">Follow</div>
-          <div className="info">
-            <span>LOCATION</span>
-            <p>United States</p>
-          </div>
-          <div className="info">
-            <span>JOINED</span>
-            <p>9 Sept 2021 </p>
-          </div>
-         </div>
         </div>
       </PostDetailsStyle>
     </>

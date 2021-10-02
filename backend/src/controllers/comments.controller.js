@@ -5,11 +5,11 @@ const router = express.Router();
 
 router.get('/', async (req, res) => {
     try {
-        const totalEntries = await Comment.find({ post_id: req.params.post_id }).count().lean().exec();
+        const totalEntries = await Comment.find({ post_id: req.query.post_id }).count().lean().exec();
 
-        const comments = await Comment.find({ post_id: req.params.post_id }).limit(10).lean().exec();
+        const comments = await Comment.find({ post_id: req.query.post_id }).populate('user_id').populate('post_id').limit(10).lean().exec();
 
-        return res.status(200).json({ totalEntries, comments });
+        return res.status(200).json({ comments_count: totalEntries, comments });
     }
     catch (err) {
         return res.status(400).json({ status: "failed", message: err.message })
@@ -18,8 +18,10 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req, res) => {
     try {
-        req.body.user_id = req?.headers?.user_id;
-        req.body.post_id = req?.headers?.post_id;
+        console.log("first ", req.body);
+        req.body.user_id = req?.query?.user_id;
+        req.body.post_id = req?.query?.post_id;
+        console.log("second ", req.body);
         const comment = await Comment.create(req.body); 
 
         return res.status(201).json({ comment: comment })
@@ -48,3 +50,5 @@ router.delete('/:id', async (req, res) => {
         return res.status(400).json({ status: "failed", message: err.message })
     }
 })
+
+module.exports = router;

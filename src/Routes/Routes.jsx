@@ -10,36 +10,36 @@ import { PostDetails } from "../Components/PostDetails/PostDetails";
 import { userContext } from "../App";
 
 export const Routes = () => {
-  // const { setState } = useContext(userContext);
-  // const getSenData = () => {
-  //   axios({
-  //     method: "GET",
-  //     url: "http://localhost:2222/users/auth",
-  //     withCredentials: true,
-  //   })
-  //     .then(({ data }) => {
-  //       if (data.status === 200) {
-  //         setState({ type: "LOGIN", status: true, user: data.user });
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // };
+  const { setState } = useContext(userContext);
+  const getSenData = () => {
+    axios({
+      method: "GET",
+      url: "http://localhost:2222/users/auth",
+      withCredentials: true,
+    })
+      .then(({ data }) => {
+        if (data.status === 200) {
+          setState({ type: "LOGIN", status: true, user: data.user });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
-  // useEffect(() => {
-  //   getSenData();
-  // }, []);
+  useEffect(() => {
+    getSenData();
+  }, []);
   return (
     <Switch>
       <Route exact path="/">
         <HomePage />
       </Route>
 
-      <Route path="/signup">
+      <Route exact path="/signup">
         <Signup />
       </Route>
-      <Route path="/setting">
+      <Route exact path="/setting">
         <Setting />
       </Route>
       <Route exact path="/new">

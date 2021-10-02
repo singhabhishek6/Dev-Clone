@@ -36,6 +36,8 @@ router.post('/register', async (req, res) => {
             return res.status(400).json({ status: 'failed', message: `user with ${req.body.email} is already registered` });
         }
 
+        let fullName = "" + req.body.first_name + " " + req.body.last_name;
+        req.body.name = fullName;
         user = await User.create(req.body);
         
         if (!user) {
@@ -52,6 +54,7 @@ router.post('/register', async (req, res) => {
 
 router.post('/login', async (req, res) => {
     try {
+        // console.log(req.body);
         let user = await User.findOne({ email: req.body.email }).exec();
     
         if (!user) {
@@ -59,7 +62,7 @@ router.post('/login', async (req, res) => {
         }
 
         const match = user.checkPassword(req.body.password);
-        
+        console.log("match", match);
         if (!match) return res.status(400).json({ status: "failed", message: "Wrong credentials" });
        
 
