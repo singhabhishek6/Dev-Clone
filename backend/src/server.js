@@ -12,7 +12,6 @@ const hasTag = require('./controllers/hashtag.controller');
 const app = express();
 app.use(cors({ origin: true, credentials: true }));
 app.use(express.json());
-
 //Passport configs
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
