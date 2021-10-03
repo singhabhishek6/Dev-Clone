@@ -8,10 +8,12 @@
  */
 
 .dash_section {
+  font-family:sans-serif;
   margin: 0;
   padding: 0;
 width: 100%;
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   background: #efefef;
   gap: 20px;
@@ -98,10 +100,12 @@ width: 100%;
     flex-direction: column;
     gap: 2px;
 }
-
+.show{
+  background-color: white;
+}
 .sidebar_item {
     margin: 0;
-
+cursor: pointer;
     height:40px;
     border-radius: 5px;
   padding: 0;
@@ -213,7 +217,8 @@ width: 100%;
   margin: 0;
   padding: 0;
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
   gap: 20px;
   background: white;
   padding: 20px 10px;
@@ -230,6 +235,11 @@ width: 100%;
   gap: 10px;
   width: 50%;
 }
+.post_item_count span{
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+}
 
 .post_item_title a {
   margin: 0;
@@ -241,6 +251,8 @@ width: 100%;
 }
 .post_item_title p {
   margin: 0;
+  font-weight: 600;
+  color: rgba(0,0,0,.6);
   padding: 0;
   font-size: 14px;
 }
@@ -275,7 +287,24 @@ width: 100%;
 }
 
 .post_item_manage a:hover {
-  margin: 0;
-  padding: 0;
+ 
   background: #d6d6d7;
+}
+
+.follo{
+  width: 300px;
+  display: flex;
+  flex-wrap: wrap;
+  border: 1px solid rgba(0,0,0,.2);
+  border-radius: 5px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+
+}
+.follo img{
+  width: 60px;
+  border-radius: 50%;
+  height: 60px;
 }

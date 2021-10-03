@@ -5,25 +5,33 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    /* margin-top: 20px; */
-
 }
 
 .container{
-    /* width: 60%; */
+    width: 60%;
     display: flex;
     flex-direction: column;
     gap: 20px;
     text-align: center;
-    padding: 50px 20% 50px 20%;
+    /* padding: 20px; */
+    padding-bottom: 20px;
+    margin-top: 20px;
     font-size: 14px;
     justify-content: center;
     align-items: center;
 
 }
 
+@media screen and (max-width: 805px) {
+.container{
+    width: 95%;
+}
+}
+
 .container p{
     color: grey;
+
+    margin: 0;
 }
 
 .container a{

@@ -1,31 +1,26 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { FiSearch } from "react-icons/fi";
-import { Link,useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { NavbarStyled } from "./NavbarStyled";
 import { userContext } from "../../App";
-
 
 export const Navbar = ({ toggle, setToggle }) => {
   const [clicked, setClicked] = useState(false);
   const { state, setState } = useContext(userContext);
-<<<<<<< HEAD
-  const [hover,setHover] = useState(false)
-  const [searchText,setSearch] = useState("")
+  const [hover, setHover] = useState(false);
+  const [searchText, setSearch] = useState("");
 
-  const history = useHistory()
-=======
-  const [hover, setHover] = useState(false)
+  const history = useHistory();
   const [user, setUser] = useState({});
 
   useEffect(() => {
     setUser({ ...state.user });
-  }, [state])
+  }, [state]);
 
   const handleSignOut = () => {
     setState({ status: false, user: {} });
-  }
+  };
 
->>>>>>> 4c24403af539aba9e41742cbc09b0dd63f51d8c6
   return (
     <NavbarStyled>
       <div className="navbar">
@@ -54,14 +49,16 @@ export const Navbar = ({ toggle, setToggle }) => {
           <div className={`search ${clicked && "clicked"}`}>
             <input
               onClick={() => setClicked(true)}
-              onChange={(e)=>setSearch(e.target.value)}
+              onChange={(e) => setSearch(e.target.value)}
               type="text"
               placeholder="Search..."
             />
-            <div onClick={() => {
-              setClicked(false)
-              history.push(`/search/${searchText}`)
-              }}>
+            <div
+              onClick={() => {
+                setClicked(false);
+                history.push(`/search/${searchText}`);
+              }}
+            >
               <FiSearch />
             </div>
           </div>
@@ -70,9 +67,7 @@ export const Navbar = ({ toggle, setToggle }) => {
           {!state?.status && (
             <div className="login">
               <Link to="/enter">
-                <div className="login-btn">
-                  Log in
-                </div>
+                <div className="login-btn">Log in</div>
               </Link>
               <Link to="/signup">
                 <div className="createAccount-btn">Create account</div>
@@ -117,28 +112,31 @@ export const Navbar = ({ toggle, setToggle }) => {
                   <path d="M20 17h2v2H2v-2h2v-7a8 8 0 1116 0v7zm-2 0v-7a6 6 0 10-12 0v7h12zm-9 4h6v2H9v-2z"></path>
                 </svg>
               </div>
-              <div className="avatar" onMouseEnter={() => setHover(true)} >
-                <img
-                  src={state?.user?.profile_image}
-                  alt=""
-                />
+              <div className="avatar" onMouseEnter={() => setHover(true)} onClick={() => setHover(true)}>
+                <img src={state?.user?.profile_image} alt="" />
 
-                {hover && <div className="controls" onMouseLeave={() => setHover(false)}>
-                  <div className="info">
-                    <div>
-                      <p>{user?.name}</p>
-                      <span>{user?.email}</span>
+                {hover && (
+                  <div
+                    className="controls"
+                    onMouseLeave={() => setHover(false)}
+                    onClick={() => setHover(false)}
+                  >
+                    <div className="info">
+                      <div>
+                        <p>{user?.name}</p>
+                        <span>{user?.email}</span>
+                      </div>
+                    </div>
+                    <div className="dash">
+                      <Link to="/dashboard">Dashboard</Link>
+                      <Link to="/new">Create Post</Link>
+                      <Link to="/setting">Settings</Link>
+                    </div>
+                    <div className="out" onClick={() => handleSignOut()}>
+                      <span>Sign Out</span>
                     </div>
                   </div>
-                  <div className="dash">
-                    <Link  to="/dashboard">Dashboard</Link>
-                    <Link to="/new">Create Post</Link>
-                    <Link to="/setting">Settings</Link>
-                  </div>
-                  <div className="out" onClick={() => handleSignOut()}>
-                    <span>Sign Out</span>
-                  </div>
-                </div>}
+                )}
               </div>
             </div>
           )}

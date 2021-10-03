@@ -9,6 +9,7 @@ import { useState } from "react";
 import { Navbar } from "../Navbar/Navbar";
 import { userContext } from "../../App";
 import { Alert, Snackbar } from "@mui/material";
+import { Footer } from "../Footer/Footer";
 
 export const PostDetails = () => {
   const [userr, setUser] = useState("");
@@ -357,6 +358,7 @@ export const PostDetails = () => {
           </div>
         </div>
       </PostDetailsStyle>
+        <Footer/>
 
       <Snackbar open={errModel} anchorOrigin={{
         vertical,
