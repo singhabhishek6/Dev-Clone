@@ -123,7 +123,7 @@ router.patch('/:id', async (req, res) => {
             post.tags = tagArr;
             post.published_at = post.createdAt;
 
-            return res.status(200).json({ post })
+            return res.status(200).json({ post });
         }
         else if (req.query.save !== undefined) {
             let post = await Post.findById(req.params.id).populate("user").populate('tags').lean().exec();

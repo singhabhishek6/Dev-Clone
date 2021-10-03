@@ -20,7 +20,7 @@ export const PostDetails = () => {
   const [text, setText] = useState("");
   const [comments, setComments] = useState([]);
   const [commentsCount, setCommentsCount] = useState(0);
-  const [save, setSave] = useState(4);
+  const [save, setSave] = useState(0);
   const [like, setLike] = useState(0);
   const { id } = useParams();
   const { state, setState } = useContext(userContext);
@@ -36,8 +36,9 @@ export const PostDetails = () => {
   const { vertical, horizontal } = state1;
 
   useEffect(() => {
+    console.log(state.user);
     setLoggedUser({ ...state.user });
-  }, [state, userr]);
+  }, [state]);
 
   useEffect(() => {
     fetchIt(id);
@@ -57,20 +58,22 @@ export const PostDetails = () => {
 
     setHeart(isFound);
 
-    isFound = false;
+    let isFound1 = false;
     data = userr?.saved_user;
+    console.log("saved_user", data);
     if (data !== undefined) {
       for (let i = 0; i < data.length; i++) {
         if (LoggedUser?._id?.toString() === data[i]?.toString()) {
-          isFound = true;
+          isFound1 = true;
           break;
         }
       }
     }
 
+    console.log("is User found", isFound1, LoggedUser?._id);
+    setSav(isFound1);
     setSave(data?.length);
-    setSav(isFound);
-  }, [userr])
+  }, [LoggedUser])
 
   function fetchIt(id) {
     axios.get(`http://localhost:2222/posts/${id}`).then((res) => {
@@ -179,6 +182,16 @@ export const PostDetails = () => {
     })
   }
 
+  const handleSave = () => {
+    axios.patch(`http://localhost:2222/posts/${id}?save=true&user_id=${LoggedUser?._id}`)
+    .then((res) => {
+      setSav(!sav);
+      console.log(res);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+  }
 
   return (
     <>
@@ -250,8 +263,8 @@ export const PostDetails = () => {
               <span className="num">5</span>
             </div>
 
-            <div className="circle-ripple" onClick={() => setSav(!sav)}>
-              <span onClick={() => setSave(like + 1)} className={`show ${sav && "hide"}`}>
+            <div className="circle-ripple" onClick={handleSave}>
+              <span className={`show ${sav && "hide"}`}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -263,7 +276,7 @@ export const PostDetails = () => {
                 </svg>
               </span>
 
-              <span onClick={() => setSave(like - 1)} className={`click wave2 ${!sav && "hide"}`}>
+              <span className={`click wave2 ${!sav && "hide"}`}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
