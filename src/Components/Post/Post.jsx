@@ -4,7 +4,7 @@ import { RiImageAddFill } from "react-icons/ri";
 import { storage } from "./Fire.js";
 import ReactMarkdown from "react-markdown";
 import { PostStyled } from "./PostStyle.jsx";
-import rehypeRaw from 'rehype-raw'
+import rehypeRaw from "rehype-raw";
 import { Suggestion } from "./Suggestion.jsx";
 import { userContext } from "../../App.js";
 import { useHistory } from "react-router";
@@ -32,26 +32,24 @@ export const Post = () => {
   const history = useHistory();
 
   useEffect(() => {
-    if (image)
-      handleUpload()
-  }, [image])
+    if (image) handleUpload();
+  }, [image]);
   useEffect(() => {
-    if (image1)
-      handleUpload1()
-  }, [image1])
+    if (image1) handleUpload1();
+  }, [image1]);
 
   useEffect(() => {
     setUser({ ...state.user });
-  }, [state])
+  }, [state]);
 
   const onChangeHandler = function (e) {
-    setTitletext(e.target.value)
+    setTitletext(e.target.value);
     const target = e.target;
     textRef.current.style.height = "30px";
     textRef.current.style.height = `${target.scrollHeight}px`;
   };
   const onChangeHandler1 = function (e) {
-    setMark(e.target.value)
+    setMark(e.target.value);
     const target = e.target;
     text2.current.style.height = "150px";
     text2.current.style.height = `${target.scrollHeight}px`;
@@ -104,8 +102,7 @@ export const Post = () => {
         const progresss = Math.round(
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100
         );
-        if (progresss != 0)
-          setProgress1(progresss);
+        if (progresss != 0) setProgress1(progresss);
       },
       (error) => {
         console.log(error);
@@ -116,8 +113,7 @@ export const Post = () => {
           .child(image1.name)
           .getDownloadURL()
           .then((url) => {
-
-            let x = `![Alt Text](${url})`
+            let x = `![Alt Text](${url})`;
             setUrl1(x);
           });
       }
@@ -126,28 +122,26 @@ export const Post = () => {
 
   const copy = async () => {
     await navigator.clipboard.writeText(url1);
-
-  }
-
+  };
 
   const handleSubmit = () => {
     const payload = {
       title: titletext,
       body_html: mark,
       cover_image: url,
-      tags: tagtext
-    }
+      tags: tagtext,
+    };
 
-    axios.post(`http://localhost:2222/posts?email=${user.email}`, payload)
-      .then(res => {
+    axios
+      .post(`http://localhost:2222/posts?email=${user.email}`, payload)
+      .then((res) => {
         console.log(res.data);
         history.push(`/article/${res.data.post._id}`);
-      }).catch(err => {
-        console.log(err);
       })
-
-  }
-
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <PostStyled>
@@ -231,9 +225,7 @@ export const Post = () => {
                 </div>
               ) : (
                 <div className={`load ${!image ? "hide" : ""}`}>
-                  <div className={`loader ${!image ? "hide" : ""}`}>
-
-                  </div>
+                  <div className={`loader ${!image ? "hide" : ""}`}></div>
                   <span>Upoading...</span>
                 </div>
               )}
@@ -242,13 +234,12 @@ export const Post = () => {
 
               <div className="title">
                 <textarea
-
                   ref={textRef}
                   onChange={onChangeHandler}
                   onClick={() => {
-                    setTag(false)
-                    setTitle(true)
-                    setMd(false)
+                    setTag(false);
+                    setTitle(true);
+                    setMd(false);
                   }}
                   required="true"
                   rows="1"
@@ -262,9 +253,9 @@ export const Post = () => {
                   type="text"
                   onChange={(e) => setTagtext(e.target.value.split(","))}
                   onClick={() => {
-                    setTag(true)
-                    setTitle(false)
-                    setMd(false)
+                    setTag(true);
+                    setTitle(false);
+                    setMd(false);
                   }}
                   placeholder="Add upto 4 tags..."
                 />
@@ -277,40 +268,44 @@ export const Post = () => {
                   onChange={handleChange1}
                   style={{ display: "none" }}
                 />
-                {(progress1 == 100 || progress1 == 0) ? <div
-                  className="upload"
-                  onClick={() => {
-                    Input1.current.click();
-                  }}
-                >
-                  <RiImageAddFill /> Upload image
-                </div> : <div className="load">
-                  <div className="loader">
-
+                {progress1 == 100 || progress1 == 0 ? (
+                  <div
+                    className="upload"
+                    onClick={() => {
+                      Input1.current.click();
+                    }}
+                  >
+                    <RiImageAddFill /> Upload image
                   </div>
-                  <span>Uploading...</span>
-                </div>}
-
-                {url1 && <div className="clipboard">
-                  <input type="text" value={url1} readOnly />
-                  <div className="copy" onClick={copy}>
-                    {" "}
-                    <svg
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                      role="img"
-                      aria-labelledby="fc5f15add1e114844f5e"
-                    >
-                      <title id="fc5f15add1e114844f5e">
-                        Copy Markdown for image
-                      </title>
-                      <path d="M7 6V3a1 1 0 011-1h12a1 1 0 011 1v14a1 1 0 01-1 1h-3v3c0 .552-.45 1-1.007 1H4.007A1 1 0 013 21l.003-14c0-.552.45-1 1.007-1H7zm2 0h8v10h2V4H9v2zm-2 5v2h6v-2H7zm0 4v2h6v-2H7z"></path>
-                    </svg>
-                    Copied..
+                ) : (
+                  <div className="load">
+                    <div className="loader"></div>
+                    <span>Uploading...</span>
                   </div>
-                </div>}
+                )}
+
+                {url1 && (
+                  <div className="clipboard">
+                    <input type="text" value={url1} readOnly />
+                    <div className="copy" onClick={copy}>
+                      {" "}
+                      <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                        role="img"
+                        aria-labelledby="fc5f15add1e114844f5e"
+                      >
+                        <title id="fc5f15add1e114844f5e">
+                          Copy Markdown for image
+                        </title>
+                        <path d="M7 6V3a1 1 0 011-1h12a1 1 0 011 1v14a1 1 0 01-1 1h-3v3c0 .552-.45 1-1.007 1H4.007A1 1 0 013 21l.003-14c0-.552.45-1 1.007-1H7zm2 0h8v10h2V4H9v2zm-2 5v2h6v-2H7zm0 4v2h6v-2H7z"></path>
+                      </svg>
+                      Copied..
+                    </div>
+                  </div>
+                )}
               </div>
 
               <div className="markdown">
@@ -318,9 +313,9 @@ export const Post = () => {
                   ref={text2}
                   onChange={onChangeHandler1}
                   onClick={() => {
-                    setTag(false)
-                    setTitle(false)
-                    setMd(true)
+                    setTag(false);
+                    setTitle(false);
+                    setMd(true);
                   }}
                   rows="7"
                   placeholder="Write your post content here..."
@@ -331,27 +326,27 @@ export const Post = () => {
               <img src={url} alt="" />
               <h1>{titletext}</h1>
               <p>
-                {
-                  tagtext.map((el) => {
-                    return <span style={{ color: "rgba(0,0,0,.6)", marginRight: 8 }}>#{el.trim()}</span>
-                  })
-                }
+                {tagtext.map((el) => {
+                  return (
+                    <span style={{ color: "rgba(0,0,0,.6)", marginRight: 8 }}>
+                      #{el.trim()}
+                    </span>
+                  );
+                })}
               </p>
               <ReactMarkdown rehypePlugins={[rehypeRaw]} children={mark} />
-
             </div>
           </div>
           <div className="control">
-            <div onClick={handleSubmit} className="save">Publish</div>
+            <div onClick={handleSubmit} className="save">
+              Publish
+            </div>
           </div>
         </div>
         <div className="suggestion">
-
           <Suggestion tag={tag} title={title} md={md} />
         </div>
       </div>
     </PostStyled>
   );
 };
-
-
