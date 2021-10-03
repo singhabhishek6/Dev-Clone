@@ -19,7 +19,7 @@ export const PostDetails = () => {
   const [text, setText] = useState("");
   const [comments, setComments] = useState([]);
   const [commentsCount, setCommentsCount] = useState(0);
-  const [save, setSave] = useState(4)
+  const [save, setSave] = useState(4);
   const [like, setLike] = useState(0);
   const { id } = useParams();
   const { state, setState } = useContext(userContext);
@@ -43,11 +43,11 @@ export const PostDetails = () => {
   }, [id]);
 
   useEffect(() => {
-    let likedArr = userr.liked_users;
+    let data = userr?.liked_users;
     let isFound = false;
-    if (likedArr !== undefined) {
-      for (let i = 0; i < likedArr.length; i++) {
-        if (LoggedUser?._id?.toString() === likedArr[i]?.toString()) {
+    if (data !== undefined) {
+      for (let i = 0; i < data.length; i++) {
+        if (LoggedUser?._id?.toString() === data[i]?.toString()) {
           isFound = true;
           break;
         }
@@ -55,21 +55,36 @@ export const PostDetails = () => {
     }
 
     setHeart(isFound);
+
+    isFound = false;
+    data = userr?.saved_user;
+    if (data !== undefined) {
+      for (let i = 0; i < data.length; i++) {
+        if (LoggedUser?._id?.toString() === data[i]?.toString()) {
+          isFound = true;
+          break;
+        }
+      }
+    }
+
+    setSave(data?.length);
+    setSav(isFound);
   }, [userr])
 
   function fetchIt(id) {
-    axios(`https://dev.to/api/articles/${id}`).then((res) => {
-      setUser(res.data);
-      setmark(res.data.body_html.split("\n").join(" "));
+    axios.get(`http://localhost:2222/posts/${id}`).then((res) => {
+      setUser(res.data.post);
+      setLike(res.data.post.likes_count);
+      setmark(res.data.post.body_html.split("\n").join(" "));
     }).catch(err => {
-      axios.get(`http://localhost:2222/posts/${id}`).then((res) => {
-        setUser(res.data.post);
-        setLike(res.data.post.likes_count);
-        setmark(res.data.post.body_html.split("\n").join(" "));
+      axios(`https://dev.to/api/articles/${id}`).then((res) => {
+        setUser(res.data);
+        setmark(res.data.body_html.split("\n").join(" "));
       }).catch(err => {
         console.log(err);
-      })
-    });
+      });
+    })
+
   }
 
   const fetchComments = () => {
@@ -272,8 +287,8 @@ export const PostDetails = () => {
                 <span className="u-name">{userr.user?.name || LoggedUser.name}</span>
 
                 <span className="time">
-                  Posted on:
-                  {new Date(userr.published_at).toLocaleDateString(undefined, {
+                  Posted On:
+                  {" " + new Date(userr.published_at).toLocaleDateString(undefined, {
                     day: "numeric",
                     month: "long",
                   })}

@@ -92,20 +92,20 @@ router.get('/:id', async function (req, res) {
 
 router.patch('/:id', async (req, res) => {
     try {
-        
+        // Updating likes count
         const isLike = req.query.likes;
         if (isLike !== undefined) {
             let post = await Post.findById(req.params.id).populate("user").populate('tags').lean().exec();
-            console.log(post);
+
             let liked_users1 = post.liked_users;
             let arrSize = liked_users1.length;
-            for(let i = 0; i < liked_users1.length; i++) {
-                if(req.query.user_id === liked_users1[i].toString()) {
+            for (let i = 0; i < liked_users1.length; i++) {
+                if (req.query.user_id === liked_users1[i].toString()) {
                     liked_users1.splice(i, 1);
                 }
             }
-            
-            if(arrSize === liked_users1.length){
+
+            if (arrSize === liked_users1.length) {
                 liked_users1.push(req.query.user_id);
             }
             // console.log(liked_users1);
@@ -122,6 +122,26 @@ router.patch('/:id', async (req, res) => {
 
             post.tags = tagArr;
             post.published_at = post.createdAt;
+
+            return res.status(200).json({ post })
+        }
+        else if (req.query.save !== undefined) {
+            let post = await Post.findById(req.params.id).populate("user").populate('tags').lean().exec();
+
+            let data = post.saved_user;
+            let dataSize = data.length;
+            for (let i = 0; i < dataSize; i++) {
+                if (data[i].toString() === req.query.user_id) {
+                    data.splice(i, 1);
+                    break;
+                }
+            }
+
+            if (dataSize === data.length) {
+                data.push(req.query.user_id)
+            }
+
+            post = await Post.findByIdAndUpdate(req.params.id, { saved_user: data }, { new: true });
 
             return res.status(200).json({ post })
         }

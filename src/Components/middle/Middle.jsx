@@ -13,6 +13,7 @@ export const Middle = () => {
   const [latest, setLatest] = useState(false)
   const { state, setState } = useContext(userContext);
   const [user, setUser] = useState({});
+  const [fetchClicked, setFetchClicked] = useState("");
 
   useEffect(() => {
     setUser({ ...state.user });
@@ -56,9 +57,10 @@ export const Middle = () => {
   }, [articles]);
 
   useEffect(() => {
-    fetchIt("")
-  }, []);
-  function fetchIt(x) {
+    fetchIt();
+  }, [fetchClicked]);
+
+  function fetchIt() {
     setArticles([])
 
     let timer = setTimeout(async () => {
@@ -72,21 +74,21 @@ export const Middle = () => {
           console.log(err)
         })
 
-      let res = await fetch(`https://dev.to/api/articles?${x && x}`);
+      let res = await fetch(`https://dev.to/api/articles?${fetchClicked && fetchClicked}`);
       const data = await res.json();
-      if (x === "latest=2") {
+      if (fetchClicked === "latest=2") {
         setArticles([...latestData, ...data]);
       }
       else {
         setArticles(data);
       }
     }, 2000);
-
     return () => {
       clearTimeout(timer)
     }
   }
 
+  console.log(articles);
   return (
     <MiddleStyle>
       {user?._id && <Welcom />}
@@ -94,23 +96,26 @@ export const Middle = () => {
         <nav>
           <span className={`${feed && 'bold'}`}
             onClick={(e) => {
-              fetchIt("feed=2")
+
               setTop(false)
+              setFetchClicked("feed=2")
               setLatest(false)
               setFeed(true)
             }}
             href="/#">Feed</span>
           <span className={`${top && 'bold'}`} onClick={(e) => {
-            fetchIt("latest=2")
+
             setTop(true)
+            setFetchClicked("latest=2")
             setLatest(false)
             setFeed(false)
           }} href="/#">Latest</span>
           <span className={`${latest && 'bold'}`} onClick={(e) => {
-            fetchIt("top=2")
+
             setLatest(true)
             setFeed(false)
             setTop(false)
+            setFetchClicked("top=2")
           }} href="/#">Top</span>
         </nav>
       </header>

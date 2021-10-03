@@ -115,8 +115,8 @@ export const Navbar = ({ toggle, setToggle }) => {
                 {hover && <div className="controls" onMouseLeave={() => setHover(false)}>
                   <div className="info">
                     <div>
-                      <p>sadasdsdd</p>
-                      <span>sadasdsdd</span>
+                      <p>{user?.name}</p>
+                      <span>{user?.email}</span>
                     </div>
                   </div>
                   <div className="dash">
