@@ -94,11 +94,15 @@ router.patch('/:id', async (req, res) => {
                 followers.push(req.params.id);
             }
 
-            await User.findByIdAndUpdate(req.body.follower_id, { following_users: followers }, { new: true });
+            user = await User.findByIdAndUpdate(req.body.follower_id, { following_users: followers }, { new: true });
 
-            return res.status(200).json({ status: 'success' });
+            const token = newToken(user);
+
+            res.cookie('auth_token', token, { expires: new Date(Date.now() + 3600000), httpOnly: true });
+
+            return res.status(200).json({ status: 'success', user });
         }
-
+        console.log(req.body, req.params.id);
         let user = await User.findById(req.params.id);
         if (req?.body?.password) {
             const match = user.checkPassword(req.body.password);
