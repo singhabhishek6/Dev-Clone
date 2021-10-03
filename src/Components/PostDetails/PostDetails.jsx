@@ -157,12 +157,12 @@ export const PostDetails = () => {
       data: JSON.stringify({ follower_id: LoggedUser._id }),
       withCredentials: true
     }).then((res) => {
-      console.log(res.data.user);
       setState({ type: "LOGIN", status: true, user: res.data.user });
     }).catch((err) => {
       console.log(err);
     })
   }
+
 
   return (
     <>
@@ -330,11 +330,11 @@ export const PostDetails = () => {
             <div className="foll" onClick={handleFollowUser}>{userFollow}</div>
             <div className="info">
               <span>LOCATION</span>
-              <p>{userr.user?.location}</p>
+              <p>{userr.user?.location || "New York, USA"}</p>
             </div>
             <div className="info">
               <span>JOINED</span>
-              <p>{new Date(userr?.user?.createdAt).toLocaleDateString(undefined, {
+              <p>{new Date(userr?.user?.createdAt || userr?.created_at).toLocaleDateString(undefined, {
                 day: "numeric",
                 month: "long",
               })} </p>

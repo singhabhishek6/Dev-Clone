@@ -8,11 +8,13 @@ import { Link } from "react-router-dom";
 dayjs.extend(relativeTime);
 
 export const Cards = (props) => {
-    const {
-      id,
+    let {
+        id,
+        _id,
         title,
         cover_image,
         tag_list,
+        tags,
         url,
         comments_count,
         positive_reactions_count,
@@ -21,12 +23,18 @@ export const Cards = (props) => {
         published_at,
       } = props.data;
     
-      //console.log("article data", props.data);
+      // console.log("article data", user);
+
+      if(tag_list === undefined){
+        tag_list = tags;
+      }
+
+      // console.log(user);
     
       return (
         <article className="article">
-          <Link to={`/article/${id}`}>
-          {cover_image && (
+          <Link to={`/article/${id || _id}`}>
+          { cover_image && (
             <a
               href={url}
               className="article__image"
@@ -39,11 +47,11 @@ export const Cards = (props) => {
           )}
           <div className="article__details">
             <div className="u-pic">
-              <img src={user.profile_image_90} alt="" />
+              <img src={user.profile_image} alt="" />
             </div>
             <div className="u-details">
               <a href={`http://dev.to/${user.username}`}>
-                <span className="u-name">{user.username}</span>
+                <span className="u-name">{user.name}</span>
               </a>
               <a href={url}>
                 <span className="time">
@@ -86,9 +94,9 @@ export const Cards = (props) => {
     
                   <a href={url}>
                     <span>
-                      <i>
+                      {comments_count > 0 && <i>
                         <FaRegComment  style={{width:17,height:17}} />
-                      </i>
+                      </i>}
                       &nbsp;
                       {comments_count > 0 ? (
                         <span>

@@ -92,7 +92,7 @@ router.get('/:id', async function (req, res) {
 
 router.patch('/:id', async (req, res) => {
     try {
-        console.log(req.query);
+        
         const isLike = req.query.likes;
         if (isLike !== undefined) {
             let post = await Post.findById(req.params.id).populate("user").populate('tags').lean().exec();

@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const PostDetailsStyle = styled.div`
   width: 100%;
+  max-width: 1350px;
   margin: auto;
   display: flex;
   background-color: var(--sideCard-color);

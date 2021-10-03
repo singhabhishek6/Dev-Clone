@@ -1,21 +1,23 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { IoClose } from "react-icons/io5";
 import { Link } from "react-router-dom";
+import { userContext } from "../../App";
 import { SideBarItems } from "./SideBarItems";
 import { SideBarStyle } from "./SideBarStyle";
 
-export const SideBar = ({login,setLogin,toggle ,setToggle}) => {
- 
+export const SideBar = ({ toggle, setToggle }) => {
+  const { state, setState } = useContext(userContext);
+
   return (
     <SideBarStyle className={`${toggle ? 'show' : ''}`}>
       {" "}
       <div className="community">
         DEV Community
-        <span onClick={()=>setToggle(false)}>
-        <IoClose/>
+        <span onClick={() => setToggle(false)}>
+          <IoClose />
         </span>
       </div>
-      {!login && <div className="devCounts">
+      {!state?.status && <div className="devCounts">
         <p>
           {" "}
           <span>DEV Community </span>
@@ -28,7 +30,7 @@ export const SideBar = ({login,setLogin,toggle ,setToggle}) => {
         <div className="createAccount-btn">Create new account</div>
         <div className="login-btn">Log in</div>
       </div>}
-      <SideBarItems login={login} />
+      <SideBarItems login={state?.status} />
       <div className="social">
         <Link
           to="https://twitter.com/thepracticaldev"
