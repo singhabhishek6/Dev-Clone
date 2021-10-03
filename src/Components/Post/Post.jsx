@@ -222,6 +222,7 @@ export const Post = () => {
                     className="rem"
                     onClick={() => {
                       setImage(null);
+                      setUrl("");
                       setProgress(0);
                     }}
                   >
@@ -233,7 +234,7 @@ export const Post = () => {
                   <div className={`loader ${!image ? "hide" : ""}`}>
 
                   </div>
-                  <span>Loading...</span>
+                  <span>Upoading...</span>
                 </div>
               )}
 
@@ -287,7 +288,7 @@ export const Post = () => {
                   <div className="loader">
 
                   </div>
-                  <span>Loading...</span>
+                  <span>Uploading...</span>
                 </div>}
 
                 {url1 && <div className="clipboard">

@@ -70,6 +70,7 @@ export const PostDetailsStyle = styled.div`
   .middle {
     margin-top: 15px;
     width: 60%;
+    /* display: none; */
     background-color: white;
     margin-left: 15px;
     border-radius: 8px;
@@ -110,12 +111,16 @@ export const PostDetailsStyle = styled.div`
       font-size: 40px;
     }
     .mark {
+      text-overflow: clip;
       margin-left: 60px;
       font-family: cursive;
       font-size: 18px;
       margin-right: 60px;
       margin-bottom: 40px;
       border-bottom: 1px solid rgb(0, 0, 0, 0.2);
+      & * {
+        white-space: pre-line;
+      }
     }
   }
   .right {
@@ -259,12 +264,13 @@ export const PostDetailsStyle = styled.div`
   }
   .add {
     width: 100%;
+
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
     & textarea {
       min-width: 90%;
-      position: relative;
+      /* position: relative; */
       font-size: 16px;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
         Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
@@ -331,5 +337,62 @@ export const PostDetailsStyle = styled.div`
     cursor: pointer;
     background-color: rgb(59, 73, 223);
     transition: 100ms ease-in-out;
+  }
+  @media screen and (max-width: 805px) {
+    .right {
+      display: none;
+    }
+    .side {
+      position: fixed;
+      top: 91vh;
+      z-index: 100;
+      width: 100%;
+      padding: 0;
+      margin: 0;
+      height: 80px;
+      background-color: white;
+    }
+    .sideSmall {
+      width: 100%;
+      height: 80px;
+      display: flex !important;
+      flex-direction: row;
+      display: flex;
+      border-top: 1px solid rgba(0, 0, 0, 0.2);
+    }
+    .discussion {
+      width: 95%;
+      margin: 0 5px;
+      padding-bottom: 80px;
+
+      h2{
+        margin-left: 8px;
+      }
+    }
+    .show {
+      padding: 0;
+      height: 10px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .middle {
+      width: 100%;
+      margin: 0;
+    }
+    .u-details{
+      width: 90%;
+      margin: auto !important;
+    }
+    .mark {
+      width: 90%;
+      margin: auto !important;
+      word-break: break-all;
+    }
+
+    textarea{
+        min-width: 0px !important;
+        width: 90% !important;
+      }
   }
 `;

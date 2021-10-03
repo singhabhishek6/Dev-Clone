@@ -35,13 +35,17 @@ const Home = styled.div`
   width: 100%;
   background-color: var(--sideCard-color);
   .wrapper {
-    @media screen and (max-width: 1040px) {
-      width: 90%;
-    }
     width: 92%;
     max-width: 1250px;
     margin: auto;
     margin-top: 15px;
     display: flex;
+    justify-content: center;
+    @media screen and (max-width: 1040px) {
+      width: 93%;
+      margin-left: 14px;
+      margin-right: 0 !important;
+   
+    }
   }
 `;
