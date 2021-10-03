@@ -75,14 +75,21 @@ export const UserForm = () => {
         if (loading) {
             return
         }
-        axios.patch(`http://localhost:2222/users/${user._id}`, payload).then(res => {
-            console.log(res.data);
+
+        axios({
+            method: 'patch',
+            url: `http://localhost:2222/users/${user._id}`,
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            },
+            data: payload,
+            withCredentials: true
+        }).then(res => {
             setState({ type: "LOGIN", status: true, user: res.data.user });
+        }).catch(err => {
+            console.log(err);
         })
-            .catch(err => {
-                alert(err);
-            })
-        console.log(payload);
     };
     return (
         <div>
