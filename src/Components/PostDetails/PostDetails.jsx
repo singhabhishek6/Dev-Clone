@@ -8,6 +8,7 @@ import ReactMarkdown from "react-markdown";
 import { useState } from "react";
 import { Navbar } from "../Navbar/Navbar";
 import { userContext } from "../../App";
+import { Alert, Snackbar } from "@mui/material";
 
 export const PostDetails = () => {
   const [userr, setUser] = useState("");
@@ -18,26 +19,35 @@ export const PostDetails = () => {
   const [text, setText] = useState("");
   const [comments, setComments] = useState([]);
   const [commentsCount, setCommentsCount] = useState(0);
-  const [save, setSave] = useState(4)
+  const [save, setSave] = useState(4);
   const [like, setLike] = useState(0);
   const { id } = useParams();
   const { state, setState } = useContext(userContext);
   const [LoggedUser, setLoggedUser] = useState({});
+  const [userFollow, setUserFollow] = useState("Follow");
+  const [errModel, setErrModel] = useState(false);
+  const [errMessege, setErrMessage] = useState("");
+
+  const [state1, setState1] = useState({
+    vertical: 'top',
+    horizontal: 'right',
+  });
+  const { vertical, horizontal } = state1;
 
   useEffect(() => {
     setLoggedUser({ ...state.user });
-  }, [state]);
+  }, [state, userr]);
 
   useEffect(() => {
     fetchIt(id);
   }, [id]);
 
   useEffect(() => {
-    let likedArr = userr.liked_users;
+    let data = userr?.liked_users;
     let isFound = false;
-    if (likedArr !== undefined) {
-      for (let i = 0; i < likedArr.length; i++) {
-        if (LoggedUser._id.toString() === likedArr[i].toString()) {
+    if (data !== undefined) {
+      for (let i = 0; i < data.length; i++) {
+        if (LoggedUser?._id?.toString() === data[i]?.toString()) {
           isFound = true;
           break;
         }
@@ -45,27 +55,43 @@ export const PostDetails = () => {
     }
 
     setHeart(isFound);
+
+    isFound = false;
+    data = userr?.saved_user;
+    if (data !== undefined) {
+      for (let i = 0; i < data.length; i++) {
+        if (LoggedUser?._id?.toString() === data[i]?.toString()) {
+          isFound = true;
+          break;
+        }
+      }
+    }
+
+    setSave(data?.length);
+    setSav(isFound);
   }, [userr])
 
   function fetchIt(id) {
-    axios(`https://dev.to/api/articles/${id}`).then((res) => {
-      setUser(res.data);
-      setmark(res.data.body_html.split("\n").join(" "));
+    axios.get(`http://localhost:2222/posts/${id}`).then((res) => {
+      setUser(res.data.post);
+      setLike(res.data.post.likes_count);
+      setmark(res.data.post.body_html.split("\n").join(" "));
     }).catch(err => {
-      axios.get(`http://localhost:2222/posts/${id}`).then((res) => {
-        setUser(res.data.post);
-        setLike(res.data.post.likes_count);
-        setmark(res.data.post.body_html.split("\n").join(" "));
+      axios(`https://dev.to/api/articles/${id}`).then((res) => {
+        setUser(res.data);
+        setmark(res.data.body_html.split("\n").join(" "));
       }).catch(err => {
         console.log(err);
-      })
-    });
+      });
+    })
+
   }
 
   const fetchComments = () => {
     axios.get(`http://localhost:2222/comments?post_id=${id}`).then(res => {
       setCommentsCount(res.data.comments_count);
-      setComments(res.data.comments);
+      setComments(res.data.comments.reverse());
+      setText("");
     }).catch(err => {
       console.log(err);
     })
@@ -75,6 +101,32 @@ export const PostDetails = () => {
     fetchComments();
   }, [id])
 
+  useEffect(() => {
+    let data = state?.user?.following_users;
+    let postUserId = userr?.user?._id;
+    let isFound = false;
+    for (let i = 0; i < data?.length; i++) {
+      console.log("Hello type", data[i], postUserId);
+      if (data[i] === postUserId) {
+        isFound = true;
+        setUserFollow("Unfollow");
+        break;
+      }
+    }
+
+    if (!isFound) {
+      setUserFollow("Follow");
+    }
+
+  }, [state, userr]);
+
+  const handleAlert = (message) => {
+    setErrMessage(message);
+    setErrModel(true);
+    setTimeout(() => {
+      setErrModel(false);
+    }, 2000)
+  }
 
   const handleCommentSubmit = () => {
     axios.post(`http://localhost:2222/comments?post_id=${id}&user_id=${LoggedUser._id}`, {
@@ -98,9 +150,34 @@ export const PostDetails = () => {
       })
       .catch(err => {
         console.log(err);
+        setHeart(false);
+        handleAlert("please login for like this post");
       })
 
   }
+
+  const handleFollowUser = () => {
+    if (LoggedUser._id === undefined) {
+      handleAlert("Please login to follow user");
+      return;
+    }
+
+    axios({
+      method: 'PATCH',
+      url: `http://localhost:2222/users/${userr?.user._id}`,
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json'
+      },
+      data: JSON.stringify({ follower_id: LoggedUser._id }),
+      withCredentials: true
+    }).then((res) => {
+      setState({ type: "LOGIN", status: true, user: res.data.user });
+    }).catch((err) => {
+      console.log(err);
+    })
+  }
+
 
   return (
     <>
@@ -210,8 +287,8 @@ export const PostDetails = () => {
                 <span className="u-name">{userr.user?.name || LoggedUser.name}</span>
 
                 <span className="time">
-                  Posted on:
-                  {new Date(userr.published_at).toLocaleDateString(undefined, {
+                  Posted On:
+                  {" " + new Date(userr.published_at).toLocaleDateString(undefined, {
                     day: "numeric",
                     month: "long",
                   })}
@@ -232,8 +309,8 @@ export const PostDetails = () => {
           <div className="discussion">
             <h2>Discussion ({userr.comments_count || commentsCount})</h2>
             <div className="add">
-              <img className="pro1" src={userr.user?.profile_image || LoggedUser.profile_image} alt="" />
-              <textarea onChange={(e) => setText(e.target.value)} cols="30" rows="5" placeholder="Add to the discussion" />
+              <img className="pro1" src={LoggedUser.profile_image || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPbGrM6LFhkSf171kkRf3Ua6WKdL886A_ndA&usqp=CAU"} alt="" />
+              <textarea onChange={(e) => setText(e.target.value)} cols="30" rows="5" placeholder="Add to the discussion" value={text} />
             </div>
             <div onClick={handleCommentSubmit} className={`sub ${text && "allow"}`}>
               Submit
@@ -265,18 +342,31 @@ export const PostDetails = () => {
               <img className="pro2" src={userr.user?.profile_image} alt="" />
               <span>{userr.user?.name}</span>
             </div>
-            <div className="foll">Follow</div>
+            <div className="foll" onClick={handleFollowUser}>{userFollow}</div>
             <div className="info">
               <span>LOCATION</span>
-              <p>{userr.user?.location}</p>
+              <p>{userr.user?.location || "New York, USA"}</p>
             </div>
             <div className="info">
               <span>JOINED</span>
-              <p>9 Sept 2021 </p>
+              <p>{new Date(userr?.user?.createdAt || userr?.created_at).toLocaleDateString(undefined, {
+                day: "numeric",
+                month: "long",
+              })} </p>
             </div>
           </div>
         </div>
       </PostDetailsStyle>
+
+      <Snackbar open={errModel} anchorOrigin={{
+        vertical,
+        horizontal
+      }}
+        key={vertical + horizontal} >
+        <Alert severity="error" sx={{ width: '100%' }}>
+          {errMessege}
+        </Alert>
+      </Snackbar>
     </>
   );
 };

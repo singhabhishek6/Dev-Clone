@@ -1,10 +1,11 @@
 
 import React, { useState } from "react";
-import { FaCross } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 export const Welcom = () => {
-    const [click,setClick] = useState(true)
+    const [click,setClick] = useState(true);
+    
+
   return (
     click && <div className="welcome">
       <div className="top">

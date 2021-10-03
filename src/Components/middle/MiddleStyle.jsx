@@ -90,7 +90,8 @@ export const MiddleStyle = styled.main`
 
       img {
         border-radius: 50%;
-        width: 100%;
+        width: 30px;
+        height: 30px;
       }
     }
 

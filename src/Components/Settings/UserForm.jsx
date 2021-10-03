@@ -63,7 +63,6 @@ export const UserForm = () => {
     const handleChange = (e) => {
         const { name, value } = e.target;
         if (name === "profile_image" && e.target.files[0]) {
-            // setImage(e.target.files[0]);
             setLoading(true);
             handleUpload(e.target.files[0]);
         }
@@ -77,7 +76,8 @@ export const UserForm = () => {
             return
         }
         axios.patch(`http://localhost:2222/users/${user._id}`, payload).then(res => {
-            alert("Updated Successfully");
+            console.log(res.data);
+            setState({ type: "LOGIN", status: true, user: res.data.user });
         })
             .catch(err => {
                 alert(err);

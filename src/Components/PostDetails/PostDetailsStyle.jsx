@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const PostDetailsStyle = styled.div`
   width: 100%;
+  max-width: 1350px;
   margin: auto;
   display: flex;
   background-color: var(--sideCard-color);
@@ -77,6 +78,7 @@ export const PostDetailsStyle = styled.div`
     .u-details {
       margin-left: 60px;
       margin-right: 60px;
+      margin-top: 30px;
       & > div {
         display: flex;
         align-items: center;
@@ -103,7 +105,6 @@ export const PostDetailsStyle = styled.div`
     .pro {
       width: 50px !important;
       height: 50px;
-      margin-top: 30px;
       border-radius: 50% !important;
     }
     .ti {

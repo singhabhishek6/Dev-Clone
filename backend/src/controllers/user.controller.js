@@ -61,7 +61,7 @@ router.post('/login', async (req, res) => {
         }
 
         const match = user.checkPassword(req.body.password);
-        console.log("match", match);
+        
         if (!match) return res.status(400).json({ status: "failed", message: "Wrong credentials" });
 
 
@@ -94,11 +94,15 @@ router.patch('/:id', async (req, res) => {
                 followers.push(req.params.id);
             }
 
-            await User.findByIdAndUpdate(req.body.follower_id, { following_users: followers }, { new: true });
+            user = await User.findByIdAndUpdate(req.body.follower_id, { following_users: followers }, { new: true });
 
-            return res.status(200).json({ status: 'success' });
+            const token = newToken(user);
+
+            res.cookie('auth_token', token, { expires: new Date(Date.now() + 3600000), httpOnly: true });
+
+            return res.status(200).json({ status: 'success', user });
         }
-
+        
         let user = await User.findById(req.params.id);
         if (req?.body?.password) {
             const match = user.checkPassword(req.body.password);
@@ -112,10 +116,11 @@ router.patch('/:id', async (req, res) => {
                 }
             }
         }
-
+        console.log("req.body ", req.body);
         user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        console.log("user ", user);
 
-        return res.status(200).json({ User: user });
+        return res.status(200).json({ user: user });
     }
     catch (err) {
         return res.status(400).json({ status: "failed", message: err.message });

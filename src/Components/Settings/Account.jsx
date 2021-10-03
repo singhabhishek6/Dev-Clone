@@ -1,3 +1,4 @@
+import { Alert, Snackbar } from '@mui/material';
 import axios from 'axios';
 import { useContext, useEffect, useState } from 'react';
 import { userContext } from '../../App';
@@ -5,18 +6,43 @@ import styles from './Setting.module.css';
 
 export const Account = () => {
     const [currentPassword, setCurrentPassword] = useState("");
-    const [password, setPassword] = useState("");
+    const [password, setPassword] = useState(null);
     const [confirmPassword, setConfirmPassword] = useState("");
     const { state, setState } = useContext(userContext);
     const [user, setUser] = useState({});
+    const [errModel, setErrModel] = useState(false);
+    const [errMessege, setErrMessage] = useState("");
+
+    const [state1, setState1] = useState({
+        vertical: 'top',
+        horizontal: 'right',
+    });
+    const { vertical, horizontal } = state1;
+
 
     useEffect(() => {
-        setUser({ ...state.payload });
+        setUser({ ...state.user });
     }, [state])
 
+    const handleAlert = (message) => {
+        setErrMessage(message);
+        setErrModel(true);
+        setTimeout(() => {
+            setErrModel(false);
+        }, 2000)
+    }
+
     const handleSubmit = () => {
-        if (password !== confirmPassword) {
-            alert("Password and confirm password should be the same");
+        if (currentPassword === "") {
+            handleAlert("Current Password is required!");
+            return;
+        }
+        else if (password !== confirmPassword) {
+            handleAlert("Password and currentPassword did not matched!");
+            return;
+        }
+        else if (user?._id === undefined) {
+            handleAlert("User is not logged in");
             return;
         }
 
@@ -27,10 +53,13 @@ export const Account = () => {
 
         axios.patch(`http://localhost:2222/users/${user._id}`, payload)
             .then(res => {
-                alert("Updated Successfully");
+                handleAlert("Updated Successfully");
+                setCurrentPassword("");
+                setPassword("");
+                setConfirmPassword("");
             })
             .catch(err => {
-                alert(err);
+                handleAlert(err);
             })
     }
 
@@ -50,8 +79,22 @@ export const Account = () => {
                 <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
             </div>
             <div className={styles.formFields}>
-                <input className={styles.submitBtn} value={"Set New Password"} type="text" readonly="true" onClick={handleSubmit} />
+                <input className={`${styles.submitBtn} ${confirmPassword === password && styles.suc}`}
+                    value={"Set New Password"}
+                    type="text" readonly="true"
+                    onClick={handleSubmit} />
             </div>
-        </div>
+
+            <Snackbar open={errModel} anchorOrigin={{
+                vertical,
+                horizontal
+            }}
+                key={vertical + horizontal}
+            >
+                <Alert severity="error" sx={{ width: '100%' }}>
+                    {errMessege}
+                </Alert>
+            </Snackbar>
+        </div >
     );
 }

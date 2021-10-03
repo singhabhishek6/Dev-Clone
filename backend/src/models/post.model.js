@@ -22,6 +22,11 @@ const postSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "user",
         required: true
+    }],
+    saved_user: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "user",
+        required: true
     }]
 }, {
     versionKey: false,
@@ -31,3 +36,4 @@ const postSchema = new mongoose.Schema({
 const Post = mongoose.model('post', postSchema);
 
 module.exports = Post;
+
