@@ -61,7 +61,7 @@ router.post('/login', async (req, res) => {
         }
 
         const match = user.checkPassword(req.body.password);
-        console.log("match", match);
+        
         if (!match) return res.status(400).json({ status: "failed", message: "Wrong credentials" });
 
 
@@ -102,7 +102,7 @@ router.patch('/:id', async (req, res) => {
 
             return res.status(200).json({ status: 'success', user });
         }
-        console.log(req.body, req.params.id);
+        
         let user = await User.findById(req.params.id);
         if (req?.body?.password) {
             const match = user.checkPassword(req.body.password);
@@ -116,10 +116,11 @@ router.patch('/:id', async (req, res) => {
                 }
             }
         }
-
+        console.log("req.body ", req.body);
         user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        console.log("user ", user);
 
-        return res.status(200).json({ User: user });
+        return res.status(200).json({ user: user });
     }
     catch (err) {
         return res.status(400).json({ status: "failed", message: err.message });

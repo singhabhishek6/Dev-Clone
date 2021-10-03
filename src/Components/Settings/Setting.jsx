@@ -1,14 +1,17 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Navbar } from "../Navbar/Navbar";
 import { Customization } from "./customization";
 import styles from './Setting.module.css'
 import { UserForm } from "./UserForm";
 import { Account } from "./Account";
+import { userContext } from "../../App";
+import { Redirect } from "react-router";
 
 
 export const Setting = () => {
     const [toggle, setToggle] = useState(false);
     const [currentSelectedTab, setCurrentSelectedTab] = useState("profile");
+    const { state, setState } = useContext(userContext);
 
     const [userFormDisplay, setUserFormDisplay] = useState("inherit");
     const [customizationDisplay, setCustomizationDisplay] = useState("none");
@@ -35,6 +38,10 @@ export const Setting = () => {
         else if (currentSelectedTab === "notification") setNotificationsBG("none");
         else if (currentSelectedTab === "billing") setBillingBG("none");
         else if (currentSelectedTab === "extension") setExtensionBG("none");
+    }
+
+    if(state?.user?._id === undefined){
+        return <Redirect to="/" />;
     }
 
     return (
