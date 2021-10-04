@@ -7,8 +7,8 @@ import { userContext } from "../../App";
 export const Navbar = ({ toggle, setToggle }) => {
   const [clicked, setClicked] = useState(false);
   const { state, setState } = useContext(userContext);
-  const [hover, setHover] = useState(false);
-  const [searchText, setSearch] = useState("");
+  const [hover,setHover] = useState(false)
+  const [searchText,setSearch] = useState("")
 
   const history = useHistory();
   const [user, setUser] = useState({});

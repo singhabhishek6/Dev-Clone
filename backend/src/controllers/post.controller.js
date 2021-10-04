@@ -5,18 +5,24 @@ const HashTag = require('../models/hastag.model');
 
 const router = express.Router();
 
+// change tag_id to tag names
+function handlePostTags(data) {
+    let tagArr = [];
+    for (let i = 0; i < data.length; i++) {
+        tagArr.push(data[i].tag_name);
+    }
+
+    return tagArr;
+}
+
+
+
 router.get('/', async (req, res) => {
     try {
         const posts = await Post.find().populate('user').populate('tags').lean().exec();
 
         posts.map(post => {
-            let data = post.tags;
-            let tagArr = [];
-            for (let i = 0; i < data.length; i++) {
-                tagArr.push(data[i].tag_name);
-            }
-
-            post.tags = tagArr;
+            post.tags = handlePostTags(post.tags);
             post.published_at = post.createdAt;
             return post;
         })
@@ -30,14 +36,13 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req, res) => {
     try {
-        console.log(req.query);
+
         let email = req.query.email;
         const user = await User.findOne({ email: email }).exec();
 
         if (!user) {
             return res.status(400).json({ status: "failed", message: 'user is not defined' });
         }
-        console.log(user);
 
         let tags = req.body.tags;
         for (let i = 0; i < tags.length; i++) {
@@ -72,13 +77,7 @@ router.get('/:id', async function (req, res) {
     try {
         const post = await Post.findById(req.params.id).populate("user").populate('tags').lean().exec();
 
-        let data = post.tags;
-        let tagArr = [];
-        for (let i = 0; i < data.length; i++) {
-            tagArr.push(data[i].tag_name);
-        }
-
-        post.tags = tagArr;
+        post.tags = handlePostTags(post.tags);
         post.published_at = post.createdAt;
 
         return res.status(200).json({ post })
@@ -114,13 +113,7 @@ router.patch('/:id', async (req, res) => {
 
             post = await Post.findById(req.params.id).populate("user").populate('tags').lean().exec();
 
-            let data = post.tags;
-            let tagArr = [];
-            for (let i = 0; i < data.length; i++) {
-                tagArr.push(data[i].tag_name);
-            }
-
-            post.tags = tagArr;
+            post.tags = handlePostTags(post.tags);
             post.published_at = post.createdAt;
 
             return res.status(200).json({ post });
@@ -142,6 +135,11 @@ router.patch('/:id', async (req, res) => {
             }
 
             post = await Post.findByIdAndUpdate(req.params.id, { saved_user: data }, { new: true });
+            
+            post = await Post.findById(req.params.id).populate("user").populate('tags').lean().exec();
+
+            post.tags = handlePostTags(post.tags);
+            post.published_at = post.createdAt;
 
             return res.status(200).json({ post })
         }

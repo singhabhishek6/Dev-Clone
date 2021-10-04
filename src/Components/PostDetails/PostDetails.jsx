@@ -72,8 +72,8 @@ export const PostDetails = () => {
 
     console.log("is User found", isFound1, LoggedUser?._id);
     setSav(isFound1);
-    setSave((data?.length > 0 && data?.length) || 1);
-  }, [LoggedUser]);
+    setSave(data?.length);
+  }, [LoggedUser, userr])
 
   function fetchIt(id) {
     axios
@@ -117,7 +117,6 @@ export const PostDetails = () => {
     let postUserId = userr?.user?._id;
     let isFound = false;
     for (let i = 0; i < data?.length; i++) {
-      console.log("Hello type", data[i], postUserId);
       if (data[i] === postUserId) {
         isFound = true;
         setUserFollow("Unfollow");
@@ -198,18 +197,16 @@ export const PostDetails = () => {
   };
 
   const handleSave = () => {
-    axios
-      .patch(
-        `http://localhost:2222/posts/${id}?save=true&user_id=${LoggedUser?._id}`
-      )
+    axios.patch(`http://localhost:2222/posts/${id}?save=true&user_id=${LoggedUser?._id}`)
       .then((res) => {
         setSav(!sav);
-        console.log(res);
+        setUser(res.data.post);
+        setmark(res.data.post.body_html.split("\n").join(" "));
       })
       .catch((err) => {
         console.log(err);
-      });
-  };
+      })
+  }
 
   return (
     <>
