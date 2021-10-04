@@ -15,8 +15,6 @@ function handlePostTags(data) {
     return tagArr;
 }
 
-
-
 router.get('/', async (req, res) => {
     try {
         const posts = await Post.find().populate('user').populate('tags').lean().exec();

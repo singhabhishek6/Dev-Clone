@@ -1,5 +1,6 @@
 const express = require('express');
 const Comment = require('../models/comment.model');
+const Post = require('../models/post.model');
 
 const router = express.Router();
 
@@ -21,6 +22,10 @@ router.post('/', async (req, res) => {
         req.body.user_id = req?.query?.user_id;
         req.body.post_id = req?.query?.post_id;
         const comment = await Comment.create(req.body); 
+        const totalEntries = await Comment.find({ post_id: req.query.post_id }).count().lean().exec();
+
+        const post =  await Post.findByIdAndUpdate(req?.query?.post_id, {comments_count: totalEntries}, {new: true});
+       
 
         return res.status(201).json({ comment: comment })
     }
