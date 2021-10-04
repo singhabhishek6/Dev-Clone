@@ -24,7 +24,7 @@ export const Login = () => {
         e.preventDefault();
         await axios({
             method: 'post',
-            url: 'http://localhost:2222/users/login',
+            url: 'https://devto-backent.herokuapp.com/users/login',
             headers: {
                 'Accept': 'application/json, text/plain, */*',
                 'Content-Type': 'application/json'

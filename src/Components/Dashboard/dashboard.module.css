@@ -276,6 +276,7 @@ cursor: pointer;
   padding: 0;
   display: flex;
   gap: 20px;
+  margin-left: 300px;
 }
 
 .post_item_manage a {

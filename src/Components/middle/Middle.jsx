@@ -65,7 +65,7 @@ export const Middle = () => {
     let latestData = [];
 
     axios
-      .get("http://localhost:2222/posts")
+      .get("https://devto-backent.herokuapp.com/posts")
       .then((res) => {
         latestData = res.data.posts.reverse();
         console.log(res.data.posts);

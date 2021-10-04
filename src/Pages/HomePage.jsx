@@ -5,8 +5,7 @@ import { Navbar } from "../Components/Navbar/Navbar";
 import { RightBar } from "../Components/RightBar/RightBar";
 import { SideBar } from "../Components/SideBar/SideBar";
 
-export const HomePage = () => {
-  const [toggle, setToggle] = useState(false);
+export const HomePage = ({toggle,setToggle}) => {
   const [login, setLogin] = useState(false);
 
   return (

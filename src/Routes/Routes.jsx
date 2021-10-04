@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Switch, Route } from "react-router-dom";
 import { HomePage } from "../Pages/HomePage";
 import { Signup } from "../Components/Signup/Signup";
@@ -13,6 +13,7 @@ import { Dashboard } from "../Components/Dashboard/Dashboard";
 import { Edit } from "../Components/Edit/Post";
 
 export const Routes = () => {
+  const [toggle, setToggle] = useState(false);
   const { setState } = useContext(userContext);
   const getSenData = () => {
     axios({
@@ -36,10 +37,10 @@ export const Routes = () => {
   return (
     <Switch>
       <Route exact path="/">
-        <HomePage />
+        <HomePage toggle={toggle} setToggle={setToggle} />
       </Route>
      <Route exact path="/dashboard">
-       <Dashboard/>
+       <Dashboard />
        </Route>
       <Route exact path="/signup">
         <Signup />
@@ -51,7 +52,7 @@ export const Routes = () => {
         <Post />
       </Route>
       <Route exact path="/article/:id">
-        <PostDetails />
+        <PostDetails toggle={toggle} setToggle={setToggle}  />
       </Route>
 
       <Route exact path="/enter">

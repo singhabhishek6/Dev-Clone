@@ -34,7 +34,7 @@ export const Edit = () => {
   const {id} = useParams()
 console.log(id);
   useEffect(() => {
-    axios(`http://localhost:2222/posts/${id}`)
+    axios(`https://devto-backent.herokuapp.com/posts/${id}`)
     .then(res=>{
       let x = res.data.post
       setUrl(x.cover_image)
@@ -146,7 +146,7 @@ console.log(id);
     };
 
     axios
-      .patch(`http://localhost:2222/posts/${id}`, payload)
+      .patch(`https://devto-backent.herokuapp.com/posts/${id}`, payload)
       .then((res) => {
         console.log(res.data);
         history.push(`/article/${res.data.post._id}`);

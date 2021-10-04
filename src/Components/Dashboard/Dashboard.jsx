@@ -42,7 +42,7 @@ const Dashboard = () => {
 
   const fetchUserPostData = (title) => {
     axios
-      .get(`http://localhost:2222/posts`)
+      .get(`https://devto-backent.herokuapp.com/posts`)
       .then((res) => {
        
         let x = 0;
@@ -69,7 +69,7 @@ const Dashboard = () => {
   const getUser =  ()=> {
    let likedUser= []
     
-     axios.get(`http://localhost:2222/users`).then( res => {
+     axios.get(`https://devto-backent.herokuapp.com/users`).then( res => {
        console.log(res);
               likedUser= res.data.data    
               console.log(likedUser);
@@ -112,7 +112,7 @@ console.log(user,logged);
                 className={Dash.sidebar_item + " " + (p ? Dash.show : "")}
               >
                 <p>Post</p>
-                <button>{UserPostData.length}</button>
+             
               </div>
               <div
                 onClick={() => {
@@ -124,14 +124,14 @@ console.log(user,logged);
                 className={Dash.sidebar_item + " " + (u ? Dash.show : "")}
               >
                 <p>Following users</p>
-                <button>{UserPostData[0]?.user.following_users.length}</button>
+         
               </div>
             </div>
           </div>
 
           <div className={Dash.post_main}>
-            <div className={Dash.select_container}>
-              <h3>Posts</h3>
+            {/* <div className={Dash.select_container}>
+             
               {UserPostData.length == 0 ? (
                 ""
               ) : (
@@ -143,7 +143,7 @@ console.log(user,logged);
                   <option value="Most Comments">Most Comments</option>
                 </select>
               )}
-            </div>
+            </div> */}
             {UserPostData.length == 0 ? (
               <div className={Dash.post_blank}>
                 <p>

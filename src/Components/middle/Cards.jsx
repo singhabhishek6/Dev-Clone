@@ -13,6 +13,7 @@ export const Cards = (props) => {
     _id,
     title,
     cover_image,
+    createdAt,
     tag_list,
     tags,
     comment_count,
@@ -33,7 +34,7 @@ export const Cards = (props) => {
   }
 
   // console.log(user);
-console.log(cover_image,_id);
+console.log(props.data);
   return (
     <article className="article">
       <Link to={`/article/${id || _id}`}>
@@ -51,7 +52,7 @@ console.log(cover_image,_id);
             </a>
             <a href={url}>
               <span className="time">
-                {new Date(published_at).toLocaleDateString(undefined, {
+                {new Date(createdAt||published_at).toLocaleDateString(undefined, {
                   day: "numeric",
                   month: "long",
                 })}
