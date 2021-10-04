@@ -78,7 +78,7 @@ export const PostDetails = ({toggle, setToggle }) => {
 
   function fetchIt(id) {
     axios
-      .get(`http://localhost:2222/posts/${id}`)
+      .get(`https://devto-backent.herokuapp.com/posts/${id}`)
       .then((res) => {
         setUser(res.data.post);
         setLike(res.data.post.likes_count);
@@ -98,7 +98,7 @@ export const PostDetails = ({toggle, setToggle }) => {
 
   const fetchComments = () => {
     axios
-      .get(`http://localhost:2222/comments?post_id=${id}`)
+      .get(`https://devto-backent.herokuapp.com/comments?post_id=${id}`)
       .then((res) => {
         setCommentsCount(res.data.comments_count);
         setComments(res.data.comments.reverse());
@@ -141,7 +141,7 @@ export const PostDetails = ({toggle, setToggle }) => {
   const handleCommentSubmit = () => {
     axios
       .post(
-        `http://localhost:2222/comments?post_id=${id}&user_id=${LoggedUser._id}`,
+        `https://devto-backent.herokuapp.com/comments?post_id=${id}&user_id=${LoggedUser._id}`,
         {
           description: text,
         }
@@ -157,7 +157,7 @@ export const PostDetails = ({toggle, setToggle }) => {
   const handleLikes = (likeStatus) => {
     axios
       .patch(
-        `http://localhost:2222/posts/${id}?likes=${likeStatus + like}&user_id=${
+        `https://devto-backent.herokuapp.com/posts/${id}?likes=${likeStatus + like}&user_id=${
           LoggedUser._id
         }`
       )
@@ -181,7 +181,7 @@ export const PostDetails = ({toggle, setToggle }) => {
 
     axios({
       method: "PATCH",
-      url: `http://localhost:2222/users/${userr?.user._id}`,
+      url: `https://devto-backent.herokuapp.com/users/${userr?.user._id}`,
       headers: {
         Accept: "application/json, text/plain, */*",
         "Content-Type": "application/json",
@@ -200,7 +200,7 @@ export const PostDetails = ({toggle, setToggle }) => {
   const handleSave = () => {
     axios
       .patch(
-        `http://localhost:2222/posts/${id}?save=true&user_id=${LoggedUser?._id}`
+        `https://devto-backent.herokuapp.com/posts/${id}?save=true&user_id=${LoggedUser?._id}`
       )
       .then((res) => {
         setSav(!sav);
