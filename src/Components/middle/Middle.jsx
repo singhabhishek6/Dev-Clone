@@ -1,33 +1,32 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { Cards } from './Cards';
-import { MiddleStyle } from './MiddleStyle';
-import { Skeleton } from './Skeleton';
-import { Welcom } from './Welcom';
-import axios from 'axios';
-import { userContext } from '../../App';
+import React, { useContext, useEffect, useState } from "react";
+import { Cards } from "./Cards";
+import { MiddleStyle } from "./MiddleStyle";
+import { Skeleton } from "./Skeleton";
+import { Welcom } from "./Welcom";
+import axios from "axios";
+import { userContext } from "../../App";
 
 export const Middle = () => {
   const [articles, setArticles] = useState([]);
-  const [feed, setFeed] = useState(true)
-  const [top, setTop] = useState(false)
-  const [latest, setLatest] = useState(false)
+  const [feed, setFeed] = useState(true);
+  const [top, setTop] = useState(false);
+  const [latest, setLatest] = useState(false);
   const { state, setState } = useContext(userContext);
   const [user, setUser] = useState({});
   const [fetchClicked, setFetchClicked] = useState("");
 
   useEffect(() => {
     setUser({ ...state.user });
-  }, [state])
+  }, [state]);
 
   useEffect(() => {
     const fetchAgain = () => {
       console.log("fetch again");
       if (articles.length !== 0) {
-        axios.get("https://dev.to/api/articles")
-          .then((result) => {
-            console.log("line no 20", articles, result)
-            setArticles([...articles, ...result.data])
-          });
+        axios.get("https://dev.to/api/articles").then((result) => {
+          console.log("line no 20", articles, result);
+          setArticles([...articles, ...result.data]);
+        });
       }
     };
     const handleScroll = () => {
@@ -61,31 +60,33 @@ export const Middle = () => {
   }, [fetchClicked]);
 
   function fetchIt() {
-    setArticles([])
+    setArticles([]);
 
     let timer = setTimeout(async () => {
-
       let latestData = [];
 
-      axios.get('http://localhost:2222/posts')
+      axios
+        .get("http://localhost:2222/posts")
         .then((res) => {
           latestData = res.data.posts.reverse();
-        }).catch(err => {
-          console.log(err)
         })
+        .catch((err) => {
+          console.log(err);
+        });
 
-      let res = await fetch(`https://dev.to/api/articles?${fetchClicked && fetchClicked}`);
+      let res = await fetch(
+        `https://dev.to/api/articles?${fetchClicked && fetchClicked}`
+      );
       const data = await res.json();
       if (fetchClicked === "latest=2") {
         setArticles([...latestData, ...data]);
-      }
-      else {
+      } else {
         setArticles(data);
       }
     }, 2000);
     return () => {
-      clearTimeout(timer)
-    }
+      clearTimeout(timer);
+    };
   }
 
   console.log(articles);
@@ -94,39 +95,52 @@ export const Middle = () => {
       {user?._id && <Welcom />}
       <header className="header">
         <nav>
-          <span className={`${feed && 'bold'}`}
+          <span
+            className={`${feed && "bold"}`}
             onClick={(e) => {
-
-              setTop(false)
-              setFetchClicked("feed=2")
-              setLatest(false)
-              setFeed(true)
+              setTop(false);
+              setFetchClicked("feed=2");
+              setLatest(false);
+              setFeed(true);
             }}
-            href="/#">Feed</span>
-          <span className={`${top && 'bold'}`} onClick={(e) => {
-
-            setTop(true)
-            setFetchClicked("latest=2")
-            setLatest(false)
-            setFeed(false)
-          }} href="/#">Latest</span>
-          <span className={`${latest && 'bold'}`} onClick={(e) => {
-
-            setLatest(true)
-            setFeed(false)
-            setTop(false)
-            setFetchClicked("top=2")
-          }} href="/#">Top</span>
+            href="/#"
+          >
+            Feed
+          </span>
+          <span
+            className={`${top && "bold"}`}
+            onClick={(e) => {
+              setTop(true);
+              setFetchClicked("latest=2");
+              setLatest(false);
+              setFeed(false);
+            }}
+            href="/#"
+          >
+            Latest
+          </span>
+          <span
+            className={`${latest && "bold"}`}
+            onClick={(e) => {
+              setLatest(true);
+              setFeed(false);
+              setTop(false);
+              setFetchClicked("top=2");
+            }}
+            href="/#"
+          >
+            Top
+          </span>
         </nav>
       </header>
       <div className="articles">
         {articles &&
           articles.map((article, id) => {
-            return <Cards key={id} data={article} />
+            return <Cards key={id} data={article} />;
           })}
 
         {!articles.length && [1, 2, 3, 4, 5].map((a) => <Skeleton key={a} />)}
       </div>
     </MiddleStyle>
-  )
-}
+  );
+};

@@ -122,6 +122,9 @@ export const PostDetailsStyle = styled.div`
       & * {
         white-space: pre-line;
       }
+      p {
+        display: flex;
+      }
     }
   }
   .right {
@@ -366,7 +369,7 @@ export const PostDetailsStyle = styled.div`
       margin: 0 5px;
       padding-bottom: 80px;
 
-      h2{
+      h2 {
         margin-left: 8px;
       }
     }
@@ -381,7 +384,7 @@ export const PostDetailsStyle = styled.div`
       width: 100%;
       margin: 0;
     }
-    .u-details{
+    .u-details {
       width: 90%;
       margin: auto !important;
     }
@@ -389,11 +392,15 @@ export const PostDetailsStyle = styled.div`
       width: 90%;
       margin: auto !important;
       word-break: break-all;
+      p {
+        display: flex !important;
+        flex-direction: row !important;
+      }
     }
 
-    textarea{
-        min-width: 0px !important;
-        width: 90% !important;
-      }
+    textarea {
+      min-width: 0px !important;
+      width: 90% !important;
+    }
   }
 `;

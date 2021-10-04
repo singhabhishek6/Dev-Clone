@@ -9,6 +9,7 @@ import { useState } from "react";
 import { Navbar } from "../Navbar/Navbar";
 import { userContext } from "../../App";
 import { Alert, Snackbar } from "@mui/material";
+import { Footer } from "../Footer/Footer";
 
 export const PostDetails = () => {
   const [userr, setUser] = useState("");
@@ -29,8 +30,8 @@ export const PostDetails = () => {
   const [errMessege, setErrMessage] = useState("");
 
   const [state1, setState1] = useState({
-    vertical: 'top',
-    horizontal: 'right',
+    vertical: "top",
+    horizontal: "right",
   });
   const { vertical, horizontal } = state1;
 
@@ -75,34 +76,41 @@ export const PostDetails = () => {
   }, [LoggedUser, userr])
 
   function fetchIt(id) {
-    axios.get(`http://localhost:2222/posts/${id}`).then((res) => {
-      setUser(res.data.post);
-      setLike(res.data.post.likes_count);
-      setmark(res.data.post.body_html.split("\n").join(" "));
-    }).catch(err => {
-      axios(`https://dev.to/api/articles/${id}`).then((res) => {
-        setUser(res.data);
-        setmark(res.data.body_html.split("\n").join(" "));
-      }).catch(err => {
-        console.log(err);
+    axios
+      .get(`http://localhost:2222/posts/${id}`)
+      .then((res) => {
+        setUser(res.data.post);
+        setLike(res.data.post.likes_count);
+        setmark(res.data.post.body_html.split("\n").join(" "));
+      })
+      .catch((err) => {
+        axios(`https://dev.to/api/articles/${id}`)
+          .then((res) => {
+            setUser(res.data);
+            setmark(res.data.body_html.split("\n").join(" "));
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       });
-    })
-
   }
 
   const fetchComments = () => {
-    axios.get(`http://localhost:2222/comments?post_id=${id}`).then(res => {
-      setCommentsCount(res.data.comments_count);
-      setComments(res.data.comments.reverse());
-      setText("");
-    }).catch(err => {
-      console.log(err);
-    })
-  }
+    axios
+      .get(`http://localhost:2222/comments?post_id=${id}`)
+      .then((res) => {
+        setCommentsCount(res.data.comments_count);
+        setComments(res.data.comments.reverse());
+        setText("");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   useEffect(() => {
     fetchComments();
-  }, [id])
+  }, [id]);
 
   useEffect(() => {
     let data = state?.user?.following_users;
@@ -119,7 +127,6 @@ export const PostDetails = () => {
     if (!isFound) {
       setUserFollow("Follow");
     }
-
   }, [state, userr]);
 
   const handleAlert = (message) => {
@@ -127,36 +134,43 @@ export const PostDetails = () => {
     setErrModel(true);
     setTimeout(() => {
       setErrModel(false);
-    }, 2000)
-  }
+    }, 2000);
+  };
 
   const handleCommentSubmit = () => {
-    axios.post(`http://localhost:2222/comments?post_id=${id}&user_id=${LoggedUser._id}`, {
-      description: text
-    })
+    axios
+      .post(
+        `http://localhost:2222/comments?post_id=${id}&user_id=${LoggedUser._id}`,
+        {
+          description: text,
+        }
+      )
       .then((res) => {
         fetchComments();
       })
       .catch((err) => {
         console.log(err);
-      })
-  }
+      });
+  };
 
   const handleLikes = (likeStatus) => {
-
-    axios.patch(`http://localhost:2222/posts/${id}?likes=${likeStatus + like}&user_id=${LoggedUser._id}`)
+    axios
+      .patch(
+        `http://localhost:2222/posts/${id}?likes=${likeStatus + like}&user_id=${
+          LoggedUser._id
+        }`
+      )
       .then((res) => {
         setUser(res.data.post);
         setLike(res.data.post.likes_count);
         setmark(res.data.post.body_html.split("\n").join(" "));
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
         setHeart(false);
         handleAlert("please login for like this post");
-      })
-
-  }
+      });
+  };
 
   const handleFollowUser = () => {
     if (LoggedUser._id === undefined) {
@@ -165,20 +179,22 @@ export const PostDetails = () => {
     }
 
     axios({
-      method: 'PATCH',
+      method: "PATCH",
       url: `http://localhost:2222/users/${userr?.user._id}`,
       headers: {
-        'Accept': 'application/json, text/plain, */*',
-        'Content-Type': 'application/json'
+        Accept: "application/json, text/plain, */*",
+        "Content-Type": "application/json",
       },
       data: JSON.stringify({ follower_id: LoggedUser._id }),
-      withCredentials: true
-    }).then((res) => {
-      setState({ type: "LOGIN", status: true, user: res.data.user });
-    }).catch((err) => {
-      console.log(err);
+      withCredentials: true,
     })
-  }
+      .then((res) => {
+        setState({ type: "LOGIN", status: true, user: res.data.user });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   const handleSave = () => {
     axios.patch(`http://localhost:2222/posts/${id}?save=true&user_id=${LoggedUser?._id}`)
@@ -202,7 +218,12 @@ export const PostDetails = () => {
               className={`circle-ripple ${heart && ""}`}
               onClick={() => setHeart(!heart)}
             >
-              <span onClick={() => { handleLikes(1) }} className={`show ${heart && "hide"}`}>
+              <span
+                onClick={() => {
+                  handleLikes(1);
+                }}
+                className={`show ${heart && "hide"}`}
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -214,7 +235,12 @@ export const PostDetails = () => {
                 </svg>
               </span>
 
-              <span onClick={() => { handleLikes(-1) }} className={`click wave ${!heart && "hide"}`}>
+              <span
+                onClick={() => {
+                  handleLikes(-1);
+                }}
+                className={`click wave ${!heart && "hide"}`}
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -234,12 +260,9 @@ export const PostDetails = () => {
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
                   height="24"
-                // aria-hidden="true"
+                  // aria-hidden="true"
                 >
-                  <path
-                    d="M5.645 8.013c.013-.265-.261-.323-.4-.183-1.16 1.17-1.822 3.865-.344 7.32.294.961 1.938 3.19.84 6.131l-.003.006c-.094.255.206.404.366.263 1.395-1.226 1.933-3.593 1.1-6.375-.488-1.657-1.955-4.226-1.559-7.162zm-3.22 2.738c.05-.137-.124-.417-.326-.225-.939.893-1.316 2.863-.976 4.605.547 2.878 2.374 3.526 2.066 6.629-.028.102.176.38.348.154 1.546-2.033.409-4.453-.241-6.006-1.005-2.386-1.087-4.118-.871-5.157z"
-
-                  ></path>
+                  <path d="M5.645 8.013c.013-.265-.261-.323-.4-.183-1.16 1.17-1.822 3.865-.344 7.32.294.961 1.938 3.19.84 6.131l-.003.006c-.094.255.206.404.366.263 1.395-1.226 1.933-3.593 1.1-6.375-.488-1.657-1.955-4.226-1.559-7.162zm-3.22 2.738c.05-.137-.124-.417-.326-.225-.939.893-1.316 2.863-.976 4.605.547 2.878 2.374 3.526 2.066 6.629-.028.102.176.38.348.154 1.546-2.033.409-4.453-.241-6.006-1.005-2.386-1.087-4.118-.871-5.157z"></path>
                   <path
                     fill-rule="evenodd"
                     clip-rule="evenodd"
@@ -294,17 +317,24 @@ export const PostDetails = () => {
           <img src={userr.cover_image} alt="" />
           <div className="u-details">
             <div>
-              <img className="pro" src={userr.user?.profile_image || LoggedUser.profile_image} alt="" />
+              <img
+                className="pro"
+                src={userr.user?.profile_image || LoggedUser.profile_image}
+                alt=""
+              />
 
               <div>
-                <span className="u-name">{userr.user?.name || LoggedUser.name}</span>
+                <span className="u-name">
+                  {userr.user?.name || LoggedUser.name}
+                </span>
 
                 <span className="time">
                   Posted On:
-                  {" " + new Date(userr.published_at).toLocaleDateString(undefined, {
-                    day: "numeric",
-                    month: "long",
-                  })}
+                  {" " +
+                    new Date(userr.published_at).toLocaleDateString(undefined, {
+                      day: "numeric",
+                      month: "long",
+                    })}
                 </span>
               </div>
             </div>
@@ -314,37 +344,67 @@ export const PostDetails = () => {
             <div className="tags">
               {userr.tags &&
                 userr.tags.map((tag, id) => {
-                  return <span style={{ marginRight: 10 }} className="tag"> #{tag}</span>;
+                  return (
+                    <span style={{ marginRight: 10 }} className="tag">
+                      {" "}
+                      #{tag}
+                    </span>
+                  );
                 })}
             </div>
           </div>
-          <ReactMarkdown className="mark" rehypePlugins={[rehypeRaw]} children={mark} />
+          <ReactMarkdown
+            className="mark"
+            rehypePlugins={[rehypeRaw]}
+            children={mark}
+          />
           <div className="discussion">
             <h2>Discussion ({userr.comments_count || commentsCount})</h2>
             <div className="add">
-              <img className="pro1" src={LoggedUser.profile_image || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPbGrM6LFhkSf171kkRf3Ua6WKdL886A_ndA&usqp=CAU"} alt="" />
-              <textarea onChange={(e) => setText(e.target.value)} cols="30" rows="5" placeholder="Add to the discussion" value={text} />
+              <img
+                className="pro1"
+                src={
+                  LoggedUser.profile_image ||
+                  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPbGrM6LFhkSf171kkRf3Ua6WKdL886A_ndA&usqp=CAU"
+                }
+                alt=""
+              />
+              <textarea
+                onChange={(e) => setText(e.target.value)}
+                cols="30"
+                rows="5"
+                placeholder="Add to the discussion"
+                value={text}
+              />
             </div>
-            <div onClick={handleCommentSubmit} className={`sub ${text && "allow"}`}>
+            <div
+              onClick={handleCommentSubmit}
+              className={`sub ${text && "allow"}`}
+            >
               Submit
             </div>
 
             {comments.map((el, i) => {
               // console.log("elshfaj", el, i)
-              return <div className="add1">
-                <img className="pro1" src={el.user_id.profile_image} alt="" />
-                <div className="commentCard">
-                  <div className="det">
-                    <span>{el.user_id.name}</span>
-                    <span> . </span>
-                    <span> {new Date(el.createdAt).toLocaleDateString(undefined, {
-                      day: "numeric",
-                      month: "long",
-                    })}</span>
+              return (
+                <div className="add1">
+                  <img className="pro1" src={el.user_id.profile_image} alt="" />
+                  <div className="commentCard">
+                    <div className="det">
+                      <span>{el.user_id.name}</span>
+                      <span> . </span>
+                      <span>
+                        {" "}
+                        {new Date(el.createdAt).toLocaleDateString(undefined, {
+                          day: "numeric",
+                          month: "long",
+                        })}
+                      </span>
+                    </div>
+                    <p>{el.description}</p>
                   </div>
-                  <p>{el.description}</p>
                 </div>
-              </div>
+              );
             })}
           </div>
         </div>
@@ -355,28 +415,38 @@ export const PostDetails = () => {
               <img className="pro2" src={userr.user?.profile_image} alt="" />
               <span>{userr.user?.name}</span>
             </div>
-            <div className="foll" onClick={handleFollowUser}>{userFollow}</div>
+            <div className="foll" onClick={handleFollowUser}>
+              {userFollow}
+            </div>
             <div className="info">
               <span>LOCATION</span>
               <p>{userr.user?.location || "New York, USA"}</p>
             </div>
             <div className="info">
               <span>JOINED</span>
-              <p>{new Date(userr?.user?.createdAt || userr?.created_at).toLocaleDateString(undefined, {
-                day: "numeric",
-                month: "long",
-              })} </p>
+              <p>
+                {new Date(
+                  userr?.user?.createdAt || userr?.created_at
+                ).toLocaleDateString(undefined, {
+                  day: "numeric",
+                  month: "long",
+                })}{" "}
+              </p>
             </div>
           </div>
         </div>
       </PostDetailsStyle>
+      <Footer />
 
-      <Snackbar open={errModel} anchorOrigin={{
-        vertical,
-        horizontal
-      }}
-        key={vertical + horizontal} >
-        <Alert severity="error" sx={{ width: '100%' }}>
+      <Snackbar
+        open={errModel}
+        anchorOrigin={{
+          vertical,
+          horizontal,
+        }}
+        key={vertical + horizontal}
+      >
+        <Alert severity="error" sx={{ width: "100%" }}>
           {errMessege}
         </Alert>
       </Snackbar>

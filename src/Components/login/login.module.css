@@ -43,6 +43,7 @@
 
 .btn__styles {
   padding: 0.87rem;
+  cursor: pointer;
   color: white;
   border-radius: 0.4rem;
   border: none;

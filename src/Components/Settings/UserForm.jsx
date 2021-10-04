@@ -5,8 +5,9 @@ import axios from "axios";
 import { storage } from "../Post/Fire";
 import { BiUpload } from "react-icons/bi";
 import LoadingButton from "@mui/lab/LoadingButton";
-
+import { useHistory } from "react-router";
 export const UserForm = () => {
+    const history = useHistory()
     const { state, setState } = useContext(userContext);
     const [user, setUser] = useState({});
     const [payload, setPayload] = useState({
@@ -87,6 +88,7 @@ export const UserForm = () => {
             withCredentials: true
         }).then(res => {
             setState({ type: "LOGIN", status: true, user: res.data.user });
+            history.push("/")
         }).catch(err => {
             console.log(err);
         })
