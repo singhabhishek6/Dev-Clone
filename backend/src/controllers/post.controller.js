@@ -17,8 +17,6 @@ function handlePostTags(data) {
     return tagArr;
 }
 
-
-
 router.get('/', async (req, res) => {
     try {
         const posts = await Post.find().populate('user').populate('tags').lean().exec();
@@ -176,6 +174,6 @@ router.patch('/:id', async (req, res) => {
     }
 })
 
-router.delete('/:id', deleteOne(Post));
+
 
 module.exports = router;
