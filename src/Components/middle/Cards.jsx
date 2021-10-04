@@ -37,7 +37,7 @@ export const Cards = (props) => {
 console.log(props.data);
   return (
     <article className="article">
-      <Link to={`/article/${id || _id}`}>
+      <Link to={`/article/${_id || id}`}>
         {cover_image && (
       
           <img  className="article__image" src={cover_image} alt="" />
