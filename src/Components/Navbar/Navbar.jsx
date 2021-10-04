@@ -112,7 +112,11 @@ export const Navbar = ({ toggle, setToggle }) => {
                   <path d="M20 17h2v2H2v-2h2v-7a8 8 0 1116 0v7zm-2 0v-7a6 6 0 10-12 0v7h12zm-9 4h6v2H9v-2z"></path>
                 </svg>
               </div>
-              <div className="avatar" onMouseEnter={() => setHover(true)} onClick={() => setHover(true)}>
+              <div
+                className="avatar"
+                onMouseEnter={() => setHover(true)}
+                onClick={() => setHover(true)}
+              >
                 <img src={state?.user?.profile_image} alt="" />
 
                 {hover && (

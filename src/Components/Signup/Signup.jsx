@@ -47,7 +47,7 @@ export const Signup = () =>
         }).then((res) => {
             setObj({});
             e.target.reset();
-            //history.push('/');
+            history.push('/enter');
 
         }).catch((err) => {
             alert(err);

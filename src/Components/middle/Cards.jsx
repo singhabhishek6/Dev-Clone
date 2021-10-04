@@ -21,7 +21,7 @@ export const Cards = (props) => {
     public_reactions_count,
     user,
     published_at,
-    reading_time_minutes
+    reading_time_minutes,
   } = props.data;
 
   // console.log("article data", user);
@@ -60,7 +60,6 @@ export const Cards = (props) => {
                   day: "numeric",
                   month: "long",
                 })}
-
               </span>
             </a>
 
@@ -95,9 +94,11 @@ export const Cards = (props) => {
 
                 <a href={url}>
                   <span>
-                    {comments_count > 0 && <i>
-                      <FaRegComment style={{ width: 17, height: 17 }} />
-                    </i>}
+                    {comments_count > 0 && (
+                      <i>
+                        <FaRegComment style={{ width: 17, height: 17 }} />
+                      </i>
+                    )}
                     &nbsp;
                     {comments_count > 0 ? (
                       <span>
@@ -125,5 +126,5 @@ export const Cards = (props) => {
         </div>
       </Link>
     </article>
-  )
-}
+  );
+};

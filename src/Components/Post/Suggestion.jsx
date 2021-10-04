@@ -1,13 +1,11 @@
 import React, { useState } from "react";
-import { TiArrowSortedDown } from "react-icons/ti"
-export const Suggestion = ({tag,title,md}) => {
-    const [show,setShow] = useState(false)
+import { TiArrowSortedDown } from "react-icons/ti";
+export const Suggestion = ({ tag, title, md }) => {
+  const [show, setShow] = useState(false);
   return (
     <div>
-      <div
-        className={`titleHelp ${title && 'appear'}`}
-      >
-        <h4 >Writing a Great Post Title</h4>
+      <div className={`titleHelp ${title && "appear"}`}>
+        <h4>Writing a Great Post Title</h4>
         <ul className="list-disc pl-6 color-base-70">
           <li>
             Think of your post title as a super short (but compelling!)
@@ -21,9 +19,7 @@ export const Suggestion = ({tag,title,md}) => {
         </ul>
       </div>
 
-      <div
-        className={`titleHelp1 ${tag && 'appear1'}`}
-      >
+      <div className={`titleHelp1 ${tag && "appear1"}`}>
         <h4 className="mb-2 fs-l">Tagging Guidelines</h4>
         <ul className="list-disc pl-6 color-base-70">
           <li>Tags help people find your post.</li>
@@ -43,23 +39,23 @@ export const Suggestion = ({tag,title,md}) => {
         </ul>
       </div>
 
-
-      <div className={`titleHelp2 ${md && 'appear2'} ${show && "hi"}`}>
-      <h4 >Editor Basics</h4>
-        <ul >
-          <li>
-          Use Markdown to write and format posts.
-          </li>
-          <li className="li" onClick={()=>setShow(!show)}><span className={`drop ${show && "dropR"}`}><TiArrowSortedDown/></span>
+      <div className={`titleHelp2 ${md && "appear2"} ${show && "hi"}`}>
+        <h4>Editor Basics</h4>
+        <ul>
+          <li>Use Markdown to write and format posts.</li>
+          <li className="li" onClick={() => setShow(!show)}>
+            <span className={`drop ${show && "dropR"}`}>
+              <TiArrowSortedDown />
+            </span>
             Commonly used Syntax
-          
           </li>
           <div className={`hints ${!show && "lu"}`}>
-                <img src="sug.png" alt="" />
-            </div>
+            <img src="sug.png" alt="" />
+          </div>
           <li>
-          You can use Liquid tags to add rich content such as Tweets, YouTube videos, etc.
-In addition to images for the post's content, you can also drag and drop a cover image
+            You can use Liquid tags to add rich content such as Tweets, YouTube
+            videos, etc. In addition to images for the post's content, you can
+            also drag and drop a cover image
           </li>
         </ul>
       </div>

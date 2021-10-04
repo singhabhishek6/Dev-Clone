@@ -1,69 +1,69 @@
 import styled from "styled-components";
 
 export const NavbarStyled = styled.div`
- background-color: var(--primary-color);
- width: 100%;
- border-bottom: 1px solid rgba(0, 0, 0, 0.2);
- position: sticky;
- top: 0;
- z-index: 100;
-a{
-  text-decoration: none;
-}
-.navbar{
-  display: flex;
-  align-items: center;
+  background-color: var(--primary-color);
   width: 100%;
-  max-width: 1350px;
-  margin: auto;
-  height: 57px;
-}
-  
-  @media screen and (max-width: 805px) {
-      width: 100%;
-    .search{
-        display: none !important;
-    }
-    .createAccount-btn{
-        display: none !important;
-    }
-    .search1{
-        display: flex !important;
-    }
-    .ham{
-        display: flex !important;
-      margin: 0 !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  a {
+    text-decoration: none;
+  }
+  .navbar {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 1350px;
+    margin: auto;
+    height: 57px;
+  }
 
+  @media screen and (max-width: 805px) {
+    width: 100%;
+    .search {
+      display: none !important;
     }
-   
-    .login{
-        margin-top: 7px;
+    .createAccount-btn {
+      display: none !important;
     }
-    .left-container,.right-container{
-        margin: 0 !important;
+    .search1 {
+      display: flex !important;
     }
-    .login-btn{
+    .ham {
+      display: flex !important;
+      margin: 0 !important;
+    }
+
+    .login {
+      margin-top: 7px;
+    }
+    .left-container,
+    .right-container {
+      margin: 0 !important;
+    }
+    .login-btn {
       margin: 0 !important;
     }
   }
-  
-  .ham{
-      width: 50px;
-      height: 50px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-left: 5px;
-      display: none;
-      justify-content: center;
-      & span{
-          display: inline-block;
-          margin-top: 5px;
-          text-align: center;
-          width: 20px;
-          height: 2px;
-          background-color: rgba(0, 0, 0, 0.8);
-      }
+
+  .ham {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 5px;
+    display: none;
+    justify-content: center;
+    & span {
+      display: inline-block;
+      margin-top: 5px;
+      text-align: center;
+      width: 20px;
+      height: 2px;
+      background-color: rgba(0, 0, 0, 0.8);
+    }
   }
 
   .left-container {
@@ -71,8 +71,8 @@ a{
     width: 50%;
     margin-left: 45px;
   }
-  .search1{
-      display: none;
+  .search1 {
+    display: none;
   }
   .dev {
     display: flex;
@@ -116,7 +116,8 @@ a{
 
     &::placeholder {
       font-size: 15px;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+        Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
     }
 
     &:focus {
@@ -188,8 +189,8 @@ a{
     margin-right: 18px;
     border-radius: 5px;
 
-    &:hover{
-        background-color: blue;
+    &:hover {
+      background-color: blue;
     }
   }
 
@@ -210,53 +211,52 @@ a{
       height: 100%;
       border-radius: 50%;
     }
-    & .controls{
+    & .controls {
       position: absolute;
       right: 0;
       width: 245px;
       border-radius: 5px;
       height: 280px;
-      transition:  300ms ease-in-out;
+      transition: 300ms ease-in-out;
       background-color: white;
-         border: 1px solid rgba(0, 0, 0, 0.1);
-         box-shadow:0 10px 15px -3px rgba(0,0,0,0.1),0 4px 6px -2px rgba(0,0,0,0.05),0 0 0 1px rgba(9, 9, 9, 0.1);
-      & .info{
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+        0 4px 6px -2px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(9, 9, 9, 0.1);
+      & .info {
         max-width: 93%;
         margin: auto;
-        
+
         cursor: pointer;
         border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-        div{
+        div {
           margin: 12px 0;
           padding: 5px 0;
           border-radius: 5px;
-          &:hover{
-            background-color: rgb(239,239,239);
+          &:hover {
+            background-color: rgb(239, 239, 239);
 
-            p{
-              color:rgb(59,73,223) ;
+            p {
+              color: rgb(59, 73, 223);
             }
           }
-          p{
+          p {
             font-weight: 500;
             color: #000;
             font-size: 18px;
-
-            
           }
         }
 
-        p{
+        p {
           margin: 0;
           margin-left: 8px;
         }
-        span{
+        span {
           margin-left: 8px;
           color: rgba(0, 0, 0, 0.6);
         }
       }
 
-      .dash{
+      .dash {
         display: flex;
         max-width: 93%;
         margin: auto;
@@ -265,32 +265,31 @@ a{
         border-bottom: 1px solid rgba(0, 0, 0, 0.2);
         padding-bottom: 5px;
 
-        a{
+        a {
           /* margin-left: 8px; */
           color: black;
           padding: 10px 8px;
           border-radius: 5px;
 
-          &:hover{
-            background-color: rgb(239,239,239);
-            color: rgb(59,73,223);
+          &:hover {
+            background-color: rgb(239, 239, 239);
+            color: rgb(59, 73, 223);
           }
         }
       }
-      .out{
+      .out {
         max-width: 90%;
         margin: auto;
         margin-top: 10px;
         border-radius: 5px;
-        span{
+        span {
           display: inline-block;
           padding: 10px 8px;
         }
-        &:hover{
-            background-color: rgb(239,239,239);
-            color: rgb(59,73,223);
-          }
-       
+        &:hover {
+          background-color: rgb(239, 239, 239);
+          color: rgb(59, 73, 223);
+        }
       }
     }
   }

@@ -8,23 +8,23 @@ import { Navbar } from "../Navbar/Navbar";
 import { userContext } from "../../App";
 
 const post = [
-    {
-      count: 20,
-      title: "total post reaction",
-    },
-    {
-      count: "< 500",
-      title: "total post view",
-    },
-    {
-      count: 0,
-      title: "listing created",
-    },
-    {
-      count: 0,
-      title: "credit available",
-    },
-  ];
+  {
+    count: 20,
+    title: "total post reaction",
+  },
+  {
+    count: "< 500",
+    title: "total post view",
+  },
+  {
+    count: 0,
+    title: "listing created",
+  },
+  {
+    count: 0,
+    title: "credit available",
+  },
+];
 const Dashboard = () => {
   const [UserPostData, setUserPostData] = useState([]);
   const [cli, setCli] = useState("");
@@ -32,20 +32,19 @@ const Dashboard = () => {
   const [u, setU] = useState(false);
   const [l, setL] = useState(false);
   const { state, setState } = useContext(userContext);
- const [user,SetUser] = useState([])
-  
+  const [user, SetUser] = useState([]);
 
   const fetchUserPostData = (title) => {
     axios
       .get(`http://localhost:2222/posts`)
       .then((res) => {
         console.log(res.data.posts);
-        let x = 0
-         res.data.posts.forEach((el)=>{
-                x += el.likes_count
-        })
+        let x = 0;
+        res.data.posts.forEach((el) => {
+          x += el.likes_count;
+        });
         console.log(x);
-        post[0].count = x
+        post[0].count = x;
         setUserPostData(res.data.posts);
       })
       .catch((err) => {
@@ -55,20 +54,17 @@ const Dashboard = () => {
 
   useEffect(() => {
     fetchUserPostData();
-    
   }, []);
-  function getUser(){
-   state.user?.following_users?.forEach(element => {
-    axios
-    .get(`http://localhost:2222/users/${element}`).then((res)=>{
-        SetUser([...user,res.data.data,res.data.data,res.data.data])
-    })
-   });
+  function getUser() {
+    state.user?.following_users?.forEach((element) => {
+      axios.get(`http://localhost:2222/users/${element}`).then((res) => {
+        SetUser([...user, res.data.data]);
+      });
+    });
   }
-    
+
   console.log(user);
-  
-  
+
   return (
     <>
       <Navbar />
@@ -108,14 +104,13 @@ const Dashboard = () => {
                   setP(false);
                   setL(false);
                   setU(true);
-                  getUser()
+                  getUser();
                 }}
                 className={Dash.sidebar_item + " " + (u ? Dash.show : "")}
               >
                 <p>Followed users</p>
                 <button>{UserPostData[0]?.user.following_users.length}</button>
               </div>
-            
             </div>
           </div>
 
@@ -150,25 +145,26 @@ const Dashboard = () => {
               </div>
             ) : (
               <div className={Dash.post_container}>
-                 {p && UserPostData.map((item, index) => (
-                  <div className={Dash.post_item} key={index}>
-                    <DashboardPost item={item} />
+                {p &&
+                  UserPostData.map((item, index) => (
+                    <div className={Dash.post_item} key={index}>
+                      <DashboardPost item={item} />
+                    </div>
+                  ))}
+
+                {u && (
+                  <div className={Dash.post_item}>
+                    {user.map((el) => {
+                      return (
+                        <div className={Dash.follo}>
+                          <img src={el.profile_image} alt="" />
+                          <h2>{el.name}</h2>
+                          <p>{el.location}</p>
+                        </div>
+                      );
+                    })}
                   </div>
-                ))}
-
-                {u && <div   className={Dash.post_item} >
-                        {
-                            user.map((el)=>{
-                                return <div className={Dash.follo}>
-                                    <img src={el.profile_image} alt="" />
-                                    <h2>{el.name}</h2>
-                                    <p>{el.location}</p>
-                                </div>
-                            })
-                        }
-                </div>
-
-                }
+                )}
               </div>
             )}
           </div>
