@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { FiSearch } from "react-icons/fi";
 import { Link,useHistory } from "react-router-dom";
 import { NavbarStyled } from "./NavbarStyled";
@@ -8,13 +8,10 @@ import { userContext } from "../../App";
 export const Navbar = ({ toggle, setToggle }) => {
   const [clicked, setClicked] = useState(false);
   const { state, setState } = useContext(userContext);
-<<<<<<< HEAD
   const [hover,setHover] = useState(false)
   const [searchText,setSearch] = useState("")
 
-  const history = useHistory()
-=======
-  const [hover, setHover] = useState(false)
+  const history = useHistory();
   const [user, setUser] = useState({});
 
   useEffect(() => {
@@ -25,7 +22,6 @@ export const Navbar = ({ toggle, setToggle }) => {
     setState({ status: false, user: {} });
   }
 
->>>>>>> 4c24403af539aba9e41742cbc09b0dd63f51d8c6
   return (
     <NavbarStyled>
       <div className="navbar">
