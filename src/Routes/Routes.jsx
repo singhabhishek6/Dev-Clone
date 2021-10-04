@@ -10,6 +10,7 @@ import { PostDetails } from "../Components/PostDetails/PostDetails";
 import { userContext } from "../App";
 import { SearchPage } from "../Components/SearchPage/SearchPage";
 import { Dashboard } from "../Components/Dashboard/Dashboard";
+import { Edit } from "../Components/Edit/Post";
 
 export const Routes = () => {
   const { setState } = useContext(userContext);
@@ -59,6 +60,10 @@ export const Routes = () => {
       <Route exact path="/search/:data">
         <SearchPage />
       </Route>
+      <Route exact path="/edit/:id">
+        <Edit />
+      </Route>
+
     </Switch>
   );
 };

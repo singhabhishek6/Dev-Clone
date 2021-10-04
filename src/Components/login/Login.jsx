@@ -54,11 +54,11 @@ export const Login = () => {
                         <p className={styles.signup__des}><a href="" className={styles.link__style}>DEV Community</a> is a community of 702,115 amazing developers</p>
 
                         <div className={styles.signup__btn}>
-                            <button className={`${styles.button__black} ${styles.btn__styles}`}> <i className={`${styles.icon__font} uit uit-apple-alt`}></i> Sign up with Apple</button>
+                            <button className={`${styles.button__black} ${styles.btn__styles}`}> <i className={`${styles.icon__font} uit uit-google`}></i> Sign up with Google</button>
                             <button className={`${styles.button__gray} ${styles.btn__styles}`}> <i className={` ${styles.icon__font} uit uit-github-alt`}></i> Sign up with GitHub</button>
                             <button className={`${styles.button__skyblue} ${styles.btn__styles}`}><i className={`${styles.icon__font} uit uit-twitter-alt`}></i> Sign up with Twitter</button>
                         </div>
-
+                    
                         <div className={styles.login__link}>
                             <span className={styles.login__span}>Have a password? Continue with your email address</span>
                         </div>

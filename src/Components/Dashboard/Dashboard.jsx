@@ -9,7 +9,7 @@ import { userContext } from "../../App";
 
 const post = [
   {
-    count: 20,
+    count: 0,
     title: "total post reaction",
   },
   {
@@ -32,20 +32,31 @@ const Dashboard = () => {
   const [u, setU] = useState(false);
   const [l, setL] = useState(false);
   const { state, setState } = useContext(userContext);
+  const [logged ,setLogged] = useState({})
   const [user, SetUser] = useState([]);
+
+  useEffect(() => {
+    setLogged(state.user)
+    
+  }, [state])
 
   const fetchUserPostData = (title) => {
     axios
       .get(`http://localhost:2222/posts`)
       .then((res) => {
-        console.log(res.data.posts);
+       
         let x = 0;
+        let postHold = []
         res.data.posts.forEach((el) => {
           x += el.likes_count;
+          if(el.user?._id === state.user?._id){
+            postHold.push(el)
+          }
         });
-        console.log(x);
+      
         post[0].count = x;
-        setUserPostData(res.data.posts);
+        setUserPostData(postHold);
+    
       })
       .catch((err) => {
         console.log(err.message);
@@ -54,17 +65,21 @@ const Dashboard = () => {
 
   useEffect(() => {
     fetchUserPostData();
-  }, []);
-  function getUser() {
-    state.user?.following_users?.forEach((element) => {
-      axios.get(`http://localhost:2222/users/${element}`).then((res) => {
-        SetUser([...user, res.data.data]);
-      });
-    });
-  }
-
-  console.log(user);
-
+  }, [logged]);
+  const getUser =  ()=> {
+   let likedUser= []
+    
+     axios.get(`http://localhost:2222/users`).then( res => {
+       console.log(res);
+              likedUser= res.data.data    
+              console.log(likedUser);
+              if(likedUser[0])
+               SetUser(likedUser)
+             
+        });
+      
+    }
+console.log(user,logged);
   return (
     <>
       <Navbar />
@@ -108,7 +123,7 @@ const Dashboard = () => {
                 }}
                 className={Dash.sidebar_item + " " + (u ? Dash.show : "")}
               >
-                <p>Followed users</p>
+                <p>Following users</p>
                 <button>{UserPostData[0]?.user.following_users.length}</button>
               </div>
             </div>

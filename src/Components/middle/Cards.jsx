@@ -15,7 +15,9 @@ export const Cards = (props) => {
     cover_image,
     tag_list,
     tags,
+    comment_count,
     url,
+    likes_count,
     comments_count,
     positive_reactions_count,
     public_reactions_count,
@@ -31,20 +33,13 @@ export const Cards = (props) => {
   }
 
   // console.log(user);
-
+console.log(cover_image,_id);
   return (
     <article className="article">
       <Link to={`/article/${id || _id}`}>
         {cover_image && (
-          <a
-            href={url}
-            className="article__image"
-            style={{
-              backgroundImage: `url(${cover_image})`,
-            }}
-          >
-            &nbsp;
-          </a>
+      
+          <img  className="article__image" src={cover_image} alt="" />
         )}
         <div className="article__details">
           <div className="u-pic">
@@ -79,36 +74,36 @@ export const Cards = (props) => {
 
             <div className="additional-details">
               <div className="reactions">
-                {public_reactions_count + positive_reactions_count > 0 && (
-                  <a href={url}>
+                { (likes_count > 0 || public_reactions_count + positive_reactions_count > 0) && (
+                  <a href={url? url : "#"}>
                     <span>
                       <i>
                         <BiHeart style={{ width: 20, height: 20 }} />
                       </i>
                       &nbsp;
-                      {public_reactions_count + positive_reactions_count} &nbsp;
+                       {likes_count || public_reactions_count + positive_reactions_count} &nbsp;
                       <span className="hidden-mobile">reactions</span>
                     </span>
                   </a>
                 )}
 
-                <a href={url}>
+                <a href={url? url : "#"}>
                   <span>
-                    {comments_count > 0 && (
+                    {(comment_count==0 || comments_count > 0) && (
                       <i>
                         <FaRegComment style={{ width: 17, height: 17 }} />
                       </i>
                     )}
                     &nbsp;
-                    {comments_count > 0 ? (
+                    {(comment_count==0 ||comments_count > 0 )? (
                       <span>
-                        {comments_count} &nbsp;
+                        {comment_count || comments_count || 0} &nbsp;
                         <span className="hidden-mobile">comments</span>
                       </span>
                     ) : null}
                     {comments_count === 0 ? (
                       <span>
-                        <span className="show-mobile">{comments_count}</span>
+                        <span className="show-mobile">{comment_count || comments_count}</span>
                         &nbsp;
                         <span className="hidden-mobile">Add comment</span>
                       </span>

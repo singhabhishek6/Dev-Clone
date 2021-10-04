@@ -4,6 +4,10 @@ import Dash from "./dashboard.module.css";
 import { Link } from "react-router-dom";
 
 const DashboardPost = ({ item }) => {
+
+  const handleDelete =(id)=>{
+    
+  }
   return (
     <>
       <div className={Dash.post_item_title}>
@@ -28,8 +32,11 @@ const DashboardPost = ({ item }) => {
      
       </div>
       <div className={Dash.post_item_manage}>
-        <Link to="#">Manage</Link>
-        <Link to="/new">Edit</Link>
+        <a onClick={(e)=>{
+            e.preventDefault()
+            handleDelete(item.id)
+        }}>Delete</a>
+        <Link to={`/edit/${item._id}`}>Edit</Link>
         
       </div>
     </>

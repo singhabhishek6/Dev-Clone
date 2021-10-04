@@ -7,7 +7,7 @@ const postSchema = new mongoose.Schema({
     likes_count: { type: 'number', required: false, default: 0 },
     reading_time_minutes: { type: 'number', required: false, default: 1 },
     cover_image: { type: 'string', required: true },
-    comment_count: { type: 'number', required: false, default: 0 },
+    comments_count: { type: 'number', required: false, default: 0 },
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "user",
