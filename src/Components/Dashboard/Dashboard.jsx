@@ -40,7 +40,7 @@ const Dashboard = () => {
     
   }, [state])
 
-  const fetchUserPostData = (title) => {
+  const fetchUserPostData = () => {
     axios
       .get(`https://devto-backent.herokuapp.com/posts`)
       .then((res) => {
@@ -69,17 +69,16 @@ const Dashboard = () => {
   const getUser =  ()=> {
    let likedUser= []
     
-     axios.get(`https://devto-backent.herokuapp.com/users`).then( res => {
-       console.log(res);
-              likedUser= res.data.data    
-              console.log(likedUser);
-              if(likedUser[0])
-               SetUser(likedUser)
+     axios.get(`https://devto-backent.herokuapp.com/users/${logged?._id}`).then( res => {
+            
+               SetUser(res.data.user)
              
-        });
+       })
+       .catch(err=>{
+         console.log({err})
+       })
       
     }
-console.log(user,logged);
   return (
     <>
       <Navbar />
@@ -130,21 +129,8 @@ console.log(user,logged);
           </div>
 
           <div className={Dash.post_main}>
-            {/* <div className={Dash.select_container}>
-             
-              {UserPostData.length == 0 ? (
-                ""
-              ) : (
-                <select name="" id="">
-                  <option value="Recently Created">Recently Created</option>
-                  <option value="Recently Published">Recently Published</option>
-                  <option value="Most Views">Most Views</option>
-                  <option value="Most Reactions">Most Reactions</option>
-                  <option value="Most Comments">Most Comments</option>
-                </select>
-              )}
-            </div> */}
-            {UserPostData.length == 0 ? (
+         
+            {UserPostData.length == 0 && user.length==0 ? (
               <div className={Dash.post_blank}>
                 <p>
                   <img
@@ -163,13 +149,16 @@ console.log(user,logged);
                 {p &&
                   UserPostData.map((item, index) => (
                     <div className={Dash.post_item} key={index}>
-                      <DashboardPost item={item} />
+                      <DashboardPost fetchUserPostData={fetchUserPostData} item={item} />
                     </div>
                   ))}
 
                 {u && (
                   <div className={Dash.post_item}>
+                    {console.log("user",user)}
                     {user.map((el) => {
+
+                      console.log(el);
                       return (
                         <div className={Dash.follo}>
                           <img src={el.profile_image} alt="" />

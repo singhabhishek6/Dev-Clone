@@ -132,9 +132,9 @@ export const Post = () => {
       cover_image: url,
       tags: tagtext,
     };
-
+console.log(user.email,"jhg");
     axios
-      .post(`https://devto-backent.herokuapp.com/?email=${user.email}`, payload)
+      .post(`https://devto-backent.herokuapp.com/posts?email=${user.email}`, payload)
       .then((res) => {
         console.log(res.data);
         history.push(`/article/${res.data.post._id}`);

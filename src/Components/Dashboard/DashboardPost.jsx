@@ -1,17 +1,21 @@
 import React from "react";
-
+import axios from "axios";
 import Dash from "./dashboard.module.css";
 import { Link } from "react-router-dom";
 
-const DashboardPost = ({ item }) => {
-
-  const handleDelete =(id)=>{
-    
-  }
+const DashboardPost = ({ item, fetchUserPostData }) => {
+  const handleDelete = (id) => {
+    console.log(id);
+    axios
+      .delete(`https://devto-backent.herokuapp.com/posts/${id}`)
+      .then((res) => {
+        fetchUserPostData();
+      });
+  };
   return (
     <>
       <div className={Dash.post_item_title}>
-        <Link to ={`/article/${item._id}`}>{item.title}</Link>
+        <Link to={`/article/${item._id}`}>{item.title}</Link>
         <p> Published: {item.published_at}</p>
       </div>
       <div className={Dash.post_item_count}>
@@ -29,15 +33,18 @@ const DashboardPost = ({ item }) => {
           </svg>
           {item.likes_count}
         </span>
-     
       </div>
       <div className={Dash.post_item_manage}>
-        <a onClick={(e)=>{
-            e.preventDefault()
-            handleDelete(item.id)
-        }}>Delete</a>
+        <a
+          onClick={(e) => {
+            e.preventDefault();
+            console.log("sds");
+            handleDelete(item._id);
+          }}
+        >
+          Delete
+        </a>
         <Link to={`/edit/${item._id}`}>Edit</Link>
-        
       </div>
     </>
   );
