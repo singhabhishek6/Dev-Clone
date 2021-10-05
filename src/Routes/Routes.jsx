@@ -18,7 +18,7 @@ export const Routes = () => {
   const getSenData = () => {
     axios({
       method: "GET",
-      url: "http://localhost:2222/users/auth",
+      url: "https://devto-backent.herokuapp.com/users/auth",
       withCredentials: true,
     })
       .then(({ data }) => {
