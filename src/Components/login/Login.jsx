@@ -30,7 +30,7 @@ export const Login = () => {
                 'Content-Type': 'application/json'
             },
             data: JSON.stringify(dataObj),
-            withCredentials: "include"
+            withCredentials: true
         }).then(({ data }) => {
             console.log(data);
             setObj({});
