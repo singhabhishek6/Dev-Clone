@@ -70,7 +70,6 @@ export const Post = () => {
     }
   };
   const handleUpload = () => {
-    console.log("ss");
     const uploadTask = storage.ref(`images/${image.name}`).put(image);
     uploadTask.on(
       "state_changed",
@@ -95,7 +94,6 @@ export const Post = () => {
     );
   };
   const handleUpload1 = () => {
-    console.log("sd");
     const uploadTask = storage.ref(`images/${image1.name}`).put(image1);
     uploadTask.on(
       "state_changed",
@@ -132,11 +130,12 @@ export const Post = () => {
       cover_image: url,
       tags: tagtext,
     };
-console.log(user.email,"jhg");
     axios
-      .post(`https://devto-backent.herokuapp.com/posts?email=${user.email}`, payload)
+      .post(
+        `https://devto-backent.herokuapp.com/posts?email=${user.email}`,
+        payload
+      )
       .then((res) => {
-        console.log(res.data);
         history.push(`/article/${res.data.post._id}`);
       })
       .catch((err) => {
@@ -150,7 +149,7 @@ console.log(user.email,"jhg");
         <div className="postSide">
           <nav>
             <div className="dev">
-              <Link to="/" >
+              <Link to="/">
                 <svg width="50" height="40" viewBox="0 0 50 40" fill="red">
                   <rect
                     width="50"

@@ -27,14 +27,11 @@ export const Cards = (props) => {
     reading_time_minutes,
   } = props.data;
 
-  // console.log("article data", user);
 
   if (tag_list === undefined) {
     tag_list = tags;
   }
 
-  // console.log(user);
-console.log(props.data);
   return (
     <article className="article">
       <Link to={`/article/${_id || id}`}>

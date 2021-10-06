@@ -24,7 +24,6 @@ export const SearchPage = () => {
   const [billingBG, setBillingBG] = useState("none");
   const [extensionBG, setExtensionBG] = useState("none");
   const { data } = useParams();
-  console.log(data, "sds");
   const setDisplayToNone = () => {
     if (currentSelectedTab === "profile") setUserFormDisplay("none");
     else if (currentSelectedTab === "customize")
@@ -49,7 +48,6 @@ export const SearchPage = () => {
     let timer = setTimeout(async () => {
       const res = await fetch(`https://dev.to/api/articles?tag=${x && x}`);
       const data = await res.json();
-      console.log(data);
       setArticles(data);
     }, 2000);
 

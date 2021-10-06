@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 
 const DashboardPost = ({ item, fetchUserPostData }) => {
   const handleDelete = (id) => {
-    console.log(id);
     axios
       .delete(`https://devto-backent.herokuapp.com/posts/${id}`)
       .then((res) => {
@@ -35,15 +34,14 @@ const DashboardPost = ({ item, fetchUserPostData }) => {
         </span>
       </div>
       <div className={Dash.post_item_manage}>
-        <a
+        <span
           onClick={(e) => {
             e.preventDefault();
-            console.log("sds");
             handleDelete(item._id);
           }}
         >
           Delete
-        </a>
+        </span>
         <Link to={`/edit/${item._id}`}>Edit</Link>
       </div>
     </>

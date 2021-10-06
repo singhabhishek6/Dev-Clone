@@ -14,21 +14,7 @@ const listings = [
     mainTitle: "Live-Coding on YouTube continues tomorrow",
     subText: "events",
   },
-  {
-    id: 3,
-    mainTitle: "Product Designer",
-    subText: "jobs",
-  },
-  {
-    id: 4,
-    mainTitle: "FREE COURSE, this weekend only: Ship better code faster",
-    subText: "education",
-  },
-  {
-    id: 5,
-    mainTitle: "MEAN / MERN Stack 100+ Learning Resources {FREE}",
-    subText: "misc",
-  },
+
 ];
 const news = [
   {
@@ -43,25 +29,7 @@ const news = [
 
     newarticle: true,
   },
-  {
-    id: 3,
-    mainTitle: "🗞 What's new and special in Create Go App CLI v1.7.0?",
 
-    newarticle: true,
-  },
-  {
-    id: 4,
-    mainTitle:
-      "Google’s Termination of Dr. Mitchell, Clubhouse Security, Low-Code Tools, & more on DevNews!",
-    subText: "1 comment",
-    newarticle: false,
-  },
-  {
-    id: 5,
-    mainTitle: "Ember 3.25 Released",
-
-    newarticle: true,
-  },
 ];
 
 const help = [

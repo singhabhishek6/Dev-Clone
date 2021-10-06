@@ -1,7 +1,6 @@
-import { createContext ,useEffect, useContext, useState } from 'react';
+import { createContext,useState } from 'react';
 import './App.css';
 import { Routes } from './Routes/Routes';
-import { Navbar } from './Components/Navbar/Navbar';
 export const userContext = createContext(null);
 
 function App() {

@@ -8,6 +8,7 @@ export const MiddleStyle = styled.main`
   @media screen and (max-width: 805px) {
     margin-left: 0;
     margin-right: 0;
+    overflow-y: scroll !important;
     width: 100% !important;
     h3 {
       margin-left: -20px !important;

@@ -8,10 +8,10 @@
  */
 
 .dash_section {
-  font-family:sans-serif;
+  font-family: sans-serif;
   margin: 0;
   padding: 0;
-width: 100%;
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -54,7 +54,7 @@ width: 100%;
 .card_container .card_item {
   margin: 0;
   padding: 0;
-  background: rgb(249,249,249);
+  background: rgb(249, 249, 249);
   padding: 22px;
   width: 180px;
   display: flex;
@@ -72,7 +72,7 @@ width: 100%;
   font-size: 30px;
 }
 .card_item p {
-    text-transform: capitalize;
+  text-transform: capitalize;
   margin: 0;
   padding: 0;
   font-size: 16px;
@@ -93,21 +93,21 @@ width: 100%;
 }
 
 .sidebar_container {
-    width: 20%;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
+  width: 20%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 }
-.show{
+.show {
   background-color: white;
 }
 .sidebar_item {
-    margin: 0;
-cursor: pointer;
-    height:40px;
-    border-radius: 5px;
+  margin: 0;
+  cursor: pointer;
+  height: 40px;
+  border-radius: 5px;
   padding: 0;
   display: flex;
   justify-content: space-between;
@@ -126,7 +126,7 @@ cursor: pointer;
 }
 
 .sidebar_item button {
- margin: 0;
+  margin: 0;
   border: none;
   background: #d6d6d7;
   padding: 4px;
@@ -219,12 +219,12 @@ cursor: pointer;
   padding: 0;
   display: flex;
   flex-wrap: wrap;
-  justify-content:flex-start;
+  justify-content: flex-start;
   width: 98%;
   margin: auto;
   background: white;
   padding: 20px 10px;
-  align-items:center;
+  align-items: center;
   border-radius: 5px;
 }
 
@@ -237,7 +237,7 @@ cursor: pointer;
   gap: 10px;
   width: 50%;
 }
-.post_item_count span{
+.post_item_count span {
   display: flex;
   align-items: center;
   font-size: 16px;
@@ -254,7 +254,7 @@ cursor: pointer;
 .post_item_title p {
   margin: 0;
   font-weight: 600;
-  color: rgba(0,0,0,.6);
+  color: rgba(0, 0, 0, 0.6);
   padding: 0;
   font-size: 14px;
 }
@@ -290,15 +290,14 @@ cursor: pointer;
 }
 
 .post_item_manage a:hover {
- 
   background: #d6d6d7;
 }
 
-.follo{
+.follo {
   width: 31%;
   display: flex;
   flex-wrap: wrap;
-  border: 1px solid rgba(0,0,0,.2);
+  border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 5px;
   flex-direction: column;
   background-color: white;
@@ -308,13 +307,12 @@ cursor: pointer;
   margin-bottom: 20px;
   align-items: center;
   height: 200px;
-
 }
-.follo img{
+.follo img {
   width: 60px;
   border-radius: 50%;
   height: 60px;
 }
-.follo h2{
+.follo h2 {
   margin-bottom: 0;
 }

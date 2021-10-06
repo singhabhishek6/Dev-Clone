@@ -30,7 +30,6 @@ export const UserForm = () => {
     //file upload url
 
     const handleUpload = (image) => {
-        console.log("ss");
         const uploadTask = storage.ref(`images/${image.name}`).put(image);
         uploadTask.on(
             "state_changed",
@@ -57,7 +56,6 @@ export const UserForm = () => {
         );
     };
 
-    console.log(url);
 
     //file upload url end
 

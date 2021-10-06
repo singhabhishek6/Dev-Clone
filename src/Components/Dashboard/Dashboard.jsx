@@ -1,6 +1,5 @@
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
-import { div } from "react-router-dom";
 import Dash from "./dashboard.module.css";
 import { DashboardPost } from "./DashboardPost";
 import { Footer } from "../Footer/Footer";
@@ -27,36 +26,34 @@ const post = [
 ];
 const Dashboard = () => {
   const [UserPostData, setUserPostData] = useState([]);
-  const [cli, setCli] = useState("");
   const [p, setP] = useState(true);
   const [u, setU] = useState(false);
-  const [l, setL] = useState(false);
-  const { state, setState } = useContext(userContext);
-  const [logged ,setLogged] = useState({})
+  const { state } = useContext(userContext);
+  const [logged, setLogged] = useState({});
   const [user, SetUser] = useState([]);
 
   useEffect(() => {
-    setLogged(state.user)
-    
-  }, [state])
+    setLogged(state.user);
+  }, [state]);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const fetchUserPostData = () => {
     axios
       .get(`https://devto-backent.herokuapp.com/posts`)
       .then((res) => {
-       
         let x = 0;
-        let postHold = []
+        let postHold = [];
         res.data.posts.forEach((el) => {
           x += el.likes_count;
-          if(el.user?._id === state.user?._id){
-            postHold.push(el)
+          if (el.user?._id === state.user?._id) {
+            postHold.push(el);
           }
         });
-      
+
         post[0].count = x;
         setUserPostData(postHold);
-    
       })
       .catch((err) => {
         console.log(err.message);
@@ -66,19 +63,17 @@ const Dashboard = () => {
   useEffect(() => {
     fetchUserPostData();
   }, [logged]);
-  const getUser =  ()=> {
-   let likedUser= []
-    
-     axios.get(`https://devto-backent.herokuapp.com/users/${logged?._id}`).then( res => {
-            
-               SetUser(res.data.user)
-             
-       })
-       .catch(err=>{
-         console.log({err})
-       })
-      
-    }
+
+  const getUser = () => {
+    axios
+      .get(`https://devto-backent.herokuapp.com/users/${logged?._id}`)
+      .then((res) => {
+        SetUser(res.data.user);
+      })
+      .catch((err) => {
+        console.log({ err });
+      });
+  };
   return (
     <>
       <Navbar />
@@ -105,32 +100,29 @@ const Dashboard = () => {
               <div
                 onClick={() => {
                   setP(true);
-                  setL(false);
+                
                   setU(false);
                 }}
                 className={Dash.sidebar_item + " " + (p ? Dash.show : "")}
               >
                 <p>Post</p>
-             
               </div>
               <div
                 onClick={() => {
                   setP(false);
-                  setL(false);
+              
                   setU(true);
                   getUser();
                 }}
                 className={Dash.sidebar_item + " " + (u ? Dash.show : "")}
               >
                 <p>Following users</p>
-         
               </div>
             </div>
           </div>
 
           <div className={Dash.post_main}>
-         
-            {UserPostData.length == 0 && user.length==0 ? (
+            {UserPostData.length === 0 && user.length === 0 ? (
               <div className={Dash.post_blank}>
                 <p>
                   <img
@@ -149,16 +141,16 @@ const Dashboard = () => {
                 {p &&
                   UserPostData.map((item, index) => (
                     <div className={Dash.post_item} key={index}>
-                      <DashboardPost fetchUserPostData={fetchUserPostData} item={item} />
+                      <DashboardPost
+                        fetchUserPostData={fetchUserPostData}
+                        item={item}
+                      />
                     </div>
                   ))}
 
                 {u && (
                   <div className={Dash.post_item}>
-                    {console.log("user",user)}
                     {user.map((el) => {
-
-                      console.log(el);
                       return (
                         <div className={Dash.follo}>
                           <img src={el.profile_image} alt="" />

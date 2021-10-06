@@ -31,19 +31,16 @@ export const Edit = () => {
   const { state, setState } = useContext(userContext);
   const [user, setUser] = useState({});
   const history = useHistory();
-  const {id} = useParams()
-console.log(id);
+  const { id } = useParams();
   useEffect(() => {
-    axios(`https://devto-backent.herokuapp.com/posts/${id}`)
-    .then(res=>{
-      let x = res.data.post
-      setUrl(x.cover_image)
-      setTitletext(x.title)
-      setTagtext(x.tags)
-      setMark(x.body_html)
-      console.log(res.data.post);
-    })
-  }, [id])
+    axios(`https://devto-backent.herokuapp.com/posts/${id}`).then((res) => {
+      let x = res.data.post;
+      setUrl(x.cover_image);
+      setTitletext(x.title);
+      setTagtext(x.tags);
+      setMark(x.body_html);
+    });
+  }, [id]);
   useEffect(() => {
     if (image) handleUpload();
   }, [image]);
@@ -82,7 +79,6 @@ console.log(id);
     }
   };
   const handleUpload = () => {
-    console.log("ss");
     const uploadTask = storage.ref(`images/${image.name}`).put(image);
     uploadTask.on(
       "state_changed",
@@ -107,7 +103,6 @@ console.log(id);
     );
   };
   const handleUpload1 = () => {
-    console.log("sd");
     const uploadTask = storage.ref(`images/${image1.name}`).put(image1);
     uploadTask.on(
       "state_changed",
@@ -162,7 +157,7 @@ console.log(id);
         <div className="postSide">
           <nav>
             <div className="dev">
-              <Link to="/" >
+              <Link to="/">
                 <svg width="50" height="40" viewBox="0 0 50 40" fill="red">
                   <rect
                     width="50"

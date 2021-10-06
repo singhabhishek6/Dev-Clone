@@ -9,26 +9,16 @@ import { userContext } from "../../App";
 export const Middle = () => {
   const [articles, setArticles] = useState([]);
   const [feed, setFeed] = useState(true);
-  const [top, setTop] = useState(false);
   const [latest, setLatest] = useState(false);
   const { state, setState } = useContext(userContext);
   const [user, setUser] = useState({});
   const [fetchClicked, setFetchClicked] = useState("");
-
+  const [page, setPage] = useState(2);
   useEffect(() => {
     setUser({ ...state.user });
   }, [state]);
 
   useEffect(() => {
-    const fetchAgain = () => {
-      console.log("fetch again");
-      if (articles.length !== 0) {
-        axios.get("https://dev.to/api/articles").then((result) => {
-          console.log("line no 20", articles, result);
-          setArticles([...articles, ...result.data]);
-        });
-      }
-    };
     const handleScroll = () => {
       const html = document.documentElement;
       const body = document.body;
@@ -45,7 +35,7 @@ export const Middle = () => {
 
       const windowBottom = windowheight + window.pageYOffset;
       if (windowBottom >= docHeight) {
-        console.log("we reached the bottom");
+        setPage((prev) => prev + 1);
         fetchAgain();
       }
     };
@@ -55,6 +45,15 @@ export const Middle = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [articles]);
 
+  const fetchAgain = () => {
+    if (articles.length !== 0) {
+      axios
+        .get(`https://devto-backent.herokuapp.com/posts?page=${page}&limit=10`)
+        .then((result) => {
+          setArticles([...articles, ...result.data.posts]);
+        });
+    }
+  };
   useEffect(() => {
     fetchIt();
   }, [fetchClicked]);
@@ -65,35 +64,20 @@ export const Middle = () => {
     let latestData = [];
 
     axios
-      .get("https://devto-backent.herokuapp.com/posts")
+      .get(`https://devto-backent.herokuapp.com/posts?page=1&limit=10`)
       .then((res) => {
-        latestData = res.data.posts.reverse();
-        console.log(res.data.posts);
+        if (fetchClicked === "latest=2") {
+          latestData = res.data.posts.reverse();
+          setArticles([...latestData]);
+        } else {
+          setArticles(res.data.posts);
+        }
       })
       .catch((err) => {
         console.log(err);
       });
-
-    let timer = setTimeout(async () => {
-     
-
-      let res = await fetch(
-        `https://dev.to/api/articles?${fetchClicked && fetchClicked}`
-      );
-      const data = await res.json();
-      if (fetchClicked === "latest=2") {
-        console.log(latestData,"posts");
-        setArticles([...latestData, ...data]);
-      } else {
-        setArticles(data);
-      }
-    }, 2000);
-    return () => {
-      clearTimeout(timer);
-    };
   }
 
-  console.log(articles);
   return (
     <MiddleStyle>
       {user?._id && <Welcom />}
@@ -102,38 +86,22 @@ export const Middle = () => {
           <span
             className={`${feed && "bold"}`}
             onClick={(e) => {
-              setTop(false);
               setFetchClicked("feed=2");
               setLatest(false);
               setFeed(true);
             }}
-            href="/#"
           >
             Feed
           </span>
           <span
-            className={`${top && "bold"}`}
-            onClick={(e) => {
-              setTop(true);
-              setFetchClicked("latest=2");
-              setLatest(false);
-              setFeed(false);
-            }}
-            href="/#"
-          >
-            Latest
-          </span>
-          <span
             className={`${latest && "bold"}`}
             onClick={(e) => {
+              setFetchClicked("latest=2");
               setLatest(true);
               setFeed(false);
-              setTop(false);
-              setFetchClicked("top=2");
             }}
-            href="/#"
           >
-            Top
+            Latest
           </span>
         </nav>
       </header>

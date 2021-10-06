@@ -3,6 +3,7 @@ import { FiSearch } from "react-icons/fi";
 import { Link, useHistory } from "react-router-dom";
 import { NavbarStyled } from "./NavbarStyled";
 import { userContext } from "../../App";
+import axios from "axios";
 
 export const Navbar = ({ toggle, setToggle }) => {
   const [clicked, setClicked] = useState(false);
@@ -18,7 +19,26 @@ export const Navbar = ({ toggle, setToggle }) => {
   }, [state]);
 
   const handleSignOut = () => {
-    setState({ status: false, user: {} });
+
+    console.log("logout");
+   axios({
+      method: "post",
+      url: "https://devto-backent.herokuapp.com/users/logout",
+      headers: {
+        Accept: "application/json, text/plain, */*",
+        "Content-Type": "application/json",
+      },
+      
+      withCredentials: true,
+    })
+      .then(({ data }) => {
+        setState({status:false,user:{}})
+        history.push("/");
+      })
+      .catch((err) => {
+        alert(err);
+      });
+
   };
 
   return (

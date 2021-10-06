@@ -18,7 +18,11 @@ export const NavbarStyled = styled.div`
     margin: auto;
     height: 57px;
   }
-
+  @media screen and (max-width: 400px) {
+    .connect {
+      display: none !important;
+    }
+  }
   @media screen and (max-width: 805px) {
     width: 100%;
     .search {
@@ -34,9 +38,14 @@ export const NavbarStyled = styled.div`
       display: flex !important;
       margin: 0 !important;
     }
+    .avatar {
+      width: 45px !important;
 
+      margin-right: 5px !important;
+      margin-top: 0px !important;
+    }
     .login {
-      margin-top: 7px;
+      width: 94%;
     }
     .left-container,
     .right-container {
