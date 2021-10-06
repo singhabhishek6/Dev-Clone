@@ -2,6 +2,7 @@ const express = require('express');
 const Post = require('../models/post.model');
 const User = require('../models/user.model');
 const HashTag = require('../models/hastag.model');
+const { deleteOne } = require('./crud.controller');
 
 const router = express.Router();
 
@@ -148,6 +149,8 @@ router.patch('/:id', async (req, res) => {
         return res.status(400).json({ status: "failed", message: err.message })
     }
 })
+
+router.delete('/:id', deleteOne(Post));
 
 
 module.exports = router;
