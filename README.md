@@ -12,6 +12,7 @@ Dev.to is an online community for sharing and discovering great ideas, having de
 ## Pages Build
 - `Landing page`
 - `Post Page`
+- `Post Creation Page`
 - `Dashboard Page`
 - `Login/Signup Page`
 - `Account Setting Page`
