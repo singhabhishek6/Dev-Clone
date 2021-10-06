@@ -72,7 +72,7 @@
 }
 
 .formFields > input {
-    width: 96%;
+    width: -webkit-fill-available;
     margin-top: 0.5rem;
     padding: 0.7rem;
     border: 1px solid #d6d6d7;
@@ -127,4 +127,27 @@
     align-items: center;
     color: #242424;
     font-weight: 500;
+}
+
+
+@media (max-width: 900px) {
+    .leftSideBar{
+        display: none;
+    }
+
+    .rightSide{
+        width: -webkit-fill-available;
+        margin-left: 0px;
+    }
+
+    .rightSide > div:nth-child(3) {
+        display: inherit !important;
+        margin-top: 50px;
+    }
+}
+
+@media (max-width: 400px) {
+    .box {
+        width: 90%;
+    }
 }
