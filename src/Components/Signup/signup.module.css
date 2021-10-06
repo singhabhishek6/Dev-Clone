@@ -25,7 +25,12 @@
 .h1__title {
   font-size: 1.8rem;
 }
-
+@media screen and (max-width: 805px) {
+  .signup__page{
+    width: 94%;
+    padding: 10px;
+  }
+}
 .signup__des {
   color: #575757;
   font-size: 1rem;

@@ -18,41 +18,21 @@ export const NavbarStyled = styled.div`
     margin: auto;
     height: 57px;
   }
+
+ 
+
   @media screen and (max-width: 400px) {
-    .connect {
+    .chat {
       display: none !important;
     }
-  }
-  @media screen and (max-width: 805px) {
-    width: 100%;
-    .search {
-      display: none !important;
-    }
-    .createAccount-btn {
-      display: none !important;
-    }
-    .search1 {
-      display: flex !important;
-    }
-    .ham {
-      display: flex !important;
-      margin: 0 !important;
+    .search1{
+      margin-bottom: 5px !important;
     }
     .avatar {
       width: 45px !important;
 
-      margin-right: 5px !important;
+      margin-right: 2px !important;
       margin-top: 0px !important;
-    }
-    .login {
-      width: 94%;
-    }
-    .left-container,
-    .right-container {
-      margin: 0 !important;
-    }
-    .login-btn {
-      margin: 0 !important;
     }
   }
 
@@ -300,6 +280,58 @@ export const NavbarStyled = styled.div`
           color: rgb(59, 73, 223);
         }
       }
+    }
+  
+  }
+  @media screen and (max-width: 805px) {
+    width: 100%;
+    .search {
+      display: none !important;
+    }
+    .createAccount-btn {
+     
+      display: none;
+    }
+    .d{
+      display: inline-block;
+      align-items: center;
+      margin: 0;
+      padding: 8.5px 5px;
+    width: 100%;
+    }
+    .search1 {
+      display: flex !important;
+    }
+    .ham {
+      display: flex !important;
+      margin: 0 !important;
+    }
+    .avatar {
+      width: 35px !important;
+
+      margin-right: 5px !important;
+      margin-top: 0px !important;
+    }
+    .login {
+      width: 100%;
+      margin: auto;
+      justify-content: space-between;
+    }
+    .left-container,
+    .right-container {
+      margin: 0 !important;
+    }
+    .left-container{
+       width: 30%;
+    }
+    .right-container{
+    }
+    .login-btn {
+      padding: 8px;
+      margin-left: 2px;
+      border: 1px solid;
+      width: 50px;
+      margin: 0 !important;
     }
   }
 `;

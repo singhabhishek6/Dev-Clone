@@ -1,10 +1,13 @@
 
 .main{
+    position: relative;
+    bottom: 0;
     background-color: #D6D6D7;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+    
 }
 
 .container{
@@ -19,18 +22,18 @@
     font-size: 14px;
     justify-content: center;
     align-items: center;
-
+    
 }
 
 @media screen and (max-width: 805px) {
-.container{
-    width: 95%;
-}
+    .container{
+        width: 95%;
+    }
 }
 
 .container p{
     color: grey;
-
+    
     margin: 0;
 }
 

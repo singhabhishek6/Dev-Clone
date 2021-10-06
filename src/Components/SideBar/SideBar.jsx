@@ -1,11 +1,11 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { IoClose } from "react-icons/io5";
 import { userContext } from "../../App";
 import { SideBarItems } from "./SideBarItems";
 import { SideBarStyle } from "./SideBarStyle";
 
 export const SideBar = ({ toggle, setToggle }) => {
-  const { state, setState } = useContext(userContext);
+  const { state } = useContext(userContext);
 
   return (
     <SideBarStyle className={`${toggle ? 'show' : ''}`}>
@@ -32,7 +32,7 @@ export const SideBar = ({ toggle, setToggle }) => {
       <SideBarItems login={state?.status} />
       <div className="social">
         <a
-          to="https://twitter.com/thepracticaldev"
+          href="https://twitter.com/thepracticaldev"
           target="_blank"
           rel="noreferrer"
         >
@@ -49,7 +49,7 @@ export const SideBar = ({ toggle, setToggle }) => {
           </svg>
         </a>
         <a
-          to="https://facebook.com/thepracticaldev"
+          href="https://facebook.com/thepracticaldev"
           target="_blank"
           rel="noreferrer"
         >
@@ -66,7 +66,7 @@ export const SideBar = ({ toggle, setToggle }) => {
           </svg>
         </a>
         <a
-          to="https://github.com/thepracticaldev"
+          href="https://github.com/thepracticaldev"
           target="_blank"
           rel="noreferrer"
         >
@@ -83,7 +83,7 @@ export const SideBar = ({ toggle, setToggle }) => {
           </svg>
         </a>
         <a
-          to="https://instagram.com/thepracticaldev"
+          href="https://instagram.com/thepracticaldev"
           target="_blank"
           rel="noreferrer"
         >
@@ -100,7 +100,7 @@ export const SideBar = ({ toggle, setToggle }) => {
           </svg>
         </a>
         <a
-          to="https://twitch.com/thepracticaldev"
+          href="https://twitch.com/thepracticaldev"
           target="_blank"
           rel="noreferrer"
         >
@@ -123,13 +123,13 @@ export const SideBar = ({ toggle, setToggle }) => {
           <div className="sidebar-nav-element">
             <a
               className="crayons-a crayons-a--block py-2 px-2"
-              to="/t/javascript"
+              href="/t/javascript"
             >
               #javascript
             </a>
             <a
               className="follow "
-              to="/#"
+              href="/#"
               hed
             >
               Follow
@@ -138,13 +138,13 @@ export const SideBar = ({ toggle, setToggle }) => {
           <div className="sidebar-nav-element">
             <a
               className="crayons-a crayons-a--block py-2 px-2"
-              to="/t/webdev"
+              href="/t/webdev"
             >
               #webdev
             </a>
             <a
               className="follow "
-              to="/#"
+              href="/#"
             >
               Follow
             </a>
@@ -152,13 +152,13 @@ export const SideBar = ({ toggle, setToggle }) => {
           <div className="sidebar-nav-element">
             <a
               className="crayons-a crayons-a--block py-2 px-2"
-              to="/t/beginners"
+              href="/t/beginners"
             >
               #beginners
             </a>
             <a
               className="follow "
-              to="/#"
+              href="/#"
               hed
             >
               Follow
@@ -167,13 +167,13 @@ export const SideBar = ({ toggle, setToggle }) => {
           <div className="sidebar-nav-element">
             <a
               className="crayons-a crayons-a--block py-2 px-2"
-              to="/t/react"
+              href="/t/react"
             >
               #react
             </a>
             <a
               className="follow "
-              to="/#"
+              href="/#"
             >
               Follow
             </a>
@@ -181,13 +181,13 @@ export const SideBar = ({ toggle, setToggle }) => {
           <div className="sidebar-nav-element">
             <a
               className="crayons-a crayons-a--block py-2 px-2"
-              to="/t/programming"
+              href="/t/programming"
             >
               #programming
             </a>
             <a
               className="follow "
-              to="/#"
+              href="/#"
             >
               Follow
             </a>
@@ -195,13 +195,13 @@ export const SideBar = ({ toggle, setToggle }) => {
           <div className="sidebar-nav-element">
             <a
               className="crayons-a crayons-a--block py-2 px-2"
-              to="/t/tutorial"
+              href="/t/tutorial"
             >
               #tutorial
             </a>
             <a
               className="follow "
-              to="/#"
+              href="/#"
             >
               Follow
             </a>
@@ -209,13 +209,13 @@ export const SideBar = ({ toggle, setToggle }) => {
           <div className="sidebar-nav-element">
             <a
               className="crayons-a crayons-a--block py-2 px-2"
-              to="/t/python"
+              href="/t/python"
             >
               #python
             </a>
             <a
               className="follow "
-              to="/#"
+              href="/#"
             >
               Follow
             </a>
@@ -223,13 +223,13 @@ export const SideBar = ({ toggle, setToggle }) => {
           <div className="sidebar-nav-element">
             <a
               className="crayons-a crayons-a--block py-2 px-2"
-              to="/t/css"
+              href="/t/css"
             >
               #css
             </a>
             <a
               className="follow "
-              to="/#"
+              href="/#"
             >
               Follow
             </a>
@@ -237,13 +237,13 @@ export const SideBar = ({ toggle, setToggle }) => {
           <div className="sidebar-nav-element">
             <a
               className="crayons-a crayons-a--block py-2 px-2"
-              to="/t/devops"
+              href="/t/devops"
             >
               #devops
             </a>
             <a
               className="follow "
-              to="/#"
+              href="/#"
             >
               Follow
             </a>
@@ -251,13 +251,13 @@ export const SideBar = ({ toggle, setToggle }) => {
           <div className="sidebar-nav-element">
             <a
               className="crayons-a crayons-a--block py-2 px-2"
-              to="/t/codenewbie"
+              href="/t/codenewbie"
             >
               #codenewbie
             </a>
             <a
               className="follow "
-              to="/#"
+              href="/#"
             >
               Follow
             </a>
@@ -265,13 +265,13 @@ export const SideBar = ({ toggle, setToggle }) => {
           <div className="sidebar-nav-element">
             <a
               className="crayons-a crayons-a--block py-2 px-2"
-              to="/t/html"
+              href="/t/html"
             >
               #html
             </a>
             <a
               className="follow "
-              to="/#"
+              href="/#"
             >
               Follow
             </a>
@@ -279,13 +279,13 @@ export const SideBar = ({ toggle, setToggle }) => {
           <div className="sidebar-nav-element">
             <a
               className="crayons-a crayons-a--block py-2 px-2"
-              to="/t/productivity"
+              href="/t/productivity"
             >
               #productivity
             </a>
             <a
               className="follow "
-              to="/#"
+              href="/#"
             >
               Follow
             </a>
@@ -293,13 +293,13 @@ export const SideBar = ({ toggle, setToggle }) => {
           <div className="sidebar-nav-element">
             <a
               className="crayons-a crayons-a--block py-2 px-2"
-              to="/t/node"
+              href="/t/node"
             >
               #node
             </a>
             <a
               className="follow "
-              to="/#"
+              href="/#"
             >
               Follow
             </a>
@@ -307,13 +307,13 @@ export const SideBar = ({ toggle, setToggle }) => {
           <div className="sidebar-nav-element">
             <a
               className="crayons-a crayons-a--block py-2 px-2"
-              to="/t/android"
+              href="/t/android"
             >
               #android
             </a>
             <a
               className="follow "
-              to="/#"
+              href="/#"
             >
               Follow
             </a>
@@ -321,13 +321,13 @@ export const SideBar = ({ toggle, setToggle }) => {
           <div className="sidebar-nav-element">
             <a
               className="crayons-a crayons-a--block py-2 px-2"
-              to="/t/career"
+              href="/t/career"
             >
               #career
             </a>
             <a
               className="follow "
-              to="/#"
+              href="/#"
             >
               Follow
             </a>
@@ -335,13 +335,13 @@ export const SideBar = ({ toggle, setToggle }) => {
           <div className="sidebar-nav-element">
             <a
               className="crayons-a crayons-a--block py-2 px-2"
-              to="/t/opensource"
+              href="/t/opensource"
             >
               #opensource
             </a>
             <a
               className="follow "
-              to="/#"
+              href="/#"
             >
               Follow
             </a>
@@ -349,13 +349,13 @@ export const SideBar = ({ toggle, setToggle }) => {
           <div className="sidebar-nav-element">
             <a
               className="crayons-a crayons-a--block py-2 px-2"
-              to="/t/typescript"
+              href="/t/typescript"
             >
               #typescript
             </a>
             <a
               className="follow "
-              to="/#"
+              href="/#"
             >
               Follow
             </a>
@@ -363,13 +363,13 @@ export const SideBar = ({ toggle, setToggle }) => {
           <div className="sidebar-nav-element">
             <a
               className="crayons-a crayons-a--block py-2 px-2"
-              to="/t/discuss"
+              href="/t/discuss"
             >
               #discuss
             </a>
             <a
               className="follow "
-              to="/#"
+              href="/#"
             >
               Follow
             </a>
@@ -377,13 +377,13 @@ export const SideBar = ({ toggle, setToggle }) => {
           <div className="sidebar-nav-element">
             <a
               className="crayons-a crayons-a--block py-2 px-2"
-              to="/t/github"
+              href="/t/github"
             >
               #github
             </a>
             <a
               className="follow "
-              to="/#"
+              href="/#"
             >
               Follow
             </a>
@@ -391,13 +391,13 @@ export const SideBar = ({ toggle, setToggle }) => {
           <div className="sidebar-nav-element">
             <a
               className="crayons-a crayons-a--block py-2 px-2"
-              to="/t/showdev"
+              href="/t/showdev"
             >
               #showdev
             </a>
             <a
               className="follow "
-              to="/#"
+              href="/#"
             >
               Follow
             </a>
@@ -405,13 +405,13 @@ export const SideBar = ({ toggle, setToggle }) => {
           <div className="sidebar-nav-element">
             <a
               className="crayons-a crayons-a--block py-2 px-2"
-              to="/t/aws"
+              href="/t/aws"
             >
               #aws
             </a>
             <a
               className="follow "
-              to="/#"
+              href="/#"
             >
               Follow
             </a>
@@ -419,13 +419,13 @@ export const SideBar = ({ toggle, setToggle }) => {
           <div className="sidebar-nav-element">
             <a
               className="crayons-a crayons-a--block py-2 px-2"
-              to="/t/java"
+              href="/t/java"
             >
               #java
             </a>
             <a
               className="follow "
-              to="/#"
+              href="/#"
             >
               Follow
             </a>
@@ -433,13 +433,13 @@ export const SideBar = ({ toggle, setToggle }) => {
           <div className="sidebar-nav-element">
             <a
               className="crayons-a crayons-a--block py-2 px-2"
-              to="/t/testing"
+              href="/t/testing"
             >
               #testing
             </a>
             <a
               className="follow "
-              to="/#"
+              href="/#"
             >
               Follow
             </a>
@@ -447,13 +447,13 @@ export const SideBar = ({ toggle, setToggle }) => {
           <div className="sidebar-nav-element">
             <a
               className="crayons-a crayons-a--block py-2 px-2"
-              to="/t/php"
+              href="/t/php"
             >
               #php
             </a>
             <a
               className="follow "
-              to="/#"
+              href="/#"
             >
               Follow
             </a>
@@ -461,13 +461,13 @@ export const SideBar = ({ toggle, setToggle }) => {
           <div className="sidebar-nav-element">
             <a
               className="crayons-a crayons-a--block py-2 px-2"
-              to="/t/docker"
+              href="/t/docker"
             >
               #docker
             </a>
             <a
               className="follow "
-              to="/#"
+              href="/#"
             >
               Follow
             </a>
@@ -475,13 +475,13 @@ export const SideBar = ({ toggle, setToggle }) => {
           <div className="sidebar-nav-element">
             <a
               className="crayons-a crayons-a--block py-2 px-2"
-              to="/t/security"
+              href="/t/security"
             >
               #security
             </a>
             <a
               className="follow "
-              to="/#"
+              href="/#"
             >
               Follow
             </a>
@@ -489,13 +489,13 @@ export const SideBar = ({ toggle, setToggle }) => {
           <div className="sidebar-nav-element">
             <a
               className="crayons-a crayons-a--block py-2 px-2"
-              to="/t/database"
+              href="/t/database"
             >
               #database
             </a>
             <a
               className="follow "
-              to="/#"
+              href="/#"
             >
               Follow
             </a>
@@ -503,13 +503,13 @@ export const SideBar = ({ toggle, setToggle }) => {
           <div className="sidebar-nav-element">
             <a
               className="crayons-a crayons-a--block py-2 px-2"
-              to="/t/linux"
+              href="/t/linux"
             >
               #linux
             </a>
             <a
               className="follow "
-              to="/#"
+              href="/#"
             >
               Follow
             </a>
@@ -517,13 +517,13 @@ export const SideBar = ({ toggle, setToggle }) => {
           <div className="sidebar-nav-element">
             <a
               className="crayons-a crayons-a--block py-2 px-2"
-              to="/t/angular"
+              href="/t/angular"
             >
               #angular
             </a>
             <a
               className="follow "
-              to="/#"
+              href="/#"
             >
               Follow
             </a>
@@ -531,13 +531,13 @@ export const SideBar = ({ toggle, setToggle }) => {
           <div className="sidebar-nav-element">
             <a
               className="crayons-a crayons-a--block py-2 px-2"
-              to="/t/git"
+              href="/t/git"
             >
               #git
             </a>
             <a
               className="follow "
-              to="/#"
+              href="/#"
             >
               Follow
             </a>

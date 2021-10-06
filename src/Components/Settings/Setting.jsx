@@ -10,7 +10,7 @@ import { Redirect } from "react-router";
 export const Setting = () => {
   const [toggle, setToggle] = useState(false);
   const [currentSelectedTab, setCurrentSelectedTab] = useState("profile");
-  const { state, setState } = useContext(userContext);
+  const { state } = useContext(userContext);
 
   const [userFormDisplay, setUserFormDisplay] = useState("inherit");
   const [customizationDisplay, setCustomizationDisplay] = useState("none");

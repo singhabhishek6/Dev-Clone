@@ -1,17 +1,15 @@
 import styles from "../login/login.module.css";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import axios from "axios";
 import { Navbar } from "../Navbar/Navbar";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { userContext } from "../../App";
 export const Login = () => {
-  const [clickResult, setResult] = useState(false);
-
   const [dataObj, setObj] = useState({});
 
   const history = useHistory();
 
-  const { state, setState } = useContext(userContext);
+  const { setState } = useContext(userContext);
 
   const handleInputValues = (e) => {
     const { name, value } = e.target;
@@ -49,9 +47,9 @@ export const Login = () => {
           <div className={styles.signup__content}>
             <h1 className={styles.h1__title}>Welcome to DEV Community</h1>
             <p className={styles.signup__des}>
-              <a href="" className={styles.link__style}>
+              <Link to="/" className={styles.link__style}>
                 DEV Community
-              </a>{" "}
+              </Link>{" "}
               is a community of 702,115 amazing developers
             </p>
 

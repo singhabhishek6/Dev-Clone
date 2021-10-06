@@ -7,7 +7,7 @@ import { useState } from "react";
 
 export const Customization = () => {
     const [theme, setTheme] = useState("Default");
-
+   console.log(theme);
     return (
         <div>
             <h2 className={styles.profileBoxHeader}>Themes</h2>

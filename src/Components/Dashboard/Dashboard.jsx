@@ -5,7 +5,8 @@ import { DashboardPost } from "./DashboardPost";
 import { Footer } from "../Footer/Footer";
 import { Navbar } from "../Navbar/Navbar";
 import { userContext } from "../../App";
-
+import {Link} from "react-router-dom"
+import { SideBar } from "../SideBar/SideBar";
 const post = [
   {
     count: 0,
@@ -14,17 +15,9 @@ const post = [
   {
     count: "< 500",
     title: "total post view",
-  },
-  {
-    count: 0,
-    title: "listing created",
-  },
-  {
-    count: 0,
-    title: "credit available",
-  },
+  }
 ];
-const Dashboard = () => {
+const Dashboard = ({toggle,setToggle, login,setLogin}) => {
   const [UserPostData, setUserPostData] = useState([]);
   const [p, setP] = useState(true);
   const [u, setU] = useState(false);
@@ -76,7 +69,13 @@ const Dashboard = () => {
   };
   return (
     <>
-      <Navbar />
+      <Navbar  toggle={toggle} setToggle={setToggle} login={login} setLogin={setLogin} />
+      <SideBar
+          login={login}
+          setLogin={setLogin}
+          setToggle={setToggle}
+          toggle={toggle}
+        />
       <section className={Dash.dash_section}>
         <div className={Dash.main}>
           <div className={Dash.heading}>
@@ -93,10 +92,10 @@ const Dashboard = () => {
         </div>
       </section>
 
-      <section className={Dash.dash_section}>
+      <section className={Dash.dash_section + " " +Dash.f}>
         <div className={Dash.sidebar_main}>
           <div className={Dash.sidebar_container}>
-            <div>
+          
               <div
                 onClick={() => {
                   setP(true);
@@ -118,7 +117,7 @@ const Dashboard = () => {
               >
                 <p>Following users</p>
               </div>
-            </div>
+            
           </div>
 
           <div className={Dash.post_main}>
@@ -134,7 +133,7 @@ const Dashboard = () => {
                   This is where you can manage your posts, but you haven't
                   written anything yet.
                 </p>
-                <div to="/new">Write your first post now</div>
+                <Link to="/new">Write your first post now</Link>
               </div>
             ) : (
               <div className={Dash.post_container}>

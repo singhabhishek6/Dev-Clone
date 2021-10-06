@@ -1,12 +1,5 @@
-/* *{
-     margin: 0;
-        padding: 0;
-    margin: 0;
-    padding: 0;
-    
-}
- */
 
+ 
 .dash_section {
   font-family: sans-serif;
   margin: 0;
@@ -20,7 +13,10 @@
   box-sizing: border-box;
   margin: 0 auto;
 }
+.f{
+  min-height: 42vh;
 
+}
 .main {
   margin: 0;
   padding: 0;
@@ -104,6 +100,7 @@
   background-color: white;
 }
 .sidebar_item {
+  
   margin: 0;
   cursor: pointer;
   height: 40px;
@@ -138,7 +135,7 @@
   margin: 0;
   padding: 0;
   display: flex;
-  width: 80vw;
+  width: 81%;
   flex-direction: column;
   gap: 20px;
 }
@@ -281,6 +278,8 @@
 
 .post_item_manage a {
   margin: 0;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+
   padding: 0;
   text-decoration: none;
   color: #3d3d3d;
@@ -315,4 +314,43 @@
 }
 .follo h2 {
   margin-bottom: 0;
+}
+@media screen and (max-width: 805px) {
+  .dash_section {
+    width: 95%;
+  }
+  .card_container .card_item {
+    width: 20%;
+  }
+  .sidebar_main{
+    flex-direction: column;
+  }
+  .sidebar_container{
+    width: 100%;
+    flex-direction: row;
+
+  
+  }
+  .post_blank {
+    width: 100%;
+    padding: 10px;
+  }
+  /* .post_blank  */
+  .post_main {
+    width: 95%;
+  }
+  .post_item_manage{
+    margin-left: 23%;
+    flex-direction: column;
+  }
+  .follo{
+    width:43% ;
+  }
+  .follo h2{
+    font-size: 18px;
+  }
+  .sidebar_item  {
+    justify-content: center;
+  }
+
 }

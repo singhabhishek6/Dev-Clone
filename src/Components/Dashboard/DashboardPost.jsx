@@ -34,14 +34,14 @@ const DashboardPost = ({ item, fetchUserPostData }) => {
         </span>
       </div>
       <div className={Dash.post_item_manage}>
-        <span
+        <a
           onClick={(e) => {
             e.preventDefault();
             handleDelete(item._id);
           }}
         >
           Delete
-        </span>
+        </a>
         <Link to={`/edit/${item._id}`}>Edit</Link>
       </div>
     </>

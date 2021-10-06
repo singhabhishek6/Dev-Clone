@@ -87,13 +87,13 @@ export const Cards = (props) => {
 
                 <a href={url? url : "#"}>
                   <span>
-                    {(comment_count==0 || comments_count > 0) && (
+                    {(comment_count===0 || comments_count > 0) && (
                       <i>
                         <FaRegComment style={{ width: 17, height: 17 }} />
                       </i>
                     )}
                     &nbsp;
-                    {(comment_count==0 ||comments_count > 0 )? (
+                    {(comment_count===0 ||comments_count > 0 )? (
                       <span>
                         {comment_count || comments_count || 0} &nbsp;
                         <span className="hidden-mobile">comments</span>

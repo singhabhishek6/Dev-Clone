@@ -5,8 +5,8 @@ import { Navbar } from "../Components/Navbar/Navbar";
 import { RightBar } from "../Components/RightBar/RightBar";
 import { SideBar } from "../Components/SideBar/SideBar";
 
-export const HomePage = ({toggle,setToggle}) => {
-  const [login, setLogin] = useState(false);
+export const HomePage = ({toggle,setToggle, login,setLogin}) => {
+  
 
   return (
     <Home>
@@ -40,9 +40,15 @@ const Home = styled.div`
     margin-top: 15px;
     display: flex;
     justify-content: center;
-    @media screen and (max-width: 1040px) {
+    @media screen and (max-width: 800px) {
       width: 93%;
-      margin-left: 14px;
+      margin-right: 0 !important;
+   
+    }
+    @media screen and (max-width: 1040px) {
+      width: 100%;
+ 
+     
       margin-right: 0 !important;
    
     }

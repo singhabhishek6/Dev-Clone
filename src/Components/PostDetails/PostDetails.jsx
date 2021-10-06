@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useContext, useRef } from "react";
+import React, { useContext } from "react";
 import { useEffect } from "react";
 import { useParams } from "react-router";
 import { PostDetailsStyle } from "./PostDetailsStyle";
@@ -10,8 +10,9 @@ import { Navbar } from "../Navbar/Navbar";
 import { userContext } from "../../App";
 import { Alert, Snackbar } from "@mui/material";
 import { Footer } from "../Footer/Footer";
+import { SideBar } from "../SideBar/SideBar";
 
-export const PostDetails = ({toggle, setToggle }) => {
+export const PostDetails = ({toggle, setToggle ,login,setLogin}) => {
   const [userr, setUser] = useState("");
   const [mark, setmark] = useState("");
   const [heart, setHeart] = useState(false);
@@ -30,14 +31,13 @@ export const PostDetails = ({toggle, setToggle }) => {
   const [errModel, setErrModel] = useState(false);
   const [errMessege, setErrMessage] = useState("");
 
-  const [state1, setState1] = useState({
+  const state1 ={
     vertical: "top",
     horizontal: "right",
-  });
+  };
   const { vertical, horizontal } = state1;
 
   useEffect(() => {
-    console.log(state.user);
     setLoggedUser({ ...state.user });
   }, [state]);
 
@@ -61,7 +61,6 @@ export const PostDetails = ({toggle, setToggle }) => {
 
     let isFound1 = false;
     data = userr?.saved_user;
-    console.log("saved_user", data);
     if (data !== undefined) {
       for (let i = 0; i < data.length; i++) {
         if (LoggedUser?._id?.toString() === data[i]?.toString()) {
@@ -71,7 +70,6 @@ export const PostDetails = ({toggle, setToggle }) => {
       }
     }
 
-    console.log("is User found", isFound1, LoggedUser?._id);
     setSav(isFound1);
     setSave(data?.length);
   }, [LoggedUser, userr]);
@@ -214,7 +212,13 @@ export const PostDetails = ({toggle, setToggle }) => {
 
   return (
     <>
-      <Navbar toggle={toggle} setToggle={setToggle}  />
+      <Navbar toggle={toggle} setToggle={setToggle} login={login} setLogin={setLogin}  />
+      <SideBar
+          login={login}
+          setLogin={setLogin}
+          setToggle={setToggle}
+          toggle={toggle}
+        />
       <PostDetailsStyle>
         <div className="side">
           <div className="sideSmall">
@@ -327,7 +331,7 @@ export const PostDetails = ({toggle, setToggle }) => {
             </div>
           </div>
         </div>
-        <div className className="middle">
+        <div  className="middle">
           <img src={userr.cover_image} alt="" />
           <div className="u-details">
             <div>
@@ -399,7 +403,6 @@ export const PostDetails = ({toggle, setToggle }) => {
             </div>
 
             {comments.map((el, i) => {
-              // console.log("elshfaj", el, i)
               return (
                 <div className="add1">
                   <img className="pro1" src={el.user_id.profile_image} alt="" />

@@ -21,7 +21,12 @@
   box-sizing: border-box;
   text-align: center;
 }
-
+@media screen and (max-width: 805px) {
+  .signup__page{
+    width: 94%;
+    padding: 10px;
+  }
+}
 .h1__title {
   font-size: 1.8rem;
 }

@@ -10,7 +10,7 @@ export const Middle = () => {
   const [articles, setArticles] = useState([]);
   const [feed, setFeed] = useState(true);
   const [latest, setLatest] = useState(false);
-  const { state, setState } = useContext(userContext);
+  const { state} = useContext(userContext);
   const [user, setUser] = useState({});
   const [fetchClicked, setFetchClicked] = useState("");
   const [page, setPage] = useState(2);

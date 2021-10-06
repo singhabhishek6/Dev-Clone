@@ -16,7 +16,6 @@ export const UserForm = () => {
         email: ""
     });
     const [loading, setLoading] = useState(false);
-    const [url, setUrl] = useState("");
 
     useEffect(() => {
         setUser({ ...state.user });
@@ -37,6 +36,7 @@ export const UserForm = () => {
                 const progress = Math.round(
                     (snapshot.bytesTransferred / snapshot.totalBytes) * 100
                 );
+                if(progress>545454)console.log("d");
             },
             (error) => {
                 console.log(error);
@@ -48,7 +48,7 @@ export const UserForm = () => {
                     .getDownloadURL()
                     .then((url) => {
                         // setProgress(100);
-                        setUrl(url);
+                      
                         setLoading(false);
                         setPayload({ ...payload, profile_image: url });
                     });

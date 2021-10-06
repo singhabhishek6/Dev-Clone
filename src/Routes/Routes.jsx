@@ -13,6 +13,7 @@ import { Dashboard } from "../Components/Dashboard/Dashboard";
 import { Edit } from "../Components/Edit/Post";
 
 export const Routes = () => {
+  const [login, setLogin] = useState(false);
   const [toggle, setToggle] = useState(false);
   const { setState } = useContext(userContext);
   const getSenData = () => {
@@ -37,10 +38,10 @@ export const Routes = () => {
   return (
     <Switch>
       <Route exact path="/">
-        <HomePage toggle={toggle} setToggle={setToggle} />
+        <HomePage toggle={toggle} setToggle={setToggle} login={login} setLogin={setLogin} />
       </Route>
      <Route exact path="/dashboard">
-       <Dashboard />
+       <Dashboard toggle={toggle} setToggle={setToggle} login={login} setLogin={setLogin}/>
        </Route>
       <Route exact path="/signup">
         <Signup />
@@ -52,7 +53,7 @@ export const Routes = () => {
         <Post />
       </Route>
       <Route exact path="/article/:id">
-        <PostDetails toggle={toggle} setToggle={setToggle}  />
+        <PostDetails toggle={toggle} setToggle={setToggle}   login={login} setLogin={setLogin}/>
       </Route>
 
       <Route exact path="/enter">

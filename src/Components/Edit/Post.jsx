@@ -28,7 +28,7 @@ export const Edit = () => {
   const Input1 = useRef(null);
   const textRef = useRef(null);
   const text2 = useRef(null);
-  const { state, setState } = useContext(userContext);
+  const { state } = useContext(userContext);
   const [user, setUser] = useState({});
   const history = useHistory();
   const { id } = useParams();
@@ -86,6 +86,7 @@ export const Edit = () => {
         const progress = Math.round(
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100
         );
+        if(progress>454545) console.log("SD");
       },
       (error) => {
         console.log(error);
@@ -110,7 +111,7 @@ export const Edit = () => {
         const progresss = Math.round(
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100
         );
-        if (progresss != 0) setProgress1(progresss);
+        if (progresss !== 0) setProgress1(progresss);
       },
       (error) => {
         console.log(error);
@@ -211,7 +212,7 @@ export const Edit = () => {
               </div>
               {/* if image is uploaded */}
 
-              {progress == 100 ? (
+              {progress === 100 ? (
                 <div className={`cover ${!image ? "hide" : ""}`}>
                   <img src={url || ""} alt="" />
                   <div
@@ -280,7 +281,7 @@ export const Edit = () => {
                   onChange={handleChange1}
                   style={{ display: "none" }}
                 />
-                {progress1 == 100 || progress1 == 0 ? (
+                {progress1 === 100 || progress1 === 0 ? (
                   <div
                     className="upload"
                     onClick={() => {

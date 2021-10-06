@@ -348,7 +348,8 @@ export const PostDetailsStyle = styled.div`
     }
     .side {
       position: fixed;
-      top: 91vh;
+      /* top: 91vh; */
+      bottom: 0;
       z-index: 100;
       width: 100%;
       padding: 0;

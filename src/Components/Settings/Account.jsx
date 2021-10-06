@@ -8,15 +8,15 @@ export const Account = () => {
   const [currentPassword, setCurrentPassword] = useState("");
   const [password, setPassword] = useState(null);
   const [confirmPassword, setConfirmPassword] = useState("");
-  const { state, setState } = useContext(userContext);
+  const { state} = useContext(userContext);
   const [user, setUser] = useState({});
   const [errModel, setErrModel] = useState(false);
   const [errMessege, setErrMessage] = useState("");
 
-  const [state1, setState1] = useState({
+  const state1  = {
     vertical: "top",
     horizontal: "right",
-  });
+  }
   const { vertical, horizontal } = state1;
 
   useEffect(() => {

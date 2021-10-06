@@ -5,7 +5,7 @@ import { NavbarStyled } from "./NavbarStyled";
 import { userContext } from "../../App";
 import axios from "axios";
 
-export const Navbar = ({ toggle, setToggle }) => {
+export const Navbar = ({ toggle, setToggle ,login,setLogin}) => {
   const [clicked, setClicked] = useState(false);
   const { state, setState } = useContext(userContext);
   const [hover,setHover] = useState(false)
@@ -90,7 +90,7 @@ export const Navbar = ({ toggle, setToggle }) => {
                 <div className="login-btn">Log in</div>
               </Link>
               <Link to="/signup">
-                <div className="createAccount-btn">Create account</div>
+                <div className="createAccount-btn d">Create account</div>
               </Link>
             </div>
           )}
@@ -102,7 +102,7 @@ export const Navbar = ({ toggle, setToggle }) => {
               <Link to="/new">
                 <div className="createAccount-btn">Create Post</div>
               </Link>
-              <div className="connect">
+              <div className="connect chat">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -116,7 +116,7 @@ export const Navbar = ({ toggle, setToggle }) => {
                   <path d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10H2l2.929-2.929A9.969 9.969 0 012 12zm4.828 8H12a8 8 0 10-8-8c0 2.152.851 4.165 2.343 5.657l1.414 1.414-.929.929zM8 13h8a4 4 0 11-8 0z"></path>
                 </svg>
               </div>
-              <div className="connect">
+              <div className="connect ">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
