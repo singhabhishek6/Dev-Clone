@@ -70,12 +70,12 @@ const Dashboard = ({toggle,setToggle, login,setLogin}) => {
   return (
     <>
       <Navbar  toggle={toggle} setToggle={setToggle} login={login} setLogin={setLogin} />
-      <SideBar
+      {toggle && <SideBar
           login={login}
           setLogin={setLogin}
           setToggle={setToggle}
           toggle={toggle}
-        />
+        />}
       <section className={Dash.dash_section}>
         <div className={Dash.main}>
           <div className={Dash.heading}>

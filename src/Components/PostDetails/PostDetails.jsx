@@ -213,12 +213,12 @@ export const PostDetails = ({toggle, setToggle ,login,setLogin}) => {
   return (
     <>
       <Navbar toggle={toggle} setToggle={setToggle} login={login} setLogin={setLogin}  />
-      <SideBar
+     {toggle && <SideBar
           login={login}
           setLogin={setLogin}
           setToggle={setToggle}
           toggle={toggle}
-        />
+        />}
       <PostDetailsStyle>
         <div className="side">
           <div className="sideSmall">

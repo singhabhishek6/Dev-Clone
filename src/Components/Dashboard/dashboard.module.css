@@ -270,6 +270,7 @@
 
 .post_item_manage {
   margin: 0;
+  cursor: pointer;
   padding: 0;
   display: flex;
   gap: 20px;
