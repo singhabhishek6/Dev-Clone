@@ -143,6 +143,7 @@ export const Post = () => {
         console.log(err);
       });
   };
+  document.querySelector("title").textContent="New post - DevCommunity"
 
   return (
     <PostStyled>

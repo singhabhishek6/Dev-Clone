@@ -38,6 +38,7 @@ export const Login = () => {
         alert(err);
       });
   };
+  document.querySelector("title").textContent="Enter - DevCommunity"
 
   return (
     <>

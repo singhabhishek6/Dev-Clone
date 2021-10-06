@@ -79,6 +79,7 @@ export const PostDetails = ({toggle, setToggle ,login,setLogin}) => {
       .get(`https://devto-backent.herokuapp.com/posts/${id}`)
       .then((res) => {
         setUser(res.data.post);
+        document.querySelector("title").textContent=res.data.post.title
         setLike(res.data.post.likes_count);
         setmark(res.data.post.body_html.split("\n").join(" "));
       })

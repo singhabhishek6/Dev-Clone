@@ -36,6 +36,7 @@ export const Edit = () => {
     axios(`https://devto-backent.herokuapp.com/posts/${id}`).then((res) => {
       let x = res.data.post;
       setUrl(x.cover_image);
+      document.querySelector("title").textContent= "Edit" + " " + x.title
       setTitletext(x.title);
       setTagtext(x.tags);
       setMark(x.body_html);

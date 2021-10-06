@@ -49,6 +49,7 @@ export const Signup = () => {
   useEffect(() => {
     getData();
   },[]);
+  document.querySelector("title").textContent="Join - Devcommunity"
 
   return (
     <>

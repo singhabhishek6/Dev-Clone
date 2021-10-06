@@ -33,6 +33,7 @@ export const SearchPage = () => {
       clearTimeout(timer);
     };
   }
+  document.querySelector("title").textContent= "Search - " + data
 
   return (
     <div>

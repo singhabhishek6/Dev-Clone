@@ -67,6 +67,8 @@ const Dashboard = ({toggle,setToggle, login,setLogin}) => {
         console.log({ err });
       });
   };
+  document.querySelector("title").textContent="Dashboard"
+
   return (
     <>
       <Navbar  toggle={toggle} setToggle={setToggle} login={login} setLogin={setLogin} />

@@ -43,7 +43,8 @@ export const Setting = () => {
   if (state?.user?._id === undefined) {
     return <Redirect to="/" />;
   }
-
+  let x = currentSelectedTab
+  document.querySelector("title").textContent= x.toUpperCase()
   return (
     <div>
       <Navbar setToggle={setToggle} toggle={toggle} />
