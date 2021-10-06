@@ -11,7 +11,7 @@ import { userContext } from "../../App";
 import { Alert, Snackbar } from "@mui/material";
 import { Footer } from "../Footer/Footer";
 
-export const PostDetails = () => {
+export const PostDetails = ({toggle, setToggle }) => {
   const [userr, setUser] = useState("");
   const [mark, setmark] = useState("");
   const [heart, setHeart] = useState(false);
@@ -22,6 +22,7 @@ export const PostDetails = () => {
   const [commentsCount, setCommentsCount] = useState(0);
   const [save, setSave] = useState(0);
   const [like, setLike] = useState(0);
+  const [uniC, setUniC] = useState(0);
   const { id } = useParams();
   const { state, setState } = useContext(userContext);
   const [LoggedUser, setLoggedUser] = useState({});
@@ -73,11 +74,11 @@ export const PostDetails = () => {
     console.log("is User found", isFound1, LoggedUser?._id);
     setSav(isFound1);
     setSave(data?.length);
-  }, [LoggedUser, userr])
+  }, [LoggedUser, userr]);
 
   function fetchIt(id) {
     axios
-      .get(`http://localhost:2222/posts/${id}`)
+      .get(`https://devto-backent.herokuapp.com/posts/${id}`)
       .then((res) => {
         setUser(res.data.post);
         setLike(res.data.post.likes_count);
@@ -97,7 +98,7 @@ export const PostDetails = () => {
 
   const fetchComments = () => {
     axios
-      .get(`http://localhost:2222/comments?post_id=${id}`)
+      .get(`https://devto-backent.herokuapp.com/comments?post_id=${id}`)
       .then((res) => {
         setCommentsCount(res.data.comments_count);
         setComments(res.data.comments.reverse());
@@ -140,7 +141,7 @@ export const PostDetails = () => {
   const handleCommentSubmit = () => {
     axios
       .post(
-        `http://localhost:2222/comments?post_id=${id}&user_id=${LoggedUser._id}`,
+        `https://devto-backent.herokuapp.com/comments?post_id=${id}&user_id=${LoggedUser._id}`,
         {
           description: text,
         }
@@ -156,7 +157,7 @@ export const PostDetails = () => {
   const handleLikes = (likeStatus) => {
     axios
       .patch(
-        `http://localhost:2222/posts/${id}?likes=${likeStatus + like}&user_id=${
+        `https://devto-backent.herokuapp.com/posts/${id}?likes=${likeStatus + like}&user_id=${
           LoggedUser._id
         }`
       )
@@ -180,7 +181,7 @@ export const PostDetails = () => {
 
     axios({
       method: "PATCH",
-      url: `http://localhost:2222/users/${userr?.user._id}`,
+      url: `https://devto-backent.herokuapp.com/users/${userr?.user._id}`,
       headers: {
         Accept: "application/json, text/plain, */*",
         "Content-Type": "application/json",
@@ -197,7 +198,10 @@ export const PostDetails = () => {
   };
 
   const handleSave = () => {
-    axios.patch(`http://localhost:2222/posts/${id}?save=true&user_id=${LoggedUser?._id}`)
+    axios
+      .patch(
+        `https://devto-backent.herokuapp.com/posts/${id}?save=true&user_id=${LoggedUser?._id}`
+      )
       .then((res) => {
         setSav(!sav);
         setUser(res.data.post);
@@ -205,12 +209,12 @@ export const PostDetails = () => {
       })
       .catch((err) => {
         console.log(err);
-      })
-  }
+      });
+  };
 
   return (
     <>
-      <Navbar />
+      <Navbar toggle={toggle} setToggle={setToggle}  />
       <PostDetailsStyle>
         <div className="side">
           <div className="sideSmall">
@@ -255,7 +259,12 @@ export const PostDetails = () => {
             </div>
 
             <div className="circle-ripple" onClick={() => setUni(!uni)}>
-              <span className={`show ${uni && "hide"}`}>
+              <span
+                onClick={() => {
+                  setUniC(uniC + 1);
+                }}
+                className={`show ${uni && "hide"}`}
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -271,7 +280,12 @@ export const PostDetails = () => {
                 </svg>
               </span>
 
-              <span className={`click wave1 ${!uni && "hide"}`}>
+              <span
+                onClick={() => {
+                  setUniC(uniC - 1);
+                }}
+                className={`click wave1 ${!uni && "hide"}`}
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -282,7 +296,7 @@ export const PostDetails = () => {
                   <path d="M5.645 8.013c.013-.265-.261-.323-.4-.183-1.16 1.17-1.822 3.865-.344 7.32.294.961 1.938 3.19.84 6.131l-.003.006c-.094.255.206.404.366.263 1.395-1.226 1.933-3.593 1.1-6.375-.488-1.657-1.955-4.226-1.559-7.162zm-3.22 2.738c.05-.137-.124-.417-.326-.225-.939.893-1.316 2.863-.976 4.605.547 2.878 2.374 3.526 2.066 6.629-.028.102.176.38.348.154 1.546-2.033.409-4.453-.241-6.006-1.005-2.386-1.087-4.118-.871-5.157zM22.2 3.543l-8.579 3.68c-.332-.343-.615-.63-.76-.773-.527-.517.313-4.224-.409-4.439-.933-.277-5.042 4.624-4.696 7.953.224 2.735 2.193 4.89 1.72 8.412 3.446-.644 4.841 1.697 5.83 2.45 1.752 1.335 5.155-.551 3.807-3.582-.193-.435-2.05-4.732-2.931-6.775l6.619-5.94c.486-.44-.003-1.242-.601-.986zm-9.418 9.535a.828.828 0 01-.74-.9.825.825 0 01.81-.76c.479 0 .85.42.81.903a.824.824 0 01-.88.757z"></path>
                 </svg>
               </span>
-              <span className="num">5</span>
+              <span className="num">{uniC}</span>
             </div>
 
             <div className="circle-ripple" onClick={handleSave}>

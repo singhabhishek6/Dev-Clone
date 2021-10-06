@@ -49,7 +49,7 @@ export const Account = () => {
     };
 
     axios
-      .patch(`http://localhost:2222/users/${user._id}`, payload)
+      .patch(`https://devto-backent.herokuapp.com/users/${user._id}`, payload)
       .then((res) => {
         handleAlert("Updated Successfully");
         setCurrentPassword("");
@@ -68,7 +68,7 @@ export const Account = () => {
         <label>Current password</label>
         <br />
         <input
-          type="text"
+          type="password"
           value={currentPassword}
           onChange={(e) => setCurrentPassword(e.target.value)}
         />

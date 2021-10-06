@@ -71,10 +71,9 @@ export const MiddleStyle = styled.main`
     &__image {
       display: block;
       width: 100%;
-      height: auto;
+      min-height: auto;
       background-size: cover;
       background-position: center center;
-      padding-bottom: 40%;
       border-radius: 5px 5px 0 0;
     }
 

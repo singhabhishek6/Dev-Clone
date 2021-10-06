@@ -2,7 +2,12 @@ const express = require('express');
 const Post = require('../models/post.model');
 const User = require('../models/user.model');
 const HashTag = require('../models/hastag.model');
+<<<<<<< HEAD
 const { deleteOne } = require('./crud.controller');
+=======
+const Comment = require('../models/comment.model');
+const {deleteOne} = require("./crud.controller");
+>>>>>>> 9f8b8e14805f87cc41968bd6140ebd291bab912e
 
 const router = express.Router();
 
@@ -19,13 +24,16 @@ function handlePostTags(data) {
 router.get('/', async (req, res) => {
     try {
         const posts = await Post.find().populate('user').populate('tags').lean().exec();
-
-        posts.map(post => {
+         let resArr = []
+      posts.map( async post => {
             post.tags = handlePostTags(post.tags);
+            post.comments_count  = await Comment.find({ post_id: post._id }).count().lean().exec();
             post.published_at = post.createdAt;
+            resArr.push(post)
             return post;
         })
-
+        
+        console.log(resArr);
         return res.status(200).json({ posts });
     }
     catch (err) {
@@ -143,7 +151,27 @@ router.patch('/:id', async (req, res) => {
             return res.status(200).json({ post })
         }
 
-        return res.status(200).json({ message: "Nothing updated" });
+        let tags = req.body.tags;
+        if(tags !== undefined){
+        for (let i = 0; i < tags.length; i++) {
+            async function getTagId(tag) {
+                let tagId = await HashTag.findOne({ tag_name: tag }).lean().exec();
+                if (tagId == undefined) {
+                    let tagDetails = await HashTag.create({ tag_name: tag });
+                    tagId = tagDetails._id;
+                }
+
+                return tagId;
+            }
+
+            tags[i] = await getTagId(tags[i]);
+        }
+        
+        req.body.tags = tags;
+    }
+
+        let post = await Post.findByIdAndUpdate(req.params.id,req.body,{new:true})
+        return res.status(200).json({post});
     }
     catch (err) {
         return res.status(400).json({ status: "failed", message: err.message })
@@ -151,6 +179,7 @@ router.patch('/:id', async (req, res) => {
 })
 
 router.delete('/:id', deleteOne(Post));
+
 
 
 module.exports = router;

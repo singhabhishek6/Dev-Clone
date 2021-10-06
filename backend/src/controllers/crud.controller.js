@@ -44,6 +44,7 @@ const updateOne = (model) => async (req, res) => {
 
 const deleteOne = (model) => async (req, res) => {
     try {
+        console.log("hgjghgjhg");
         const data = await model.findByIdAndDelete(req.params.id);
 
         return res.status(200).json({ data })

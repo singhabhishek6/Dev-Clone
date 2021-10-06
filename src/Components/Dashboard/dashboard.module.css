@@ -174,11 +174,12 @@ cursor: pointer;
 .post_blank {
   margin: 0;
   padding: 0;
+  width: 100%;
   display: flex;
   flex-direction: column;
   padding: 50px 100px;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   background: white;
   gap: 50px;
   height: 600px;
@@ -218,11 +219,12 @@ cursor: pointer;
   padding: 0;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
-  gap: 20px;
+  justify-content:flex-start;
+  width: 98%;
+  margin: auto;
   background: white;
   padding: 20px 10px;
-  align-items: center;
+  align-items:center;
   border-radius: 5px;
 }
 
@@ -274,6 +276,7 @@ cursor: pointer;
   padding: 0;
   display: flex;
   gap: 20px;
+  margin-left: 300px;
 }
 
 .post_item_manage a {
@@ -292,13 +295,17 @@ cursor: pointer;
 }
 
 .follo{
-  width: 300px;
+  width: 31%;
   display: flex;
   flex-wrap: wrap;
   border: 1px solid rgba(0,0,0,.2);
   border-radius: 5px;
   flex-direction: column;
+  background-color: white;
   justify-content: center;
+  margin-right: 10px;
+  margin-left: 10px;
+  margin-bottom: 20px;
   align-items: center;
   height: 200px;
 
@@ -307,4 +314,7 @@ cursor: pointer;
   width: 60px;
   border-radius: 50%;
   height: 60px;
+}
+.follo h2{
+  margin-bottom: 0;
 }

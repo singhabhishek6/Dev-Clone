@@ -62,23 +62,27 @@ export const Middle = () => {
   function fetchIt() {
     setArticles([]);
 
-    let timer = setTimeout(async () => {
-      let latestData = [];
+    let latestData = [];
 
-      axios
-        .get("http://localhost:2222/posts")
-        .then((res) => {
-          latestData = res.data.posts.reverse();
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+    axios
+      .get("https://devto-backent.herokuapp.com/posts")
+      .then((res) => {
+        latestData = res.data.posts.reverse();
+        console.log(res.data.posts);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    let timer = setTimeout(async () => {
+     
 
       let res = await fetch(
         `https://dev.to/api/articles?${fetchClicked && fetchClicked}`
       );
       const data = await res.json();
       if (fetchClicked === "latest=2") {
+        console.log(latestData,"posts");
         setArticles([...latestData, ...data]);
       } else {
         setArticles(data);

@@ -95,7 +95,7 @@ app.use('/comments', commentsController);
 
 const start = async () => {
     await connect();
-
+    
     app.listen(process.env.SERVER_PORT, () => {
         console.log('listing on port ' + process.env.SERVER_PORT);
     })

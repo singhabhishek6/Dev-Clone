@@ -79,7 +79,7 @@ export const UserForm = () => {
 
         axios({
             method: 'patch',
-            url: `http://localhost:2222/users/${user._id}`,
+            url: `https://devto-backent.herokuapp.com/users/${user._id}`,
             headers: {
                 'Accept': 'application/json, text/plain, */*',
                 'Content-Type': 'application/json'

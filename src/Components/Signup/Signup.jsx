@@ -37,7 +37,7 @@ export const Signup = () =>
 
         axios({
             method: 'post',
-            url: 'http://localhost:2222/users/register',
+            url: 'https://devto-backent.herokuapp.com/users/register',
             headers: {
                 'Accept': 'application/json, text/plain, */*',
                 'Content-Type': 'application/json'
@@ -70,13 +70,13 @@ export const Signup = () =>
                         <p className={styles.signup__des}><a href="" className={styles.link__style}>DEV Community</a> is a community of 702,115 amazing developers</p>
 
                         <div className={styles.signup__btn}>
-                            <button className={`${styles.button__black} ${styles.btn__styles}`}> <i className={`${styles.icon__font} uit uit-apple-alt`}></i> Sign up with Apple</button>
+                            <button className={`${styles.button__black} ${styles.btn__styles}`}> <i className={`${styles.icon__font} uit uit-google`}></i> Sign up with Google</button>
                             <button className={`${styles.button__gray} ${styles.btn__styles}`}> <i className={` ${styles.icon__font} uit uit-github-alt`}></i> Sign up with GitHub</button>
                             <button className={`${styles.button__skyblue} ${styles.btn__styles}`}><i className={`${styles.icon__font} uit uit-twitter-alt`}></i> Sign up with Twitter</button>
                         </div>
 
                         <div className={styles.login__link}>
-                            <span className={styles.login__span}>Already have an account? <a href="javascript:void(0)" onClick={() => setResult(!clickResult)} className={styles.link__style}>Login</a></span>
+                            <span className={styles.login__span}>or signup with  <a href="javascript:void(0)" onClick={() => setResult(!clickResult)} className={styles.link__style}>Email</a></span>
                         </div>
 
 

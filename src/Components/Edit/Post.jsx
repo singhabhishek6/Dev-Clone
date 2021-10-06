@@ -7,10 +7,10 @@ import { PostStyled } from "./PostStyle.jsx";
 import rehypeRaw from "rehype-raw";
 import { Suggestion } from "./Suggestion.jsx";
 import { userContext } from "../../App.js";
-import { useHistory } from "react-router";
+import { useHistory, useParams } from "react-router";
 import { Link } from "react-router-dom";
 
-export const Post = () => {
+export const Edit = () => {
   const [image, setImage] = useState(null);
   const [image1, setImage1] = useState(null);
   const [url, setUrl] = useState("");
@@ -31,7 +31,19 @@ export const Post = () => {
   const { state, setState } = useContext(userContext);
   const [user, setUser] = useState({});
   const history = useHistory();
-
+  const {id} = useParams()
+console.log(id);
+  useEffect(() => {
+    axios(`https://devto-backent.herokuapp.com/posts/${id}`)
+    .then(res=>{
+      let x = res.data.post
+      setUrl(x.cover_image)
+      setTitletext(x.title)
+      setTagtext(x.tags)
+      setMark(x.body_html)
+      console.log(res.data.post);
+    })
+  }, [id])
   useEffect(() => {
     if (image) handleUpload();
   }, [image]);
@@ -132,9 +144,9 @@ export const Post = () => {
       cover_image: url,
       tags: tagtext,
     };
-console.log(user.email,"jhg");
+
     axios
-      .post(`https://devto-backent.herokuapp.com/posts?email=${user.email}`, payload)
+      .patch(`https://devto-backent.herokuapp.com/posts/${id}`, payload)
       .then((res) => {
         console.log(res.data);
         history.push(`/article/${res.data.post._id}`);
@@ -238,6 +250,7 @@ console.log(user.email,"jhg");
               <div className="title">
                 <textarea
                   ref={textRef}
+                  value={titletext}
                   onChange={onChangeHandler}
                   onClick={() => {
                     setTag(false);
@@ -254,6 +267,7 @@ console.log(user.email,"jhg");
                 <textarea
                   rows="1"
                   type="text"
+                  value={tagtext.join(",")}
                   onChange={(e) => setTagtext(e.target.value.split(","))}
                   onClick={() => {
                     setTag(true);
@@ -315,6 +329,7 @@ console.log(user.email,"jhg");
                 <textarea
                   ref={text2}
                   onChange={onChangeHandler1}
+                  value={mark}
                   onClick={() => {
                     setTag(false);
                     setTitle(false);
@@ -342,7 +357,7 @@ console.log(user.email,"jhg");
           </div>
           <div className="control">
             <div onClick={handleSubmit} className="save">
-              Publish
+              Edit and publish
             </div>
           </div>
         </div>

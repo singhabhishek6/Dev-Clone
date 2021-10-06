@@ -9,7 +9,7 @@ import { userContext } from "../../App";
 
 const post = [
   {
-    count: 20,
+    count: 0,
     title: "total post reaction",
   },
   {
@@ -32,20 +32,31 @@ const Dashboard = () => {
   const [u, setU] = useState(false);
   const [l, setL] = useState(false);
   const { state, setState } = useContext(userContext);
+  const [logged ,setLogged] = useState({})
   const [user, SetUser] = useState([]);
 
-  const fetchUserPostData = (title) => {
+  useEffect(() => {
+    setLogged(state.user)
+    
+  }, [state])
+
+  const fetchUserPostData = () => {
     axios
-      .get(`http://localhost:2222/posts`)
+      .get(`https://devto-backent.herokuapp.com/posts`)
       .then((res) => {
-        console.log(res.data.posts);
+       
         let x = 0;
+        let postHold = []
         res.data.posts.forEach((el) => {
           x += el.likes_count;
+          if(el.user?._id === state.user?._id){
+            postHold.push(el)
+          }
         });
-        console.log(x);
+      
         post[0].count = x;
-        setUserPostData(res.data.posts);
+        setUserPostData(postHold);
+    
       })
       .catch((err) => {
         console.log(err.message);
@@ -54,17 +65,20 @@ const Dashboard = () => {
 
   useEffect(() => {
     fetchUserPostData();
-  }, []);
-  function getUser() {
-    state.user?.following_users?.forEach((element) => {
-      axios.get(`http://localhost:2222/users/${element}`).then((res) => {
-        SetUser([...user, res.data.data]);
-      });
-    });
-  }
-
-  console.log(user);
-
+  }, [logged]);
+  const getUser =  ()=> {
+   let likedUser= []
+    
+     axios.get(`https://devto-backent.herokuapp.com/users/${logged?._id}`).then( res => {
+            
+               SetUser(res.data.user)
+             
+       })
+       .catch(err=>{
+         console.log({err})
+       })
+      
+    }
   return (
     <>
       <Navbar />
@@ -97,7 +111,7 @@ const Dashboard = () => {
                 className={Dash.sidebar_item + " " + (p ? Dash.show : "")}
               >
                 <p>Post</p>
-                <button>{UserPostData.length}</button>
+             
               </div>
               <div
                 onClick={() => {
@@ -108,28 +122,15 @@ const Dashboard = () => {
                 }}
                 className={Dash.sidebar_item + " " + (u ? Dash.show : "")}
               >
-                <p>Followed users</p>
-                <button>{UserPostData[0]?.user.following_users.length}</button>
+                <p>Following users</p>
+         
               </div>
             </div>
           </div>
 
           <div className={Dash.post_main}>
-            <div className={Dash.select_container}>
-              <h3>Posts</h3>
-              {UserPostData.length == 0 ? (
-                ""
-              ) : (
-                <select name="" id="">
-                  <option value="Recently Created">Recently Created</option>
-                  <option value="Recently Published">Recently Published</option>
-                  <option value="Most Views">Most Views</option>
-                  <option value="Most Reactions">Most Reactions</option>
-                  <option value="Most Comments">Most Comments</option>
-                </select>
-              )}
-            </div>
-            {UserPostData.length == 0 ? (
+         
+            {UserPostData.length == 0 && user.length==0 ? (
               <div className={Dash.post_blank}>
                 <p>
                   <img
@@ -148,13 +149,16 @@ const Dashboard = () => {
                 {p &&
                   UserPostData.map((item, index) => (
                     <div className={Dash.post_item} key={index}>
-                      <DashboardPost item={item} />
+                      <DashboardPost fetchUserPostData={fetchUserPostData} item={item} />
                     </div>
                   ))}
 
                 {u && (
                   <div className={Dash.post_item}>
+                    {console.log("user",user)}
                     {user.map((el) => {
+
+                      console.log(el);
                       return (
                         <div className={Dash.follo}>
                           <img src={el.profile_image} alt="" />

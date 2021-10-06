@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Switch, Route } from "react-router-dom";
 import { HomePage } from "../Pages/HomePage";
 import { Signup } from "../Components/Signup/Signup";
@@ -10,13 +10,15 @@ import { PostDetails } from "../Components/PostDetails/PostDetails";
 import { userContext } from "../App";
 import { SearchPage } from "../Components/SearchPage/SearchPage";
 import { Dashboard } from "../Components/Dashboard/Dashboard";
+import { Edit } from "../Components/Edit/Post";
 
 export const Routes = () => {
+  const [toggle, setToggle] = useState(false);
   const { setState } = useContext(userContext);
   const getSenData = () => {
     axios({
       method: "GET",
-      url: "http://localhost:2222/users/auth",
+      url: "https://devto-backent.herokuapp.com/users/auth",
       withCredentials: true,
     })
       .then(({ data }) => {
@@ -35,10 +37,10 @@ export const Routes = () => {
   return (
     <Switch>
       <Route exact path="/">
-        <HomePage />
+        <HomePage toggle={toggle} setToggle={setToggle} />
       </Route>
      <Route exact path="/dashboard">
-       <Dashboard/>
+       <Dashboard />
        </Route>
       <Route exact path="/signup">
         <Signup />
@@ -50,7 +52,7 @@ export const Routes = () => {
         <Post />
       </Route>
       <Route exact path="/article/:id">
-        <PostDetails />
+        <PostDetails toggle={toggle} setToggle={setToggle}  />
       </Route>
 
       <Route exact path="/enter">
@@ -59,6 +61,10 @@ export const Routes = () => {
       <Route exact path="/search/:data">
         <SearchPage />
       </Route>
+      <Route exact path="/edit/:id">
+        <Edit />
+      </Route>
+
     </Switch>
   );
 };
